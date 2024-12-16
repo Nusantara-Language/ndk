@@ -1,11 +1,12 @@
-include_directories("include")
+include_directories(include)
 
-file(GLOB_RECURSE SOURCES src/*.cc)
+file(GLOB_RECURSE SOURCES src/*.cpp)
+file(GLOB_RECURSE INCLUDES include/*.hpp)
 add_executable(nlexer ${SOURCES})
 
 add_library(nlexerlib STATIC
-    "src/lexer.cc"
-    "include/lexer.h"
+    ${SOURCES}
+    ${INCLUDES}
 )
 
 set_target_properties(nlexerlib PROPERTIES PREFIX "")
