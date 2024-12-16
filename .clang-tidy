@@ -1,0 +1,50 @@
+Checks: >
+  -*,
+  bugprone-*,
+  clang-analyzer-*,
+  cppcoreguidelines-*,
+  modernize-*,
+  performance-*,
+  readability-*,
+  misc-*,
+  portability-*,
+  hicpp-*,
+  google-*,
+  cert-*,
+  llvm-*,
+  abseil-*,
+  concurrency-*,
+WarningsAsErrors: '*'
+CheckOptions:
+  # Enable specific checks or configure their behavior
+  - key:             bugprone-branch-clone.BranchThreshold
+    value:           '3'
+  - key:             cppcoreguidelines-pro-type-member-init.HaveExplicitInit
+    value:           'true'
+  - key:             modernize-use-trailing-return-type.Minimal
+    value:           'false'
+  - key:             readability-identifier-naming.VariableCase
+    value:           'camelBack'
+  - key:             readability-identifier-naming.GlobalConstantCase
+    value:           'UPPER_CASE'
+  - key:             readability-identifier-naming.ClassCase
+    value:           'CamelCase'
+  - key:             readability-identifier-naming.FunctionCase
+    value:           'camelBack'
+  - key:             modernize-loop-convert.MinConfidence
+    value:           'reasonable'
+  - key:             modernize-use-nullptr.NullMacros
+    value:           'NULL,0'
+  - key:             readability-magic-numbers.IgnoreIntegerValues
+    value:           '0,1,-1'
+  - key:             performance-unnecessary-value-param.IgnoreConversions
+    value:           'true'
+  - key:             cppcoreguidelines-avoid-magic-numbers.IgnoredValues
+    value:           '0,1,2,3,4,5,-1,-2,-3,-4,-5'
+  - key:             cppcoreguidelines-narrowing-conversions.WarnOnInteger
+    value:           'true'
+  - key:             bugprone-sizeof-expression.WarnOnPointer
+    value:           'true'
+HeaderFilterRegex: '.*'
+# AnalyzeTemporaryDtors: true
+FormatStyle:        llvm
