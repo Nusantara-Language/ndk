@@ -7,3 +7,6 @@
 [submodule "parser"]
 	path = parser
 	url = https://github.com/Nusantara-Language/parser.git
+[submodule "nstdcpp"]
+	path = nstdcpp
+	url = https://github.com/Nusantara-Language/nstdcpp
