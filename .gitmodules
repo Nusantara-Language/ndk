@@ -1,9 +1,9 @@
 [submodule "lexer"]
 	path = lexer
 	url = https://github.com/Nusantara-Language/lexer.git
-[submodule "parser"]
-	path = parser
-	url = https://github.com/Nusantara-Language/parser.git
 [submodule "desain"]
 	path = desain
 	url = https://github.com/Nusantara-Language/desain.git
+[submodule "parser"]
+	path = parser
+	url = https://github.com/Nusantara-Language/parser.git
