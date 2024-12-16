@@ -1,11 +1,11 @@
 include_directories("include")
 
-file(GLOB_RECURSE SOURCES src/*.cc)
-file(GLOB_RECURSE HEADERS include/*.h)
+file(GLOB_RECURSE SOURCES src/*.cpp)
+file(GLOB_RECURSE HEADERS include/*.hpp)
 
 add_library(nstdcpp STATIC
-    "${SOURCES}"
-    "${HEADERS}"
+    ${SOURCES}
+    ${HEADERS}
 )
 
 set_target_properties(nstdcpp PROPERTIES PREFIX "")
