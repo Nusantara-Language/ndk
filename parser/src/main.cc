@@ -1,16 +1,15 @@
-#include "parser.hpp"
-
+// Include STD C++
 #include <iostream>
-
-#include <lexer.hpp>
-#include <test_listener.hpp>
-#include <test_visitor.hpp>
-
 #include <memory>
-
 #include <span>
 #include <string>
 #include <vector>
+
+// Include library file
+#include <lexer.hpp>
+
+// Include project file
+#include "parser.hpp"
 
 auto main(int argc, const char *argv[]) -> int {
   std::cout << "Nusantara Language Parser" << "\n\n";
@@ -37,14 +36,6 @@ auto main(int argc, const char *argv[]) -> int {
   if (parseNodes != nullptr) {
     parser::coutNode(*parseNodes, 0);
   }
-
-  std::cout << "\nHasil test visitor:" << "\n";
-  TestVisitor visitor;
-  parseNodes->accept(visitor);
-
-  std::cout << "\nHasil test listener:" << "\n";
-  TestListener listener;
-  parseNodes->accept(listener);
 
   return 0;
 }
