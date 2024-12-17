@@ -213,19 +213,27 @@ auto parser::ParseNode::parse() -> std::unique_ptr<parser::Node> {
 auto parser::ParseNode::parsePernyataanEkspresi() -> std::unique_ptr<parser::Node> { // NOLINT(misc-no-recursion)
   auto node = Node{NodeType::PERNYATAAN_EKSPRESI};
 
+  auto consumeTitikKoma = [this] -> const lexer::Token & {
+    return this->consume(
+      lexer::TokenType::titikKoma,
+      "Jangan lupa titik koma."
+    );
+  };
+
   if(this->check(lexer::TokenType::identifikasi)) {
     node.addChild(this->parsePanggilFungsi()); 
-    node.addChild(
-      std::make_unique<Node>(
-        Node{
-          NodeType::TOKEN, 
-          this->consume(
-            lexer::TokenType::titikKoma,
-            "Jangan lupa titik koma."
-          )
-        }
-      )
-    );
+    if(this->ast) {
+      consumeTitikKoma();
+    }else{
+      node.addChild(
+        std::make_unique<Node>(
+          Node{
+            NodeType::TOKEN, 
+            consumeTitikKoma()
+          }
+        )
+      );
+    }
   }else{
     throw parser::ParseNode::error(this->peek(), "Pernyataan ekspresi tidak benar.");
   }
@@ -257,29 +265,42 @@ auto parser::ParseNode::parsePanggilFungsi() -> std::unique_ptr<parser::Node> { 
 auto parser::ParseNode::parseTempatParameterPanggilFungsi() -> std::unique_ptr<parser::Node> {
   auto node = Node{NodeType::TEMPAT_PARAMETER_PANGGIL_FUNGSI};
 
-  node.addChild(
-    std::make_unique<Node>(
-      Node{
-        NodeType::TOKEN,
-        this->consume(
-          lexer::TokenType::kurungBulatBuka,
-          "Tempat parameter pada fungsi harus ada kurung bulat buka '('."
-        )
-      }
-    )
-  );
+  auto consumeKurungBulatBuka = [this] -> const lexer::Token& {
+    return this->consume(
+      lexer::TokenType::kurungBulatBuka,
+      "Tempat parameter pada fungsi harus ada kurung bulat buka '('."
+    );
+  };
 
-  node.addChild(
-    std::make_unique<Node>(
-      Node{
-        NodeType::TOKEN,
-        this->consume(
-          lexer::TokenType::kurungBulatTutup,
-          "Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
-        )
-      }
-    )
-  );
+  auto consumeKurungBulatTutup = [this] -> const lexer::Token& {
+    return this->consume(
+      lexer::TokenType::kurungBulatTutup,
+      "Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
+    );
+  };
+
+  if(this->ast) {
+    consumeKurungBulatBuka();
+    consumeKurungBulatTutup();
+  }else{
+    node.addChild(
+      std::make_unique<Node>(
+        Node{
+          NodeType::TOKEN,
+          consumeKurungBulatBuka()
+        }
+      )
+    );
+
+    node.addChild(
+      std::make_unique<Node>(
+        Node{
+          NodeType::TOKEN,
+          consumeKurungBulatTutup()
+        }
+      )
+    );
+  }
 
   return std::make_unique<Node>(std::move(node));
 }

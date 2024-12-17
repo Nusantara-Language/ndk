@@ -29,7 +29,7 @@ auto main(int argc, const char *argv[]) -> int {
 
   lexer::generateTokens(args[1], location, content, tokens);
 
-  parser::ParseNode parser(tokens);
+  parser::ParseNode parser(tokens, true);
 
   auto parseNodes = parser.parse();
 

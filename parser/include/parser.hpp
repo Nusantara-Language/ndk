@@ -113,8 +113,13 @@ namespace parser {
     public:
       // Constructor
       explicit ParseNode(
+        std::vector<lexer::Token> tokens,
+        const bool &ast
+      ): tokens(std::move(tokens)), ast(ast) {}
+
+      explicit ParseNode(
         std::vector<lexer::Token> tokens
-      ): tokens(std::move(tokens)) {}
+      ): ParseNode(std::move(tokens), false) {}
 
       // Function
       auto parse() -> std::unique_ptr<Node>;
@@ -123,6 +128,7 @@ namespace parser {
       // Variabel
       size_t current = 0;
       std::vector<lexer::Token> tokens;
+      bool ast;
 
       // Pesan error ketika parsing gagal
       static auto error(
