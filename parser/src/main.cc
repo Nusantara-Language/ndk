@@ -3,6 +3,8 @@
 #include <iostream>
 
 #include <lexer.hpp>
+#include <test_listener.hpp>
+#include <test_visitor.hpp>
 
 #include <memory>
 
@@ -27,14 +29,22 @@ auto main(int argc, const char *argv[]) -> int {
 
   lexer::generateTokens(args[1], location, content, tokens);
 
-  Parser::ParseNode parser(tokens);
+  parser::ParseNode parser(tokens);
 
   auto parseNodes = parser.parse();
 
   std::cout << "Hasil parse:" << "\n";
   if (parseNodes != nullptr) {
-    Parser::coutNode(*parseNodes, 0);
+    parser::coutNode(*parseNodes, 0);
   }
+
+  std::cout << "\nHasil test visitor:" << "\n";
+  TestVisitor visitor;
+  parseNodes->accept(visitor);
+
+  std::cout << "\nHasil test listener:" << "\n";
+  TestListener listener;
+  parseNodes->accept(listener);
 
   return 0;
 }

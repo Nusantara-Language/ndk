@@ -4,6 +4,7 @@
 
 // Include STD C++
 #include <cstddef>
+#include <iostream>
 #include <memory>
 #include <optional>
 #include <stdexcept>
@@ -13,9 +14,11 @@
 
 // Include project file
 #include "lexer.hpp"
+#include "listener.hpp"
+#include "visitor.hpp"
 
 // Namespace
-namespace Parser {
+namespace parser {
 
   // Enum
   enum NodeType {
@@ -40,7 +43,6 @@ namespace Parser {
   class Node {
     public:
       // Constructor
-
       Node(Node &&) = default;
 
       Node(const Node& other);
@@ -69,6 +71,36 @@ namespace Parser {
       [[nodiscard]] auto getChildren() const -> const std::vector<std::unique_ptr<Node>>&;
 
       // Function
+      template<typename T>
+      void accept(INodeVisitor<T>& visitor) const {
+        switch (this->type) {
+          case NodeType::AWAL:
+              visitor.visitAwalNode(*this);
+              break;
+          case NodeType::PERNYATAAN_EKSPRESI:
+              visitor.visitPernyataanEkspresiNode(*this);
+              break;
+          case NodeType::PANGGIL_FUNGSI:
+              visitor.visitPanggilFungsiNode(*this);
+              break;
+          case NodeType::TEMPAT_PARAMETER_PANGGIL_FUNGSI:
+              visitor.visitTempatParameterPanggilFungsiNode(*this);
+              break;
+          case NodeType::TOKEN:
+              visitor.visitTokenNode(*this);
+              break;
+          default:
+              std::cerr << "Tipe node tidak dapat di kunjungi." << std::endl;
+              break;
+        }
+
+        for(const auto& child : children) {
+            child->accept(visitor);
+        }
+      }
+
+      void accept(INodeListener& listener) const;
+
       void addChild(std::unique_ptr<Node> node);
 
     private:
@@ -135,6 +167,6 @@ namespace Parser {
 
   void coutNode(const Node &root, int initialSpace);
 
-} // namespace Parser
+}  // namespace parser
 
 #endif
