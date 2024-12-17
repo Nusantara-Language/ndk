@@ -1,35 +1,40 @@
-#include "parser.h"
+#include "parser.hpp"
+
 #include <iostream>
-#include <lexer.h>
+
+#include <lexer.hpp>
+
 #include <memory>
 
-int main(int argc, char* argv[])
-{
-	std::cout << "Nusantara Language Parser" << "\n\n";
-    
-    if(argc < 2)
-	{
-		std::cerr << "Penggunaan " << argv[0] << " <nama_file>" << "\n";
-		return 1;
-	}
+#include <span>
+#include <string>
+#include <vector>
 
-	std::string content;
-	int row = 1;
-	int column = 1;
-	Lexer::muatFile(argv[1], content);
+auto main(int argc, const char *argv[]) -> int {
+  std::cout << "Nusantara Language Parser" << "\n\n";
 
-	std::vector<Lexer::Token> tokens;
+  std::span<const char *> args(argv, argc);
+  if (argc < 2) {
+    std::cerr << "Penggunaan " << args[0] << " <nama_file>" << "\n";
+    return 1;
+  }
 
-	Lexer::generateTokens(argv[1], row, column, content, tokens);
+  std::string content;
+  lexer::TokenLocation location{1, 1};
+  lexer::muatFile(args[1], content);
 
-	Parser::ParseNode parser(tokens);
+  std::vector<lexer::Token> tokens;
 
-	auto parseNodes = parser.parse();
+  lexer::generateTokens(args[1], location, content, tokens);
 
-	std::cout << "Hasil parse:" << "\n";
-	if(parseNodes != nullptr) {
-		Parser::coutNode(*parseNodes, 0);
-	}
+  Parser::ParseNode parser(tokens);
 
-	return 0;
+  auto parseNodes = parser.parse();
+
+  std::cout << "Hasil parse:" << "\n";
+  if (parseNodes != nullptr) {
+    Parser::coutNode(*parseNodes, 0);
+  }
+
+  return 0;
 }

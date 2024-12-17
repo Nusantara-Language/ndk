@@ -1,241 +1,235 @@
-#include "parser.h"
-#include "lexer.h"
+// Include STD C++
+#include <algorithm>
 #include <cstdlib>
 #include <format>
 #include <iostream>
 #include <memory>
+#include <optional>
+#include <stdexcept>
 #include <string>
 #include <utility>
 #include <vector>
 
-std::string Parser::nodeTypeToString(const NodeType &type) {
-  switch (type) {
-  case AWAL:
-    return "AWAL";
-  case PERNYATAAN:
-    return "PERNYATAAN";
-  case DEKLARASI_FUNGSI:
-    return "DEKLARASI FUNGSI";
-  case PARAMETER_DEKLARASI_FUNGSI:
-    return "PARAMETER DEKLARASI FUNGSI";
-  case TOKEN:
-    return "TOKEN";
-  case BLOK_KODE:
-    return "BLOK KODE";
-  default:
-    std::cerr << "Invalid Node type!" << std::endl;
-    exit(1);
-    break;
+// Include project file
+#include "lexer.hpp"
+#include "parser.hpp"
+
+// Class Node
+Parser::Node::Node(const Node& other): type(other.type), token(other.token) {
+  for(const auto& child : other.children) {
+    children.push_back(std::make_unique<Node>(*child));
   }
+}
+
+auto Parser::Node::getType() const -> const NodeType & { return this->type; }
+
+auto Parser::Node::getToken() const -> const std::optional<lexer::Token> & {
+  return this->token;
+}
+
+auto Parser::Node::getChildren() const -> const std::vector<std::unique_ptr<Node>> & {
+  return this->children;
 }
 
 void Parser::Node::addChild(std::unique_ptr<Node> node) {
   this->children.push_back(std::move(node));
 }
 
-void Parser::coutNode(const Node &node, int space) {
-  if (node.type != NodeType::TOKEN) {
-    std::cout << "\033[34m[" << nodeTypeToString(node.type) << "]\033[0m\n";
+auto Parser::Node::operator<(const Node& other) const -> bool {
+  bool tokenBoolTemp = false;
+  if(this->token && other.token) {
+    tokenBoolTemp = this->token->type < other.token->type;
   }
+  return this->type < other.type && tokenBoolTemp && (this->children.size() < other.children.size());
+}
 
-  if (node.token) {
-    std::cout << Lexer::tokenTypeToString(node.token->type) << ": \033[33m"
-              << node.token->content << "\033[0m\n";
-  }
-
-  space += 3;
-
-  for (const auto &child : node.children) {
-    std::cout << std::string(space, ' ') << "\033[32m|\033[0m\n";
-    std::cout << std::string(space, ' ') << "\033[32m->\033[0m";
-    coutNode(*child, space);
+// Function
+auto Parser::nodeTypeToString(const NodeType &type) -> std::string {
+  switch(type) {
+    case AWAL:
+      return "AWAL";
+    case PERNYATAAN_EKSPRESI:
+      return "PERNYATAAN EKSPRESI";
+    case PANGGIL_FUNGSI:
+      return "PANGGIL FUNGSI";
+    case TEMPAT_PARAMETER_PANGGIL_FUNGSI:
+      return "TEMPAT PARAMETER PANGGIL FUNGSI";
+    case TOKEN:
+      return "TOKEN";
+    default:
+      std::cerr << "Invalid Node type!" << '\n';
+      break;
   }
 }
 
-void Parser::ParseErrorManager::addError(const Lexer::Token& token, const std::string& message)
-{
-  
+void Parser::coutNode(const Node &root, int initialSpace) { // NOLINT(misc-no-recursion)
+  if (root.getType() != NodeType::TOKEN) {
+    std::cout << "\033[34m[" << nodeTypeToString(root.getType()) << "]\033[0m\n";
+  }
+
+  if (root.getToken()) {
+    std::cout << lexer::tokenTypeToString(root.getToken()->type) 
+    << ": \033[33m" << root.getToken()->content << "\033[0m\n";
+  }
+
+  initialSpace += 3;
+
+  for (const auto &child : root.getChildren()) {
+    std::cout << std::string(initialSpace, ' ') << "\033[32m|\033[0m\n";
+    std::cout << std::string(initialSpace, ' ') << "\033[32m->\033[0m";
+    coutNode(*child, initialSpace);
+  }
 }
 
-std::string Parser::ParseNode::error(
-  const Lexer::Token &token,
+auto Parser::ParseNode::error(
+  const lexer::Token &token,
   const std::string &message
-) {
-  throw ParserException(
+) -> ParserException {
+  return ParserException(
     std::format(
-      "Kesalahan sintaks pada {}:{}:{}\n -> {}", 
+    "Kesalahan sintaks pada {}:{}:{}\n -> {}",
       token.fileName, 
-      token.row,
-      token.column,
+      token.location.row,
+      token.location.column, 
       message
     )
   );
 }
 
-const Lexer::Token &Parser::ParseNode::peek() const {
+auto Parser::ParseNode::peek() const -> const lexer::Token & {
   return this->tokens[this->current];
 }
 
-const bool Parser::ParseNode::isAtEnd() const {
-  return this->peek().type == Lexer::TokenType::AKHIR_DARI_FILE;
+auto Parser::ParseNode::isAtEnd() const -> bool {
+  return this->peek().type == lexer::TokenType::akhirDariFile;
 }
 
-const bool Parser::ParseNode::check(const Lexer::TokenType &type) {
-  if (this->isAtEnd())
+auto Parser::ParseNode::check(const lexer::TokenType &type) const -> bool {
+  if (this->isAtEnd()) {
     return false;
+  }
   return this->peek().type == type;
 }
 
-const Lexer::Token &Parser::ParseNode::previous() {
+auto Parser::ParseNode::previous() -> const lexer::Token & {
   if (this->current == 0) {
-    throw std::out_of_range(
-        "Attempted to access token before the start of the token stream.");
+    throw std::out_of_range("Berusaha mengakses token sebelum indeks awal.");
   }
   return this->tokens[this->current - 1];
 }
 
-const Lexer::Token &Parser::ParseNode::advance() {
+auto Parser::ParseNode::advance() -> const lexer::Token & {
   if (!this->isAtEnd()) {
     this->current++;
   }
   return this->previous();
 }
 
-const Lexer::Token &
-Parser::ParseNode::consume(const Lexer::TokenType &type,
-                           const std::string &errorMessage) {
-  if (this->check(type))
+auto Parser::ParseNode::consume(
+  const lexer::TokenType &type,
+  const std::string &errorMessage
+) -> const lexer::Token & {
+  if (this->check(type)) {
     return this->advance();
-  throw this->error(this->peek(), errorMessage);
+  }
+  throw Parser::ParseNode::error(this->peek(), errorMessage);
 }
 
-const bool
-Parser::ParseNode::match(const std::vector<Lexer::TokenType> &types) {
-  for (Lexer::TokenType type : types) {
-    if (this->check(type)) {
-      this->advance();
-      return true;
-    }
+auto Parser::ParseNode::match(const std::vector<lexer::TokenType> &types) -> bool {
+  if(std::ranges::any_of(
+    types,
+    [this](auto type) { return this->check(type); }
+    )) {
+    this->advance();
+    return true;
   }
   return false;
 }
 
-std::unique_ptr<Parser::Node> Parser::ParseNode::parse()
-{
-    auto node = Node{NodeType::AWAL};
-    while (!this->isAtEnd()) {
-        try {
-          node.addChild(this->parsePernyataan());
-        } catch (const ParserException& error) {
-          this->advance();
-          std::cerr << error.what() << "\n\n";
-        }
+auto Parser::ParseNode::parse() -> std::unique_ptr<Parser::Node> {
+  auto node = Node{NodeType::AWAL};
+  while (!this->isAtEnd()) {
+    try {
+      node.addChild(this->parsePernyataanEkspresi());
+    } catch (const ParserException &error) {
+      std::cerr << error.what() << "\n\n";
+      this->advance();
     }
-    return std::make_unique<Node>(std::move(node));
+  }
+  return std::make_unique<Node>(std::move(node));
 }
 
 // * Parse Core
-std::unique_ptr<Parser::Node> Parser::ParseNode::parsePernyataan() 
-{
-    auto node = Node{NodeType::PERNYATAAN};
+auto Parser::ParseNode::parsePernyataanEkspresi() -> std::unique_ptr<Parser::Node> { // NOLINT(misc-no-recursion)
+  auto node = Node{NodeType::PERNYATAAN_EKSPRESI};
 
-    if(this->check(Lexer::TokenType::FUNGSI))
-    {
-      node.addChild(this->parseDeklarasiFungsi());
-    }else{
-      throw this->error(this->peek(), "Pernyataan ini tidak benar.");
-    }
+  if(this->check(lexer::TokenType::identifikasi)) {
+    node.addChild(this->parsePanggilFungsi()); 
+    node.addChild(
+      std::make_unique<Node>(
+        Node{
+          NodeType::TOKEN, 
+          this->consume(
+            lexer::TokenType::titikKoma,
+            "Jangan lupa titik koma."
+          )
+        }
+      )
+    );
+  }else{
+    throw Parser::ParseNode::error(this->peek(), "Pernyataan ekspresi tidak benar.");
+  }
 
-    return std::make_unique<Node>(std::move(node));
+  return std::make_unique<Node>(std::move(node));
 }
 
 // * Parse Fungsi Group
-std::unique_ptr<Parser::Node> Parser::ParseNode::parseDeklarasiFungsi() 
-{
-    auto node = Node{NodeType::DEKLARASI_FUNGSI};
-    node.addChild(
-        std::make_unique<Node>(
-            Node{
-                NodeType::TOKEN,
-                this->consume(
-                    Lexer::TokenType::FUNGSI, 
-                    "Untuk membuat fungsi harus menggunakan kata kunci 'fungsi' di awal."
-                )
-            }
+auto Parser::ParseNode::parsePanggilFungsi() -> std::unique_ptr<Parser::Node> { // NOLINT(misc-no-recursion)
+  auto node = Node{NodeType::PANGGIL_FUNGSI};
+
+  node.addChild(
+    std::make_unique<Node>(
+      Node{
+        NodeType::TOKEN, 
+        this->consume(
+          lexer::TokenType::identifikasi,
+          "Nama fungsi belum ditentukan."
         )
-    );
-    node.addChild(
-        std::make_unique<Node>(
-            Node{
-                NodeType::TOKEN,
-                this->consume(
-                    Lexer::TokenType::IDENTIFIKASI, 
-                    "Nama fungsi belum ditentukan."
-                )
-            }
-        )
-    );
-    node.addChild(this->parseParameterDeklarasiFungsi());
-    node.addChild(this->parseBlokKode());
-    return std::make_unique<Node>(std::move(node));
+      }
+    )
+  );
+
+  node.addChild(this->parseTempatParameterPanggilFungsi());
+
+  return std::make_unique<Node>(std::move(node));
 }
 
-std::unique_ptr<Parser::Node> Parser::ParseNode::parseParameterDeklarasiFungsi() 
-{
-    auto node = Node{NodeType::PARAMETER_DEKLARASI_FUNGSI};
-    node.addChild(
-        std::make_unique<Node>(
-            Node{
-                NodeType::TOKEN,
-                this->consume(
-                    Lexer::TokenType::KURUNG_BULAT_BUKA, 
-                    "Parameter harus di awali dengan kurung buka '('."
-                )
-            }
-        )
-    );
-    node.addChild(
-        std::make_unique<Node>(
-            Node{
-                NodeType::TOKEN,
-                this->consume(
-                    Lexer::TokenType::KURUNG_BULAT_TUTUP, 
-                    "Parameter harus di akhiri dengan kurung tutup ')'."
-                )
-            }
-        )
-    );
-    return std::make_unique<Node>(std::move(node));
-}
+auto Parser::ParseNode::parseTempatParameterPanggilFungsi() -> std::unique_ptr<Parser::Node> {
+  auto node = Node{NodeType::TEMPAT_PARAMETER_PANGGIL_FUNGSI};
 
-// * Parse Blok Kode
-std::unique_ptr<Parser::Node> Parser::ParseNode::parseBlokKode() 
-{
-    auto node = Node{NodeType::BLOK_KODE};
-    node.addChild(
-        std::make_unique<Node>(
-            Node{
-                NodeType::TOKEN,
-                this->consume(
-                    Lexer::TokenType::KURUNG_KURAWAL_BUKA, 
-                    "Blok kode harus di awali dengan kurung kurawal buka '{'."
-                )
-            }
+  node.addChild(
+    std::make_unique<Node>(
+      Node{
+        NodeType::TOKEN,
+        this->consume(
+          lexer::TokenType::kurungBulatBuka,
+          "Tempat parameter pada fungsi harus ada kurung bulat buka '('."
         )
-    );
-    while(!check(Lexer::TokenType::KURUNG_KURAWAL_TUTUP)) {
-        node.addChild(this->parsePernyataan());
-    }
-    node.addChild(
-        std::make_unique<Node>(
-            Node{
-                NodeType::TOKEN,
-                this->consume(
-                    Lexer::TokenType::KURUNG_KURAWAL_TUTUP, 
-                    "Blok kode harus diakhiri dengan kurung kurawal tutup '}'."
-                )
-            }
+      }
+    )
+  );
+
+  node.addChild(
+    std::make_unique<Node>(
+      Node{
+        NodeType::TOKEN,
+        this->consume(
+          lexer::TokenType::kurungBulatTutup,
+          "Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
         )
-    );
-    return std::make_unique<Node>(std::move(node));
+      }
+    )
+  );
+
+  return std::make_unique<Node>(std::move(node));
 }

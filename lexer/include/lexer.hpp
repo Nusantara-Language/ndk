@@ -1,5 +1,8 @@
-#pragma once
+// Header guard
+#ifndef LEXER_HPP
+#define LEXER_HPP
 
+// Include STD C++
 #include <cstddef>
 #include <regex>
 #include <set>
@@ -7,61 +10,99 @@
 #include <utility>
 #include <vector>
 
-namespace lexer {
+// Namespace
+namespace lexer 
+{
 
-enum TokenType {
-  kurungBulatBuka,
-  kurungBulatTutup,
-  kurungKurawalBuka,
-  kurungKurawalTutup,
-  barisBaru,
-  ruangKosong,
-  fungsi,
-  identifikasi,
-  tidakDiketahui,
-  akhirDariFile,
-};
+  // Enum
+  enum TokenType 
+  {
+    kurungBulatBuka,
+    kurungBulatTutup,
+    barisBaru,
+    ruangKosong,
+    titikKoma,
+    identifikasi,
+    tidakDiketahui,
+    akhirDariFile,
+  };
 
-struct TokenLocation {
-  size_t row;
-  size_t column;
-};
+  // Struct
+  struct TokenLocation 
+  {
+    size_t row;
+    size_t column;
+  };
 
-struct Token {
-  std::string fileName;
-  TokenLocation location;
-  TokenType type;
-  std::string content;
-};
+  struct Token 
+  {
+    std::string fileName;
+    TokenLocation location;
+    TokenType type;
+    std::string content;
+  };
 
-class TokenRegex {
-public:
-  TokenRegex(std::regex regex, const TokenType &type)
-      : regex(std::move(regex)), type(type) {}
-  auto operator<(const TokenRegex &other) const -> bool;
-  auto operator>(const TokenRegex &other) const -> bool;
-  [[nodiscard]] auto getRegex() const -> const std::regex &;
-  [[nodiscard]] auto getType() const -> const TokenType &;
+  // Class
+  class TokenRegex 
+  {
+    public:
+      // Constructor
+      TokenRegex(
+        std::regex regex, 
+        const TokenType& type
+      ): 
+      regex(std::move(regex)), 
+      type(type)
+      {}
 
-private:
-  std::regex regex;
-  TokenType type = TokenType::tidakDiketahui;
-};
+      // Class Getter
+      [[nodiscard]] auto getRegex() const -> const std::regex&;
+      [[nodiscard]] auto getType() const -> const TokenType&;
 
-auto tokenRegexs() -> const std::set<lexer::TokenRegex> &;
+      // Class Operator
+      auto operator<(const TokenRegex& other) const -> bool;
+      auto operator>(const TokenRegex& other) const -> bool;
 
-auto tokenTypeToString(const TokenType &type) -> std::string;
+    private:
+      // Variable
+      std::regex regex;
+      TokenType type = TokenType::tidakDiketahui;
+  };
 
-void muatFile(const std::string &path, std::string &content);
+  // Function
+  auto tokenRegexs() -> const std::set<lexer::TokenRegex>&;
 
-void createToken(const std::string &fileName, const size_t &row, size_t &column,
-                 const std::smatch &matches, const TokenType &tokenType,
-                 std::string &content, Token &token);
+  auto tokenTypeToString(const TokenType& type) -> std::string;
 
-void generateToken(std::string const &fileName, TokenLocation &location,
-                   std::string &content, Token &token);
+  void muatFile(
+    const std::string& path, 
+    std::string& content
+  );
 
-void generateTokens(std::string const &fileName, TokenLocation &location,
-                    std::string &content, std::vector<Token> &tokens);
+  void createToken(
+    const std::string& fileName,
+    const size_t& row,
+    size_t& column,
+    const std::smatch& matches,
+    const TokenType& tokenType,
+    std::string& content,
+    Token& token
+  );
 
-} // namespace lexer
+  void generateToken(
+    std::string const& fileName,
+    TokenLocation& location,
+    std::string& content,
+    Token& token
+  );
+
+  void generateTokens(
+    std::string const& fileName,
+    TokenLocation& location,
+    std::string& content,
+    std::vector<Token>& tokens
+  );
+
+}  // namespace lexer
+
+#endif

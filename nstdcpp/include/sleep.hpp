@@ -1,11 +1,19 @@
-#pragma once
+// Header guard
+#ifndef SLEEP_HPP
+#define SLEEP_HPP
 
+// Include STD C++
 #include <cstdint>
 
+// Namespace
 namespace nstd {
 
-enum SleepType { seconds, milliSeconds, microSeconds };
+  // Enum
+  enum SleepType { seconds, milliSeconds, microSeconds };
 
-void sleep(const SleepType &type, const int64_t &time);
+  // Function
+  void sleep(const SleepType &type, const int64_t &time);
 
 } // namespace nstd
+
+#endif
