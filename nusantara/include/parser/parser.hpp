@@ -1,6 +1,4 @@
-// Header guard
-#ifndef PARSER_HPP
-#define PARSER_HPP
+#pragma once
 
 // Include STD C++
 #include <cstddef>
@@ -9,16 +7,15 @@
 #include <optional>
 #include <stdexcept>
 #include <string>
-#include <utility>
 #include <vector>
 
 // Include project file
-#include "lexer.hpp"
-#include "listener.hpp"
-#include "visitor.hpp"
+#include "lexer/lexer.hpp"
+#include "listener/listener.hpp"
+#include "visitor/visitor.hpp"
 
 // Namespace
-namespace parser {
+namespace nusantara {
 
   // Enum
   enum NodeType {
@@ -49,7 +46,7 @@ namespace parser {
 
       Node(
         const NodeType &type, 
-        const lexer::Token &token
+        const nusantara::Token &token
       ): 
       type(type), 
       token(token) 
@@ -67,7 +64,7 @@ namespace parser {
 
       // Getter
       [[nodiscard]] auto getType() const -> const NodeType&;
-      [[nodiscard]] auto getToken() const -> const std::optional<lexer::Token>&;
+      [[nodiscard]] auto getToken() const -> const std::optional<nusantara::Token>&;
       [[nodiscard]] auto getChildren() const -> const std::vector<std::unique_ptr<Node>>&;
 
       // Function
@@ -105,60 +102,61 @@ namespace parser {
 
     private:
       NodeType type;
-      std::optional<lexer::Token> token;
+      std::optional<nusantara::Token> token;
       std::vector<std::unique_ptr<Node>> children;
   };
 
-  class ParseNode {
+  class Parser {
     public:
       // Constructor
-      explicit ParseNode(
-        std::vector<lexer::Token> tokens,
+      explicit Parser(
         const bool &ast
-      ): tokens(std::move(tokens)), ast(ast) {}
+      ): ast(ast) {}
 
-      explicit ParseNode(
-        std::vector<lexer::Token> tokens
-      ): ParseNode(std::move(tokens), false) {}
+      explicit Parser(): Parser(false) {}
 
       // Function
-      auto parse() -> std::unique_ptr<Node>;
+      auto parsing() -> void;
+      [[nodiscard]] auto getResult() const -> const std::unique_ptr<Node>&;
+      auto print() -> void;
+      auto setTokens(const std::vector<nusantara::Token>& tokens) -> void;
 
     private:
       // Variabel
       size_t current = 0;
-      std::vector<lexer::Token> tokens;
+      std::vector<nusantara::Token> tokens;
+      std::unique_ptr<Node> parsingResult;
       bool ast;
 
       // Pesan error ketika parsing gagal
       static auto error(
-        const lexer::Token &token, 
+        const nusantara::Token &token, 
         const std::string &message
       ) -> ParserException;
 
       // Memanggil token saat ini tanpa memajukan.
-      [[nodiscard]] auto peek() const -> const lexer::Token &;
+      [[nodiscard]] auto peek() const -> const nusantara::Token &;
 
       // Memeriksa apakah sudah sampe akhir token
       [[nodiscard]] auto isAtEnd() const -> bool;
 
       // Mengecek apakah token saat ini memiliki tipe tertentu tanpa memajukan token
-      [[nodiscard]] auto check(const lexer::TokenType &type) const -> bool;
+      [[nodiscard]] auto check(const nusantara::TokenType &type) const -> bool;
 
       // Mengambil token terakhir yang sudah di prosess
-      auto previous() -> const lexer::Token &;
+      auto previous() -> const nusantara::Token &;
 
       // Maju ke token berikutnya dan mengambil token sebelum nya
-      auto advance() -> const lexer::Token &;
+      auto advance() -> const nusantara::Token &;
 
       // Membaca token saat ini dan maju ke token berikut nya
       auto consume(
-        const lexer::TokenType &type, 
+        const nusantara::TokenType &type, 
         const std::string &errorMessage
-      ) -> const lexer::Token &;
+      ) -> const nusantara::Token &;
 
       // Memerikas apakah token saat ini cocok dengan salah satu tipe token yang diberikan
-      auto match(const std::vector<lexer::TokenType> &types) -> bool;
+      auto match(const std::vector<nusantara::TokenType> &types) -> bool;
 
       // * Parse Core
       auto parsePernyataanEkspresi() -> std::unique_ptr<Node>;
@@ -171,8 +169,6 @@ namespace parser {
   // Function
   auto nodeTypeToString(const NodeType &type) -> std::string;
 
-  void coutNode(const Node &root, int initialSpace);
+  void printNode(const Node &root, int initialSpace);
 
-}  // namespace parser
-
-#endif
+}  // namespace nusantara

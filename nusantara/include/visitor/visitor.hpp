@@ -1,8 +1,6 @@
-// Header guard
-#ifndef VISITOR_HPP
-#define VISITOR_HPP
+#pragma once
 
-namespace parser {
+namespace nusantara {
 
   class Node;
 
@@ -24,6 +22,4 @@ namespace parser {
       virtual auto visitTokenNode(const Node& node) -> T = 0;
   };
 
-} // namespace parser
-
-#endif
+} // namespace nusantara

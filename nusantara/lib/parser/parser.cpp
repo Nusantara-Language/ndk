@@ -11,33 +11,33 @@
 #include <vector>
 
 // Include project file
-#include "visitor.hpp"
-#include "lexer.hpp"
-#include "listener.hpp"
-#include "parser.hpp"
+#include "visitor/visitor.hpp"
+#include "lexer/lexer.hpp"
+#include "listener/listener.hpp"
+#include "parser/parser.hpp"
 
 // Class Node
-parser::Node::Node(const Node& other): type(other.type), token(other.token) {
+nusantara::Node::Node(const Node& other): type(other.type), token(other.token) {
   for(const auto& child : other.children) {
     children.push_back(std::make_unique<Node>(*child));
   }
 }
 
-auto parser::Node::getType() const -> const NodeType & { return this->type; }
+auto nusantara::Node::getType() const -> const NodeType & { return this->type; }
 
-auto parser::Node::getToken() const -> const std::optional<lexer::Token> & {
+auto nusantara::Node::getToken() const -> const std::optional<nusantara::Token> & {
   return this->token;
 }
 
-auto parser::Node::getChildren() const -> const std::vector<std::unique_ptr<Node>> & {
+auto nusantara::Node::getChildren() const -> const std::vector<std::unique_ptr<Node>> & {
   return this->children;
 }
 
-void parser::Node::addChild(std::unique_ptr<Node> node) {
+void nusantara::Node::addChild(std::unique_ptr<Node> node) {
   this->children.push_back(std::move(node));
 }
 
-auto parser::Node::operator<(const Node& other) const -> bool {
+auto nusantara::Node::operator<(const Node& other) const -> bool {
   bool tokenBoolTemp = false;
   if(this->token && other.token) {
     tokenBoolTemp = this->token->type < other.token->type;
@@ -45,7 +45,7 @@ auto parser::Node::operator<(const Node& other) const -> bool {
   return this->type < other.type && tokenBoolTemp && (this->children.size() < other.children.size());
 }
 
-void parser::Node::accept(INodeListener& listener) const { // NOLINT(misc-no-recursion)
+void nusantara::Node::accept(INodeListener& listener) const { // NOLINT(misc-no-recursion)
   switch (this->type) {
     case NodeType::AWAL:
         listener.enterAWAL(*this);
@@ -94,7 +94,7 @@ void parser::Node::accept(INodeListener& listener) const { // NOLINT(misc-no-rec
 }
 
 // Function
-auto parser::nodeTypeToString(const NodeType &type) -> std::string {
+auto nusantara::nodeTypeToString(const NodeType &type) -> std::string {
   switch(type) {
     case AWAL:
       return "AWAL";
@@ -112,13 +112,13 @@ auto parser::nodeTypeToString(const NodeType &type) -> std::string {
   }
 }
 
-void parser::coutNode(const Node &root, int initialSpace) { // NOLINT(misc-no-recursion)
+void nusantara::printNode(const Node &root, int initialSpace) { // NOLINT(misc-no-recursion)
   if (root.getType() != NodeType::TOKEN) {
     std::cout << "\033[34m[" << nodeTypeToString(root.getType()) << "]\033[0m\n";
   }
 
   if (root.getToken()) {
-    std::cout << lexer::tokenTypeToString(root.getToken()->type) 
+    std::cout << nusantara::tokenTypeToString(root.getToken()->type) 
     << ": \033[33m" << root.getToken()->content << "\033[0m\n";
   }
 
@@ -127,18 +127,18 @@ void parser::coutNode(const Node &root, int initialSpace) { // NOLINT(misc-no-re
   for (const auto &child : root.getChildren()) {
     std::cout << std::string(initialSpace, ' ') << "\033[32m|\033[0m\n";
     std::cout << std::string(initialSpace, ' ') << "\033[32m->\033[0m";
-    coutNode(*child, initialSpace);
+    printNode(*child, initialSpace);
   }
 }
 
-auto parser::ParseNode::error(
-  const lexer::Token &token,
+auto nusantara::Parser::error(
+  const nusantara::Token &token,
   const std::string &message
 ) -> ParserException {
   return ParserException(
     std::format(
     "Kesalahan sintaks pada {}:{}:{}\n -> {}",
-      token.fileName, 
+      token.filePath, 
       token.location.row,
       token.location.column, 
       message
@@ -146,46 +146,46 @@ auto parser::ParseNode::error(
   );
 }
 
-auto parser::ParseNode::peek() const -> const lexer::Token & {
+auto nusantara::Parser::peek() const -> const nusantara::Token & {
   return this->tokens[this->current];
 }
 
-auto parser::ParseNode::isAtEnd() const -> bool {
-  return this->peek().type == lexer::TokenType::akhirDariFile;
+auto nusantara::Parser::isAtEnd() const -> bool {
+  return this->peek().type == nusantara::TokenType::akhirDariFile;
 }
 
-auto parser::ParseNode::check(const lexer::TokenType &type) const -> bool {
+auto nusantara::Parser::check(const nusantara::TokenType &type) const -> bool {
   if (this->isAtEnd()) {
     return false;
   }
   return this->peek().type == type;
 }
 
-auto parser::ParseNode::previous() -> const lexer::Token & {
+auto nusantara::Parser::previous() -> const nusantara::Token & {
   if (this->current == 0) {
     throw std::out_of_range("Berusaha mengakses token sebelum indeks awal.");
   }
   return this->tokens[this->current - 1];
 }
 
-auto parser::ParseNode::advance() -> const lexer::Token & {
+auto nusantara::Parser::advance() -> const nusantara::Token & {
   if (!this->isAtEnd()) {
     this->current++;
   }
   return this->previous();
 }
 
-auto parser::ParseNode::consume(
-  const lexer::TokenType &type,
+auto nusantara::Parser::consume(
+  const nusantara::TokenType &type,
   const std::string &errorMessage
-) -> const lexer::Token & {
+) -> const nusantara::Token & {
   if (this->check(type)) {
     return this->advance();
   }
-  throw parser::ParseNode::error(this->peek(), errorMessage);
+  throw nusantara::Parser::error(this->peek(), errorMessage);
 }
 
-auto parser::ParseNode::match(const std::vector<lexer::TokenType> &types) -> bool {
+auto nusantara::Parser::match(const std::vector<nusantara::TokenType> &types) -> bool {
   if(std::ranges::any_of(
     types,
     [this](auto type) { return this->check(type); }
@@ -196,7 +196,7 @@ auto parser::ParseNode::match(const std::vector<lexer::TokenType> &types) -> boo
   return false;
 }
 
-auto parser::ParseNode::parse() -> std::unique_ptr<parser::Node> {
+auto nusantara::Parser::parsing() -> void {
   auto node = Node{NodeType::AWAL};
   while (!this->isAtEnd()) {
     try {
@@ -206,21 +206,21 @@ auto parser::ParseNode::parse() -> std::unique_ptr<parser::Node> {
       this->advance();
     }
   }
-  return std::make_unique<Node>(std::move(node));
+  this->parsingResult = std::make_unique<Node>(std::move(node));
 }
 
 // * Parse Core
-auto parser::ParseNode::parsePernyataanEkspresi() -> std::unique_ptr<parser::Node> { // NOLINT(misc-no-recursion)
+auto nusantara::Parser::parsePernyataanEkspresi() -> std::unique_ptr<nusantara::Node> { // NOLINT(misc-no-recursion)
   auto node = Node{NodeType::PERNYATAAN_EKSPRESI};
 
-  auto consumeTitikKoma = [this] -> const lexer::Token & {
+  auto consumeTitikKoma = [this] -> const nusantara::Token & {
     return this->consume(
-      lexer::TokenType::titikKoma,
+      nusantara::TokenType::titikKoma,
       "Jangan lupa titik koma."
     );
   };
 
-  if(this->check(lexer::TokenType::identifikasi)) {
+  if(this->check(nusantara::TokenType::identifikasi)) {
     node.addChild(this->parsePanggilFungsi()); 
     if(this->ast) {
       consumeTitikKoma();
@@ -235,14 +235,14 @@ auto parser::ParseNode::parsePernyataanEkspresi() -> std::unique_ptr<parser::Nod
       );
     }
   }else{
-    throw parser::ParseNode::error(this->peek(), "Pernyataan ekspresi tidak benar.");
+    throw nusantara::Parser::error(this->peek(), "Pernyataan ekspresi tidak benar.");
   }
 
   return std::make_unique<Node>(std::move(node));
 }
 
 // * Parse Fungsi Group
-auto parser::ParseNode::parsePanggilFungsi() -> std::unique_ptr<parser::Node> { // NOLINT(misc-no-recursion)
+auto nusantara::Parser::parsePanggilFungsi() -> std::unique_ptr<nusantara::Node> { // NOLINT(misc-no-recursion)
   auto node = Node{NodeType::PANGGIL_FUNGSI};
 
   node.addChild(
@@ -250,7 +250,7 @@ auto parser::ParseNode::parsePanggilFungsi() -> std::unique_ptr<parser::Node> { 
       Node{
         NodeType::TOKEN, 
         this->consume(
-          lexer::TokenType::identifikasi,
+          nusantara::TokenType::identifikasi,
           "Nama fungsi belum ditentukan."
         )
       }
@@ -262,19 +262,19 @@ auto parser::ParseNode::parsePanggilFungsi() -> std::unique_ptr<parser::Node> { 
   return std::make_unique<Node>(std::move(node));
 }
 
-auto parser::ParseNode::parseTempatParameterPanggilFungsi() -> std::unique_ptr<parser::Node> {
+auto nusantara::Parser::parseTempatParameterPanggilFungsi() -> std::unique_ptr<nusantara::Node> {
   auto node = Node{NodeType::TEMPAT_PARAMETER_PANGGIL_FUNGSI};
 
-  auto consumeKurungBulatBuka = [this] -> const lexer::Token& {
+  auto consumeKurungBulatBuka = [this] -> const nusantara::Token& {
     return this->consume(
-      lexer::TokenType::kurungBulatBuka,
+      nusantara::TokenType::kurungBulatBuka,
       "Tempat parameter pada fungsi harus ada kurung bulat buka '('."
     );
   };
 
-  auto consumeKurungBulatTutup = [this] -> const lexer::Token& {
+  auto consumeKurungBulatTutup = [this] -> const nusantara::Token& {
     return this->consume(
-      lexer::TokenType::kurungBulatTutup,
+      nusantara::TokenType::kurungBulatTutup,
       "Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
     );
   };
@@ -303,4 +303,18 @@ auto parser::ParseNode::parseTempatParameterPanggilFungsi() -> std::unique_ptr<p
   }
 
   return std::make_unique<Node>(std::move(node));
+}
+
+auto nusantara::Parser::print() -> void {
+  if(this->parsingResult != nullptr) {
+    printNode(*this->parsingResult, 0);
+  }
+}
+
+auto nusantara::Parser::getResult() const -> const std::unique_ptr<Node>& {
+  return this->parsingResult;
+}
+
+auto nusantara::Parser::setTokens(const std::vector<nusantara::Token>& tokens) -> void {
+  this->tokens = tokens;
 }
