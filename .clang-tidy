@@ -45,8 +45,10 @@ CheckOptions:
     value: "true"
   - key: bugprone-sizeof-expression.WarnOnPointer
     value: "true"
+  - key: "readability-braces-around-statements"
+  - value: false
   - key: llvm-include-order
-    value: "false"
+    value: false
 HeaderFilterRegex: ".*"
 # AnalyzeTemporaryDtors: true
 FormatStyle: file
