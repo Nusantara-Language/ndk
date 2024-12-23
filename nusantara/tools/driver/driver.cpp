@@ -1,3 +1,4 @@
+#include "semantic_analyzer/semantic_analyzer.hpp"
 #define SHOW_WAKTU_EKSEKUSI
 
 #include <cstddef>
@@ -57,7 +58,7 @@ auto fileProccesingLexer(const std::string &filepath) -> void {
   lexer.print();
 }
 
-auto fileProccesingParser(const std::string &filepath) -> void {
+auto fileProccesingParser(const std::string &filepath, const bool& ast = false) -> void {
   nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
 
   if(!lexer.read(filepath)) {
@@ -66,7 +67,7 @@ auto fileProccesingParser(const std::string &filepath) -> void {
 
   lexer.tokenization();
 
-  nusantara::Parser parser(false);
+  nusantara::Parser parser(ast);
 
   parser.setTokens(lexer.getResult());
   parser.parsing();
@@ -86,7 +87,11 @@ auto fileProccesingInterpreter(const std::string &filepath) -> void {
   parser.setTokens(lexer.getResult());
   parser.parsing();
 
-  nusantara::Interpreter::interpretation(parser.getResult());
+  nusantara::SemanticAnalyzer semanticAnalyzer;
+  if(!parser.getResult()->accept(semanticAnalyzer)) return;
+
+  nusantara::Interpreter interpreter;
+  parser.getResult()->accept(interpreter);
 }
 
 auto fileProccesing(
@@ -113,6 +118,12 @@ auto fileProccesing(
     // Parser mode
     if(args[currentIndex] == "-p") {
       fileProccesingParser(filepath);
+      return;
+    }
+
+    // Parser Ast mode
+    if(args[currentIndex] == "-ast") {
+      fileProccesingParser(filepath, true);
       return;
     }
 

@@ -5,18 +5,15 @@
 namespace nusantara {
 
   // Class
-  class SemanticAnalyzer {
+  class SemanticAnalyzer: public INodeVisitor<bool> {
     public:
-      // Fungsi
-      static auto analyze(const nusantara::Node& node) -> bool;
-
     private:
       // Fungsi
-      static auto analyzeToken(const nusantara::Node& node) -> bool;
-      static auto analyzeFunctionCall(const nusantara::Node& node) -> bool;
-      static auto analyzeAwal(const nusantara::Node& node) -> bool;
-      static auto analyzePernyataanEkspresi(const nusantara::Node& node) -> bool;
-      static auto analyzeTempatParameterPanggilFungsi(const nusantara::Node& node) -> bool;
+      auto visitTokenNode(const Node &node) -> bool override;
+      auto visitPanggilFungsiNode(const Node &node) -> bool override;
+      auto visitAwalNode(const Node &node) -> bool override;
+      auto visitTempatParameterPanggilFungsiNode(const Node &node) -> bool override;
+      auto visitPernyataanEkspresiNode(const Node &node) -> bool override;
   };
 
 } // namespace nusantara

@@ -47,7 +47,7 @@ auto nusantara::Parser::check(const nusantara::TokenType &type) const -> bool {
 
 auto nusantara::Parser::previous() -> const nusantara::Token & {
   if (this->current == 0) {
-    throw std::out_of_range("Berusaha mengakses token sebelum indeks awal.");
+    throw std::out_of_range("[P] Berusaha mengakses token sebelum indeks awal.");
   }
   return this->tokens[this->current - 1];
 }
@@ -100,7 +100,7 @@ auto nusantara::Parser::parsePernyataanEkspresi() -> std::unique_ptr<nusantara::
   auto consumeTitikKoma = [this] -> const nusantara::Token & {
     return this->consume(
       nusantara::TokenType::titikKoma,
-      "Jangan lupa titik koma."
+      "[P] Jangan lupa titik koma."
     );
   };
 
@@ -135,7 +135,7 @@ auto nusantara::Parser::parsePanggilFungsi() -> std::unique_ptr<nusantara::Node>
         NodeType::TOKEN, 
         this->consume(
           nusantara::TokenType::identifikasi,
-          "Nama fungsi belum ditentukan."
+          "[P] Nama fungsi belum ditentukan."
         )
       }
     )
@@ -152,14 +152,14 @@ auto nusantara::Parser::parseTempatParameterPanggilFungsi() -> std::unique_ptr<n
   auto consumeKurungBulatBuka = [this] -> const nusantara::Token& {
     return this->consume(
       nusantara::TokenType::kurungBulatBuka,
-      "Tempat parameter pada fungsi harus ada kurung bulat buka '('."
+      "[P] Tempat parameter pada fungsi harus ada kurung bulat buka '('."
     );
   };
 
   auto consumeKurungBulatTutup = [this] -> const nusantara::Token& {
     return this->consume(
       nusantara::TokenType::kurungBulatTutup,
-      "Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
+      "[P] Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
     );
   };
 

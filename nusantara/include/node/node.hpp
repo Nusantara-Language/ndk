@@ -8,10 +8,10 @@
 #include <optional>
 #include <vector>
 
-// Namespace
 namespace nusantara {
 
-  // Class
+  void printNode(const Node &root, int initialSpace);
+
   class Node {
     public:
       // Constructor
@@ -44,30 +44,21 @@ namespace nusantara {
 
       // Function
       template<typename T>
-      void accept(INodeVisitor<T>& visitor) const {
+      auto accept(INodeVisitor<T>& visitor) const -> T {
         switch (this->type) {
           case NodeType::AWAL:
-              visitor.visitAwalNode(*this);
-              break;
+              return visitor.visitAwalNode(*this);
           case NodeType::PERNYATAAN_EKSPRESI:
-              visitor.visitPernyataanEkspresiNode(*this);
-              break;
+              return visitor.visitPernyataanEkspresiNode(*this);
           case NodeType::PANGGIL_FUNGSI:
-              visitor.visitPanggilFungsiNode(*this);
-              break;
+              return visitor.visitPanggilFungsiNode(*this);
           case NodeType::TEMPAT_PARAMETER_PANGGIL_FUNGSI:
-              visitor.visitTempatParameterPanggilFungsiNode(*this);
-              break;
+              return visitor.visitTempatParameterPanggilFungsiNode(*this);
           case NodeType::TOKEN:
-              visitor.visitTokenNode(*this);
-              break;
+              return visitor.visitTokenNode(*this);
           default:
               std::cerr << "Tipe node tidak dapat di kunjungi." << std::endl;
               break;
-        }
-
-        for(const auto& child : children) {
-            child->accept(visitor);
         }
       }
 
@@ -80,7 +71,5 @@ namespace nusantara {
       std::optional<nusantara::Token> token;
       std::vector<std::unique_ptr<Node>> children;
   };
-
-  void printNode(const Node &root, int initialSpace);
 
 }  // namespace nusantara

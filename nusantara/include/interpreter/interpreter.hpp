@@ -1,27 +1,22 @@
 #pragma once
 
-// Include STD C++
-#include <string>
-
-#include <memory>
-
 #include "node/node.hpp"
+#include "visitor/visitor.hpp"
+#include "runtime/runtime.hpp"
 
 namespace nusantara {
 
-  // Class
-  class Interpreter {
+  class Interpreter: public INodeVisitor<void> {
     public:
-      // Fungsi
-      static auto interpretation(const std::unique_ptr<nusantara::Node> &node) -> void;
 
     private:
-      // Fungsi
-      static auto interpretToken(const nusantara::Node& node) -> std::string;
-      static auto interpretFunctionCall(const nusantara::Node& node) -> void;
-      static auto interpretAwal(const nusantara::Node& node) -> void;
-      static auto interpretPernyataanEkspresi(const nusantara::Node& node) -> void;
-      static auto interpretTempatParameterPanggilFungsi(const nusantara::Node& node) -> void;
+      Runtime runtime;
+
+      void visitAwalNode(const Node &node) override;
+      void visitPanggilFungsiNode(const Node &node) override;
+      void visitTempatParameterPanggilFungsiNode(const Node &node) override;
+      void visitPernyataanEkspresiNode(const Node &node) override;
+      void visitTokenNode(const Node &node) override;
   };
 
-} // namespace nusantara
+}
