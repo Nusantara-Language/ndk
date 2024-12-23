@@ -1,11 +1,11 @@
 #pragma once
 
 // Include STD C++
-#include <memory>
 #include <string>
 
-// Include library file
-#include "parser/parser.hpp"
+#include <memory>
+
+#include "node/node.hpp"
 
 namespace nusantara {
 

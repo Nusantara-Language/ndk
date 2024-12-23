@@ -5,42 +5,12 @@
 #include <iosfwd>
 #include <iostream>
 #include <regex>
-#include <set>
 #include <string>
 #include <utility>
 #include <vector>
 
 // Include project file header
 #include "lexer/lexer.hpp"
-
-auto nusantara::nTokenRegexs() -> const std::set<TokenRegex>& 
-{
-  const static std::set<TokenRegex> result = {
-    TokenRegex{std::regex("^[(]"), TokenType::kurungBulatBuka},
-    TokenRegex{std::regex("^[)]"), TokenType::kurungBulatTutup},
-    TokenRegex{std::regex("^[\n]"), TokenType::barisBaru},
-    TokenRegex{std::regex("^\\s"), TokenType::ruangKosong},
-    TokenRegex{std::regex("^;"), TokenType::titikKoma},
-    TokenRegex{std::regex("^[a-zA-Z][a-zA-Z0-9_]*"), TokenType::identifikasi},
-    TokenRegex{std::regex("^."), TokenType::tidakDiketahui},
-  };
-  return result;
-}
-
-auto nusantara::tokenTypeToString(TokenType const& type) -> std::string 
-{
-  switch (type) {
-    case TokenType::tidakDiketahui: return "tidak diketahui";
-    case TokenType::ruangKosong: return "ruang kosong";
-    case TokenType::barisBaru: return "baris baru";
-    case TokenType::akhirDariFile: return "akhir dari file";
-    case TokenType::identifikasi: return "identifikasi";
-    case TokenType::kurungBulatBuka: return "kurung bulat buka";
-    case TokenType::kurungBulatTutup: return "kurung bulat tutup";
-    case TokenType::titikKoma: return "titik koma";
-    default: std::cerr << "Tipe token tidak dapat diubah ke string." << "\n"; break;
-  }
-}
 
 auto nusantara::Lexer::read(std::string filepath) -> bool 
 {

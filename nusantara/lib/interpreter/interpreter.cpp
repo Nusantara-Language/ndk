@@ -5,8 +5,9 @@
 
 // Include project file
 #include "interpreter/interpreter.hpp"
+
 #include "cetak/cetak.hpp"
-#include "parser/parser.hpp"
+
 #include "semantic_analyzer/semantic_analyzer.hpp"
 
 // Interpreter Class

@@ -11,6 +11,8 @@
 
 #endif
 
+#include "token/kumpulan_token_regex/token_regex_nusantara.hpp"
+
 #include "cetak/cetak.hpp"
 #include "command/command.hpp"
 #include "interpreter/interpreter.hpp"
@@ -45,7 +47,7 @@ auto versi(
 }
 
 auto fileProccesingLexer(const std::string &filepath) -> void {
-  nusantara::Lexer lexer(nusantara::nTokenRegexs());
+  nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
 
   if(!lexer.read(filepath)) {
     return;
@@ -56,7 +58,7 @@ auto fileProccesingLexer(const std::string &filepath) -> void {
 }
 
 auto fileProccesingParser(const std::string &filepath) -> void {
-  nusantara::Lexer lexer(nusantara::nTokenRegexs());
+  nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
 
   if(!lexer.read(filepath)) {
     return;
@@ -72,7 +74,7 @@ auto fileProccesingParser(const std::string &filepath) -> void {
 }
 
 auto fileProccesingInterpreter(const std::string &filepath) -> void {
-  nusantara::Lexer lexer(nusantara::nTokenRegexs());
+  nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
 
   if(!lexer.read(filepath)) {
     return;
@@ -93,7 +95,7 @@ auto fileProccesing(
   std::vector<std::string>& args
 ) -> void {
   std::string filepath = args[currentIndex];
-  nusantara::Lexer lexer(nusantara::nTokenRegexs());
+  nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
   
   if(args.size() < 3) {
     args.emplace_back("-i"); // Default mode interpreter

@@ -5,7 +5,6 @@
 
 // Include project file
 #include "semantic_analyzer/semantic_analyzer.hpp"
-#include "parser/parser.hpp"
 
 // Semantic Analyzer Class
 auto nusantara::SemanticAnalyzer::analyze(const nusantara::Node &node) -> bool { // NOLINT(misc-no-recursion)

@@ -13,7 +13,7 @@ namespace nusantara {
       auto operator=(const INodeVisitor &) -> INodeVisitor & = default;
       auto operator=(INodeVisitor &&) -> INodeVisitor & = default;
       virtual ~INodeVisitor() = default;
-      
+
       // Fungsi visit
       virtual auto visitAwalNode(const Node& node) -> T = 0;
       virtual auto visitPernyataanEkspresiNode(const Node& node) -> T = 0;

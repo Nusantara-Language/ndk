@@ -1,110 +1,21 @@
 #pragma once
 
-// Include STD C++
-#include <cstddef>
-#include <iostream>
 #include <memory>
-#include <optional>
-#include <stdexcept>
 #include <string>
 #include <vector>
 
-// Include project file
-#include "lexer/lexer.hpp"
 #include "listener/listener.hpp"
+
 #include "visitor/visitor.hpp"
+
+#include "token/token.hpp"
+
+#include "parser/parser_exception.hpp"
+
+#include "node/node.hpp"
 
 // Namespace
 namespace nusantara {
-
-  // Enum
-  enum NodeType {
-    TOKEN,
-    AWAL,
-    PERNYATAAN_EKSPRESI,
-    PANGGIL_FUNGSI,
-    TEMPAT_PARAMETER_PANGGIL_FUNGSI,
-  };
-
-  // Struct
-  struct ParserException : public std::runtime_error {
-    // Constructor
-    explicit ParserException(
-      const std::string &message
-    ): 
-    std::runtime_error(message) 
-    {}
-  };
-
-  // Class
-  class Node {
-    public:
-      // Constructor
-      Node(Node &&) = default;
-
-      Node(const Node& other);
-
-      Node(
-        const NodeType &type, 
-        const nusantara::Token &token
-      ): 
-      type(type), 
-      token(token) 
-      {}
-
-      explicit Node(const NodeType &type) : type(type), token(std::nullopt) {}
-
-      // Destructor
-      ~Node() = default;
-
-      // Operator
-      auto operator=(const Node &) -> Node & = default;
-      auto operator=(Node &&) -> Node & = default;
-      auto operator<(const Node &other) const -> bool;
-
-      // Getter
-      [[nodiscard]] auto getType() const -> const NodeType&;
-      [[nodiscard]] auto getToken() const -> const std::optional<nusantara::Token>&;
-      [[nodiscard]] auto getChildren() const -> const std::vector<std::unique_ptr<Node>>&;
-
-      // Function
-      template<typename T>
-      void accept(INodeVisitor<T>& visitor) const {
-        switch (this->type) {
-          case NodeType::AWAL:
-              visitor.visitAwalNode(*this);
-              break;
-          case NodeType::PERNYATAAN_EKSPRESI:
-              visitor.visitPernyataanEkspresiNode(*this);
-              break;
-          case NodeType::PANGGIL_FUNGSI:
-              visitor.visitPanggilFungsiNode(*this);
-              break;
-          case NodeType::TEMPAT_PARAMETER_PANGGIL_FUNGSI:
-              visitor.visitTempatParameterPanggilFungsiNode(*this);
-              break;
-          case NodeType::TOKEN:
-              visitor.visitTokenNode(*this);
-              break;
-          default:
-              std::cerr << "Tipe node tidak dapat di kunjungi." << std::endl;
-              break;
-        }
-
-        for(const auto& child : children) {
-            child->accept(visitor);
-        }
-      }
-
-      void accept(INodeListener& listener) const;
-
-      void addChild(std::unique_ptr<Node> node);
-
-    private:
-      NodeType type;
-      std::optional<nusantara::Token> token;
-      std::vector<std::unique_ptr<Node>> children;
-  };
 
   class Parser {
     public:
@@ -165,10 +76,5 @@ namespace nusantara {
       auto parsePanggilFungsi() -> std::unique_ptr<Node>;
       auto parseTempatParameterPanggilFungsi() -> std::unique_ptr<Node>;
   };
-
-  // Function
-  auto nodeTypeToString(const NodeType &type) -> std::string;
-
-  void printNode(const Node &root, int initialSpace);
 
 }  // namespace nusantara

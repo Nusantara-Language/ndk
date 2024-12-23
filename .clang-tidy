@@ -45,6 +45,8 @@ CheckOptions:
     value: "true"
   - key: bugprone-sizeof-expression.WarnOnPointer
     value: "true"
+  - key: llvm-include-order
+    value: "false"
 HeaderFilterRegex: ".*"
 # AnalyzeTemporaryDtors: true
 FormatStyle: file
