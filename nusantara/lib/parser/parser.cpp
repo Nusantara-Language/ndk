@@ -199,6 +199,6 @@ auto nusantara::Parser::getResult() const -> const std::unique_ptr<Node>& {
   return this->parsingResult;
 }
 
-auto nusantara::Parser::setTokens(const std::vector<nusantara::Token>& tokens) -> void {
+auto nusantara::Parser::ambilKumpulanToken(const std::vector<nusantara::Token>& tokens) -> void {
   this->tokens = tokens;
 }

@@ -22,10 +22,10 @@ namespace nusantara
       explicit Lexer(std::set<TokenRegex> tokenRegexs)
         : tokenRegexs(std::move(tokenRegexs)), tokenLocation({1, 1}) {}
 
-      auto read(std::string filepath) -> bool;
-      auto tokenization() -> void;
-      [[nodiscard]] auto getResult() const -> const std::vector<Token>&;
-      auto print() -> void;
+      auto baca(std::string filepath) -> bool;
+      auto tokenisasi() -> void;
+      [[nodiscard]] auto ambilHasil() const -> const std::vector<Token>&;
+      auto cetak() -> void;
 
     private:
       std::string filepath;

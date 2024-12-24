@@ -37,6 +37,7 @@ std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<long lo
  * @note Waktu mulai diisyaratkan untuk merekam waktu sebelum program dijalankan.
  */
 void nstd::WaktuEksekusi::mulai() {
+  
   /**
    * @brief Menyiapkan waktu mulai eksekusi program.
    *
@@ -58,6 +59,7 @@ void nstd::WaktuEksekusi::mulai() {
  * @param none
  */
 void nstd::WaktuEksekusi::selesai() {
+
  /**
   * @brief Merekam waktu selesai eksekusi program.
   *
@@ -81,6 +83,7 @@ void nstd::WaktuEksekusi::selesai() {
  * @return none
  */
 void nstd::WaktuEksekusi::cetak() {
+
   /**
    * @brief Merekam waktu selesai eksekusi program.
    *

@@ -12,7 +12,7 @@
 // Include project file header
 #include "lexer/lexer.hpp"
 
-auto nusantara::Lexer::read(std::string filepath) -> bool 
+auto nusantara::Lexer::baca(std::string filepath) -> bool 
 {
   this->filepath = std::move(filepath);
   std::ifstream file(this->filepath);
@@ -83,17 +83,17 @@ auto nusantara::Lexer::createToken(const std::smatch& matches, const TokenType& 
   content.erase(matches.position(), matches.length());
 }
 
-auto nusantara::Lexer::getResult() const -> const std::vector<Token>& 
+auto nusantara::Lexer::ambilHasil() const -> const std::vector<Token>& 
 {
   return tokenizationResult;
 }
 
-auto nusantara::Lexer::tokenization() -> void 
+auto nusantara::Lexer::tokenisasi() -> void 
 {
   generateTokens();
 }
 
-auto nusantara::Lexer::print() -> void 
+auto nusantara::Lexer::cetak() -> void 
 {
   for (auto& token : tokenizationResult) {
     std::cout << token.filePath << ":"

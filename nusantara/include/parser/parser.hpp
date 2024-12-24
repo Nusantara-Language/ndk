@@ -30,7 +30,7 @@ namespace nusantara {
       auto parsing() -> void;
       [[nodiscard]] auto getResult() const -> const std::unique_ptr<Node>&;
       auto print() -> void;
-      auto setTokens(const std::vector<nusantara::Token>& tokens) -> void;
+      auto ambilKumpulanToken(const std::vector<nusantara::Token>& tokens) -> void;
 
     private:
       // Variabel

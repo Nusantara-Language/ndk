@@ -1,90 +1,83 @@
-#include "semantic_analyzer/semantic_analyzer.hpp"
-#define SHOW_WAKTU_EKSEKUSI
+/*
+ * ----------------------------------------------------------------------------
+ * Project: Nusantara Language
+ * Author: Fern Aerell
+ * License: BSD 3-Clause License
+ * Copyright (c) 2024, Nusantara
+ * ----------------------------------------------------------------------------
+ */
 
-#include <cstddef>
+
 #include <regex>
 #include <string>
-#include <vector>
-
-#ifdef SHOW_WAKTU_EKSEKUSI
-
-  #include <waktu_eksekusi/waktu_eksekusi.hpp>
-
-#endif
 
 #include "token/kumpulan_token_regex/token_regex_nusantara.hpp"
-
-#include "cetak/cetak.hpp"
-#include "command/command.hpp"
+#include "semantic_analyzer/semantic_analyzer.hpp"
 #include "interpreter/interpreter.hpp"
-#include "lexer/lexer.hpp"
+#include "perintah/perintah.hpp"
 #include "parser/parser.hpp"
+#include "lexer/lexer.hpp"
+#include "cetak/cetak.hpp"
 #include "version.hpp"
+#include <config.hpp>
 
-auto info(
-  nusantara::CommandExecutor& cExec,
-  size_t & /*currentIndex*/,
-  std::vector<std::string>&  /*args*/
-) -> void {
+#ifdef SHOW_WAKTU_EKSEKUSI
+  #include <waktu_eksekusi/waktu_eksekusi.hpp>
+#endif
+
+
+auto info(nusantara::EksekusiPerintah& eksekusiPerintah, size_t& indeksSaatIni, std::vector<std::string>& argumen) -> void {
   nstd::cetakDBB("Penggunaan: nusantara <perintah> [argumen]\n");
   nstd::cetakDBB("Perintah yang tersedia:");
 
-  for(const auto& arg: cExec.getCommands()) {
-    bool isBegin = arg.getName() == cExec.getCommands().begin()->getName();
-    nstd::cetakDF(
-      "{}{}", 
-      isBegin ? " " : "\n ", 
-      arg.toString()
-    );
+  for (const auto& perintah : eksekusiPerintah.ambilKumpulanPerintah()) {
+    bool iniPerintahAwal = perintah.ambilNama() == eksekusiPerintah.ambilKumpulanPerintah().begin()->ambilNama();
+    nstd::cetakDF("{}{}", (iniPerintahAwal ? " " : "\n "), perintah.ubahKeString());
   }
 }
 
-auto versi(
-  nusantara::CommandExecutor&  /*cExec*/,
-  size_t & /*currentIndex*/,
-  std::vector<std::string>&  /*args*/
-) -> void {
+auto versi(nusantara::EksekusiPerintah&, size_t &, std::vector<std::string>&) -> void {
   nstd::cetakDF("nusantara v{}", VERSION);
 }
 
-auto fileProccesingLexer(const std::string &filepath) -> void {
+auto prosesBerkasLexer(const std::string &lokasFile) -> void {
   nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
 
-  if(!lexer.read(filepath)) {
+  if(!lexer.baca(lokasFile)) {
     return;
   }
 
-  lexer.tokenization();
-  lexer.print();
+  lexer.tokenisasi();
+  lexer.cetak();
 }
 
-auto fileProccesingParser(const std::string &filepath, const bool& ast = false) -> void {
+auto prosesBerkasPengurai(const std::string &lokasiFile, const bool& ast = false) -> void {
   nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
 
-  if(!lexer.read(filepath)) {
+  if(!lexer.baca(lokasiFile)) {
     return;
   }
 
-  lexer.tokenization();
+  lexer.tokenisasi();
 
   nusantara::Parser parser(ast);
 
-  parser.setTokens(lexer.getResult());
+  parser.ambilKumpulanToken(lexer.ambilHasil());
   parser.parsing();
   parser.print();
 }
 
-auto fileProccesingInterpreter(const std::string &filepath) -> void {
+auto prosesBerkasPenerjemah(const std::string &lokasiFile) -> void {
   nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
 
-  if(!lexer.read(filepath)) {
+  if(!lexer.baca(lokasiFile)) {
     return;
   }
 
-  lexer.tokenization();
+  lexer.tokenisasi();
 
   nusantara::Parser parser(true);
-  parser.setTokens(lexer.getResult());
+  parser.ambilKumpulanToken(lexer.ambilHasil());
   parser.parsing();
 
   nusantara::SemanticAnalyzer semanticAnalyzer;
@@ -94,47 +87,47 @@ auto fileProccesingInterpreter(const std::string &filepath) -> void {
   parser.getResult()->accept(interpreter);
 }
 
-auto fileProccesing(
-  nusantara::CommandExecutor&  /*cExec*/,
-  size_t &currentIndex,
-  std::vector<std::string>& args
+auto prosesBerkas(
+  nusantara::EksekusiPerintah&  /*eksekusiPerintah*/,
+  size_t &indeksSaatIni,
+  std::vector<std::string>& argumen
 ) -> void {
-  std::string filepath = args[currentIndex];
+  std::string lokasiFile = argumen[indeksSaatIni];
   nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
   
-  if(args.size() < 3) {
-    args.emplace_back("-i"); // Default mode interpreter
+  if(argumen.size() < 3) {
+    argumen.emplace_back("-i"); // Default mode interpreter
   }
 
-  currentIndex++;
+  indeksSaatIni++;
 
-  if(args.size() == 3) {
+  if(argumen.size() == 3) {
     // Lexer mode
-    if(args[currentIndex] == "-l") {    
-      fileProccesingLexer(filepath);
+    if(argumen[indeksSaatIni] == "-t") {
+      prosesBerkasLexer(lokasiFile);
       return;
     }
 
     // Parser mode
-    if(args[currentIndex] == "-p") {
-      fileProccesingParser(filepath);
+    if(argumen[indeksSaatIni] == "-u") {
+      prosesBerkasPengurai(lokasiFile);
       return;
     }
 
     // Parser Ast mode
-    if(args[currentIndex] == "-ast") {
-      fileProccesingParser(filepath, true);
+    if(argumen[indeksSaatIni] == "-psa") {
+      prosesBerkasPengurai(lokasiFile, true);
       return;
     }
 
     // Interpreter mode
-    if(args[currentIndex] == "-i") {
-      fileProccesingInterpreter(filepath);
+    if(argumen[indeksSaatIni] == "-p") {
+      prosesBerkasPenerjemah(lokasiFile);
       return;
     }
   }
 
-  nstd::cetakDF("Argumen '{}' tidak dikenali", args[currentIndex]);
+  nstd::cetakDF("Argumen '{}' tidak dikenali", argumen[indeksSaatIni]);
 }
 
 auto main(int argc, const char* argv[]) -> int {
@@ -143,31 +136,31 @@ auto main(int argc, const char* argv[]) -> int {
     nstd::WaktuEksekusi::mulai();
   #endif
 
-  nusantara::CommandExecutor cExec;
+  nusantara::EksekusiPerintah eksekusiPerintah;
 
-  cExec.add({
+  eksekusiPerintah.tambah({
     "info",
     "Untuk melihat informasi.",
     info,
     true,
   });
 
-  cExec.add({
+  eksekusiPerintah.tambah({
     "versi",
     "Untuk melihat versi.",
     versi,
     true,
   });
 
-  cExec.add({
+  eksekusiPerintah.tambah({
     std::regex(".*\\.n"),
     "filename.n",
     "Untuk mengolah file nusantara.",
-    fileProccesing,
+    prosesBerkas,
     false,
   });
 
-  cExec.execute({argv, argv + argc});
+  eksekusiPerintah.eksekusi({argv, argv + argc});
 
   #ifdef SHOW_WAKTU_EKSEKUSI
     nstd::WaktuEksekusi::selesai();
