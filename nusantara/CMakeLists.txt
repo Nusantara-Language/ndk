@@ -37,13 +37,13 @@
 # endif()
 
 # SRC FILE
-file(GLOB_RECURSE LIB_SOURCES "lib/**/*.cpp")
+file(GLOB_RECURSE LIB_SOURCES "pustaka/**/*.cpp")
 
 # Executable
-add_executable(nusantara "tools/driver/driver.cpp" ${LIB_SOURCES})
+add_executable(nusantara "alat/driver/driver.cpp" ${LIB_SOURCES})
 
 # Include folder
-target_include_directories(nusantara PRIVATE "include")
+target_include_directories(nusantara PRIVATE "muat")
 target_include_directories(nusantara PRIVATE ${LLVM_INCLUDE_DIRS})
 target_include_directories(nusantara PRIVATE ${CLANG_INCLUDE_DIRS})
 target_include_directories(nusantara PRIVATE ${LLD_INCLUDE_DIRS})
