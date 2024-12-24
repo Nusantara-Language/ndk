@@ -40,7 +40,7 @@
 file(GLOB_RECURSE LIB_SOURCES "pustaka/**/*.cpp")
 
 # Executable
-add_executable(nusantara "alat/driver/driver.cpp" ${LIB_SOURCES})
+add_executable(nusantara "alat/program/program.cpp" ${LIB_SOURCES})
 
 # Include folder
 target_include_directories(nusantara PRIVATE "muat")
