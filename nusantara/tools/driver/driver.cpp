@@ -96,7 +96,7 @@ auto prosesBerkas(
   nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
   
   if(argumen.size() < 3) {
-    argumen.emplace_back("-i"); // Default mode interpreter
+    argumen.emplace_back("-p"); // Default mode interpreter
   }
 
   indeksSaatIni++;
