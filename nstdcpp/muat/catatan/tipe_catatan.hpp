@@ -7,4 +7,14 @@
  * ----------------------------------------------------------------------------
  */
 
-#define PERLIHATKAN_WAKTU_EKSEKUSI 1
+#pragma once
+
+namespace nstd {
+
+  enum TipeCatatan {
+    INFO,
+    PERINGATAN,
+    KESALAHAN
+  }; // enum TipeCatatan
+
+} // namespace nstd

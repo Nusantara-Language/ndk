@@ -12,16 +12,16 @@
 #include <iostream>
 #include <format>
 
-#include "cetak/bisa_di_cetak.hpp"
+#include "cetak/apakah_bisa_di_cetak_ke_konsol.hpp"
 
 namespace nstd {
 
   template<typename Type>
   void cetak(const Type& nilai) {
-    if (BisaDiCetak<Type>()) {
+    if (ApakahBisaDiCetakKeKonsol<Type>()) {
       std::cout << nilai;
     } else {
-      std::cerr << "[FUNGSI CETAK] Tipe data " << typeid(Type).name() << " tidak dapat dicetak.\n";
+      std::cerr << "[FUNGSI CETAK] Tipe data " << typeid(Type).name() << " tidak dapat dicetak ke konsol.\n";
     }
   }  // function cetak
 

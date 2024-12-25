@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 
-#include "pengurai_sintaks/pengecualian_pengurai_sintaks.hpp"
+#include "pengecualian/kumpulan_pengecualian/pengecualian_pengurai_sintaks.hpp"
 #include "pengurai_sintaks/pengurai_sintaks.hpp"
 #include "pengunjung/a_pengunjung_titik.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"

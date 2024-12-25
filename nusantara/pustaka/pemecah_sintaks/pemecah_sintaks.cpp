@@ -18,7 +18,9 @@
 #include <ios>
 
 #include "pemecah_sintaks/pemecah_sintaks.hpp"
+#include "catatan/catatan.hpp"
 #include "token/tipe_token.hpp"
+#include "cetak/cetak.hpp"
 
 bool nusantara::PemecahSintaks::bacaBerkas(std::string lokasiBerkas) {
   this->lokasiBerkas = std::move(lokasiBerkas);
@@ -68,9 +70,12 @@ void nusantara::PemecahSintaks::buatBanyakToken() {
   while (this->konten.size() > 0) {
     Token token;
     this->buatToken(token);
-    if (token.tipe != TipeToken::ruangKosong && token.tipe != TipeToken::barisBaru && token.tipe && token.tipe != TipeToken::tidakDiketahui) {
+    if(token.tipe == TipeToken::tidakDiketahui) {
+      nstd::Catatan::peringatanF("[PS] {}", token.ubahKeString());
+    }else if (token.tipe != TipeToken::ruangKosong && token.tipe != TipeToken::barisBaru) {
       this->hasilTokenisasi.push_back(std::move(token));
     } // if
+
   } // while
 
   Token tokenAkhir;
@@ -103,10 +108,6 @@ void nusantara::PemecahSintaks::tokenisasi() {
 
 void nusantara::PemecahSintaks::cetak() {
   for (auto& token : this->hasilTokenisasi) {
-    std::cout << token.lokasiBerkas << ":"
-              << token.lokasi.baris << ":"
-              << token.lokasi.kolom << " "
-              << tipeTokenKeString(token.tipe) << " => "
-              << token.konten << "\n";
+    nstd::cetakDBB(token.ubahKeString());
   } // for
 } // function cetak

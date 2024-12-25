@@ -15,11 +15,11 @@
 namespace nstd {
 
   template <typename T, typename = void>
-  struct BisaDiCetak : public std::false_type {
+  struct ApakahBisaDiCetakKeKonsol : public std::false_type {
     static constexpr bool value = false;
   }; // struct BisaDiCetak
 
   template <typename T>
-  struct BisaDiCetak<T, std::void_t<decltype(std::cout << std::declval<T>())>> : std::true_type {};
+  struct ApakahBisaDiCetakKeKonsol<T, std::void_t<decltype(std::cout << std::declval<T>())>> : std::true_type {};
 
 } // namespace nstd

@@ -5,7 +5,7 @@
     "body": [
       "struct $1 {",
       "  $2",
-      "} // struct $1",
+      "}; // struct $1",
     ],
     "description": "Membuat struct dengan komentar di akhir."
   }

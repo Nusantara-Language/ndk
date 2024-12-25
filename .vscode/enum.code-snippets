@@ -5,7 +5,7 @@
     "body": [
       "enum $1 {",
       "  $2",
-      "} // enum $1",
+      "}; // enum $1",
     ],
     "description": "Membuat enum dengan komentar di akhir."
   }

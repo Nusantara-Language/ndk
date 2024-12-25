@@ -5,7 +5,7 @@
     "body": [
       "for($1) {",
       "  $2",
-      "} // for",
+      "}; // for",
     ],
     "description": "Membuat for loop dengan komentar di akhir."
   }
