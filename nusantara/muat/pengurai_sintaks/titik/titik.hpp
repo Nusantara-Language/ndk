@@ -44,6 +44,8 @@ namespace nusantara {
 
       [[nodiscard]] const std::vector<std::unique_ptr<Titik>>& ambilKumpulanTitikTurunan() const;
 
+      std::unique_ptr<Titik>&& keluarKanTitikTurunan(const size_t& index);
+
       template<typename T>
       auto terima(APengunjungTitik<T>& pengunjung) const -> T {
         switch (this->tipe) {

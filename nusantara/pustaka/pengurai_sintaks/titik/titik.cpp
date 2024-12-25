@@ -7,8 +7,9 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "pengurai_sintaks/titik/titik.hpp"
+#include "pengecualian/antarmuka/a_pengecualian.h"
 #include "pengurai_sintaks/titik/tipe_titik.hpp"
+#include "pengurai_sintaks/titik/titik.hpp"
 #include <memory>
 
 nusantara::Titik::Titik(const Titik& lainnya): tipe(lainnya.tipe), token(lainnya.token) {
@@ -109,3 +110,11 @@ void nusantara::cetakTitik(const Titik &titik, int jarak) {
   } // for
 
 } // function cetakTitik
+
+std::unique_ptr<nusantara::Titik>&& nusantara::Titik::keluarKanTitikTurunan(const size_t& index) {
+  if(index >= this->kumpulanTitikTurunan.size() || index < 0) {
+    throw APengecualian("[CLASS TITIK] kesalahan, karena mencoba mengeluarkan titik turunan dengan indeks diluar kapasitas titik turunan.");
+  } // if
+
+  return std::move(this->kumpulanTitikTurunan[index]);
+} // function keluarKanTitikTurunan

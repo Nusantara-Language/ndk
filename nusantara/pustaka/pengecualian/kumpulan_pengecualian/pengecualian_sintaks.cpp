@@ -44,7 +44,7 @@ nusantara::PengecualianSintaks::PengecualianSintaks(
   std::string pesanBaru = std::format("{}:{}:{}\n\n", this->lokasiBerkas, this->lokasi.baris, this->lokasi.kolom);
   pesanBaru += std::format("{}{}\n", prefix, kontenBerkasVector[(this->lokasi.baris - 1) > (kontenBerkasVector.size() - 1) ? (kontenBerkasVector.size() - 1) : (this->lokasi.baris - 1)]);
   pesanBaru += std::format("{}{}\n", std::string(jarakPanah, ' '), std::string(this->konten.size(), '^'));
-  pesanBaru += std::format("{}{}\n\n", std::string(std::max(0, jarakPanah + (static_cast<int>(this->konten.size()) - 1) - (static_cast<int>(this->pesan.size()) - 1) / 2) - (static_cast<int>(this->konten.size() - 1) / 2), ' '), this->pesan);
+  pesanBaru += std::format("{}{}\n\n\n", std::string(std::max(0, jarakPanah + (static_cast<int>(this->konten.size()) - 1) - (static_cast<int>(this->pesan.size()) - 1) / 2) - (static_cast<int>(this->konten.size() - 1) / 2), ' '), this->pesan);
 
   this->pesan = pesanBaru;
 } // constructor PengecualianSintaks

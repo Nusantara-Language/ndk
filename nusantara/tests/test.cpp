@@ -16,14 +16,14 @@ int main() {
     {1, 17,},
     "3",
     "Error aja :)"
-  );
+  ); // constructor PengecualianSintaks
 
   nusantara::PengecualianSintaks test2(
     "contoh/main.n",
     {1, 4,},
     "halodunia",
     "Error aja :)"
-  );
+  ); // constructor PengecualianSintaks
 
   nstd::cetak(test1.ambilPesan());
   nstd::cetak(test2.ambilPesan());

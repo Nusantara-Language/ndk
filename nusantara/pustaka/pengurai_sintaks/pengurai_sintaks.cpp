@@ -12,31 +12,27 @@
 #include <iostream>
 #include <cstdlib>
 #include <utility>
-#include <format>
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "pengecualian/kumpulan_pengecualian/pengecualian_pengurai_sintaks.hpp"
+#include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "pengurai_sintaks/pengurai_sintaks.hpp"
 #include "pengunjung/a_pengunjung_titik.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
 #include "pendengar/a_pendengar_titik.hpp"
 #include "token/tipe_token.hpp"
 
-nusantara::PengecualianPenguraiSintaks nusantara::PenguraiSintaks::kesalahan(
+nusantara::PengecualianSintaks nusantara::PenguraiSintaks::kesalahan(
   const nusantara::Token &token,
   const std::string &pesan
 ) {
-  return PengecualianPenguraiSintaks(
-    std::format(
-    "Kesalahan sintaks pada {}:{}:{}\n -> {}",
-      token.lokasiBerkas, 
-      token.lokasi.baris,
-      token.lokasi.kolom, 
-      pesan
-    )
-  ); // constructor PengecualianPenguraiSintaks
+  return PengecualianSintaks(
+    token.lokasiBerkas, 
+    token.lokasi, 
+    token.konten, 
+    pesan
+  ); // constructor PengecualianSintaks
 } // function kesalahan
 
 const nusantara::Token& nusantara::PenguraiSintaks::tokenSaatIni() const {
@@ -96,8 +92,8 @@ void nusantara::PenguraiSintaks::uraikan() {
   while (!this->apakahSudahDiAkhirFile()) {
     try {
       titik.tambahTitikTurunan(this->uraiPernyataanEkspresi());
-    } catch (const PengecualianPenguraiSintaks &error) {
-      std::cerr << error.what() << "\n\n";
+    } catch (const PengecualianSintaks &error) {
+      std::cerr << error.what();
       this->majuKeTokenSelanjutnya();
     } // catch
   } // while
@@ -131,6 +127,11 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataanEksp
   }else{
     throw nusantara::PenguraiSintaks::kesalahan(this->tokenSaatIni(), "[PS] Pernyataan ekspresi tidak benar.");
   } // else
+
+  // Jika hanya ada 1 titik turunan saja itu yang akan di keluarkan.
+  if(titik.ambilKumpulanTitikTurunan().size() == 1 && this->psa) {
+    return titik.keluarKanTitikTurunan(0);
+  }
 
   return std::make_unique<Titik>(std::move(titik));
 } // function uraiPernyataanEkspresi

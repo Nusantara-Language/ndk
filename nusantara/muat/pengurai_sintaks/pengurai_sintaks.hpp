@@ -13,7 +13,7 @@
 #include <vector>
 #include <memory>
 
-#include "pengecualian/kumpulan_pengecualian/pengecualian_pengurai_sintaks.hpp"
+#include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "pengunjung/a_pengunjung_titik.hpp"
 #include "pendengar/a_pendengar_titik.hpp"
 #include "token/token.hpp"
@@ -45,7 +45,7 @@ namespace nusantara {
 
       bool psa;
 
-      static PengecualianPenguraiSintaks kesalahan(
+      static PengecualianSintaks kesalahan(
         const nusantara::Token &token, 
         const std::string &pesan
       );
