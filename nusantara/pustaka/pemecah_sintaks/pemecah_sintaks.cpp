@@ -8,42 +8,24 @@
  */
 
 #include <iostream>
-#include <fstream>
 #include <cstdlib>
 #include <utility>
-#include <iosfwd>
 #include <string>
 #include <vector>
 #include <regex>
-#include <ios>
 
+#include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "pemecah_sintaks/pemecah_sintaks.hpp"
-#include "catatan/catatan.hpp"
 #include "token/tipe_token.hpp"
 #include "cetak/cetak.hpp"
 
-bool nusantara::PemecahSintaks::bacaBerkas(std::string lokasiBerkas) {
-  this->lokasiBerkas = std::move(lokasiBerkas);
-  std::ifstream file(this->lokasiBerkas);
-  if (!file.is_open()) {
-    std::cerr << "Tidak dapat membuka file '" << this->lokasiBerkas << "'\n";
-    return false;
-  } // if
-
-  file.seekg(0, std::ios::end);
-  std::streampos fileSize = file.tellg();
-  if (fileSize < 0) {
-    std::cerr << "Error: Ukuran file '" << this->lokasiBerkas << "' tidak valid.\n";
-    return false;
-  } // if
-
-  this->konten.resize(static_cast<std::size_t>(fileSize));
-
-  file.seekg(0, std::ios::beg);
-  file.read(this->konten.data(), static_cast<std::streamsize>(this->konten.size()));
-  file.close();
-  return true;
-} // function bacaBerkas
+void nusantara::PemecahSintaks::aturLokasiBerkas(const std::string& lokasiBerkas) {
+  this->lokasiBerkas = lokasiBerkas;
+} // function aturLokasiBerkas
+      
+void nusantara::PemecahSintaks::aturKonten(const std::string& konten) {
+  this->konten = konten;
+} // function aturKonten
 
 void nusantara::PemecahSintaks::buatToken(Token& token) {
   std::smatch dataYangSama;
@@ -71,7 +53,14 @@ void nusantara::PemecahSintaks::buatBanyakToken() {
     Token token;
     this->buatToken(token);
     if(token.tipe == TipeToken::tidakDiketahui) {
-      nstd::Catatan::peringatanF("[PS] {}", token.ubahKeString());
+      nstd::cetak(
+        PengecualianSintaks(
+          token.lokasiBerkas, 
+          token.lokasi, 
+          token.konten, 
+          "[PS] Karakter tidak di ketahui."
+        ).ambilPesan()
+      ); // fungsi cetak
     }else if (token.tipe != TipeToken::ruangKosong && token.tipe != TipeToken::barisBaru) {
       this->hasilTokenisasi.push_back(std::move(token));
     } // if

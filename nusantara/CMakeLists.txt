@@ -41,8 +41,10 @@ file(GLOB_RECURSE LIB_SOURCES "pustaka/**/*.cpp")
 
 # Executable
 add_executable(nusantara "alat/program/program.cpp" ${LIB_SOURCES})
+add_executable(tests "tests/test.cpp" ${LIB_SOURCES})
 
 # Include folder
+target_include_directories(tests PRIVATE "muat")
 target_include_directories(nusantara PRIVATE "muat")
 target_include_directories(nusantara PRIVATE ${LLVM_INCLUDE_DIRS})
 target_include_directories(nusantara PRIVATE ${CLANG_INCLUDE_DIRS})
@@ -52,6 +54,7 @@ target_include_directories(nusantara PRIVATE ${LLD_INCLUDE_DIRS})
 link_directories(${LLVM_LIBRARY_DIRS})
 
 # Link library
+target_link_libraries(tests PRIVATE nstdcpp)
 target_link_libraries(nusantara PRIVATE
 # NSTDCPP
 nstdcpp

@@ -7,16 +7,13 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
-
+#include "pengecualian/antarmuka/a_pengecualian.h"
 #include <string>
 
-#include "pengecualian/antarmuka/a_pengecualian.h"
+const char* nusantara::APengecualian::what() const noexcept {
+  return this->pesan.c_str();
+}
 
-namespace nusantara {
-
-  struct PengecualianPenguraiSintaks : public APengecualian {
-    explicit PengecualianPenguraiSintaks(const std::string& pesan): APengecualian(pesan) {}
-  }; // struct PengecualianPenguraiSintaks
-
-}// namespace nusantara
+const std::string& nusantara::APengecualian::ambilPesan() {
+  return this->pesan;
+}

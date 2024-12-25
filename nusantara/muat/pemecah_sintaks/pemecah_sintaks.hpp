@@ -23,7 +23,9 @@ namespace nusantara {
       explicit PemecahSintaks(std::set<TokenRegex> tokenRegexs)
         : tokenRegexs(std::move(tokenRegexs)), lokasiToken({1, 1}) {}
 
-      bool bacaBerkas(std::string lokasiBerkas);
+      void aturLokasiBerkas(const std::string& lokasiBerkas);
+      
+      void aturKonten(const std::string& konten);
 
       void tokenisasi();
 

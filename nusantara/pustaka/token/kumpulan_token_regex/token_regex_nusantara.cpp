@@ -12,10 +12,10 @@
 const std::set<nusantara::TokenRegex>& nusantara::nusantaraTokenRegexs()
 {
   const static std::set<TokenRegex> result = {
-    TokenRegex{std::regex("^[(]"), TipeToken::kurungBulatBuka},
-    TokenRegex{std::regex("^[)]"), TipeToken::kurungBulatTutup},
     TokenRegex{std::regex("^[\n]"), TipeToken::barisBaru},
     TokenRegex{std::regex("^\\s"), TipeToken::ruangKosong},
+    TokenRegex{std::regex("^[(]"), TipeToken::kurungBulatBuka},
+    TokenRegex{std::regex("^[)]"), TipeToken::kurungBulatTutup},
     TokenRegex{std::regex("^;"), TipeToken::titikKoma},
     TokenRegex{std::regex("^[a-zA-Z][a-zA-Z0-9_]*"), TipeToken::identifikasi},
     TokenRegex{std::regex("^."), TipeToken::tidakDiketahui}

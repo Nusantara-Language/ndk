@@ -10,6 +10,7 @@
 #include <regex>
 #include <string>
 
+#include "alat.hpp"
 #include "token/kumpulan_token_regex/token_regex_nusantara.hpp"
 #include "penganalisis_semantik/penganalisis_semantik.hpp"
 #include "pengurai_sintaks/pengurai_sintaks.hpp"
@@ -38,23 +39,21 @@ void versi(nusantara::EksekusiPerintah&, size_t &, std::vector<std::string>&) {
   nstd::cetakDF("nusantara v{}", VERSI);
 } // function versi
 
-void prosesBerkasLexer(const std::string &lokasFile) {
-  nusantara::PemecahSintaks lexer(nusantara::nusantaraTokenRegexs());
-
-  if(!lexer.bacaBerkas(lokasFile)) {
-    return;
-  } // if
-
-  lexer.tokenisasi();
-  lexer.cetak();
-} // function prosesBerkasLexer
-
-void prosesBerkasPengurai(const std::string &lokasiFile, const bool& psa = false) {
+void prosesBerkasPemecahSintaks(const std::string &lokasiFile) {
   nusantara::PemecahSintaks pemecahSintaks(nusantara::nusantaraTokenRegexs());
 
-  if(!pemecahSintaks.bacaBerkas(lokasiFile)) {
-    return;
-  } // if
+  pemecahSintaks.aturLokasiBerkas(lokasiFile);
+  pemecahSintaks.aturKonten(nstd::bacaBerkasDalamBentukString(lokasiFile));
+
+  pemecahSintaks.tokenisasi();
+  pemecahSintaks.cetak();
+} // function prosesBerkasLexer
+
+void prosesBerkasPenguraiSintaks(const std::string &lokasiFile, const bool& psa = false) {
+  nusantara::PemecahSintaks pemecahSintaks(nusantara::nusantaraTokenRegexs());
+
+  pemecahSintaks.aturLokasiBerkas(lokasiFile);
+  pemecahSintaks.aturKonten(nstd::bacaBerkasDalamBentukString(lokasiFile));
 
   pemecahSintaks.tokenisasi();
 
@@ -68,9 +67,8 @@ void prosesBerkasPengurai(const std::string &lokasiFile, const bool& psa = false
 void prosesBerkasPenerjemah(const std::string &lokasiFile) {
   nusantara::PemecahSintaks pemecahSintaks(nusantara::nusantaraTokenRegexs());
 
-  if(!pemecahSintaks.bacaBerkas(lokasiFile)) {
-    return;
-  } // if
+  pemecahSintaks.aturLokasiBerkas(lokasiFile);
+  pemecahSintaks.aturKonten(nstd::bacaBerkasDalamBentukString(lokasiFile));
 
   pemecahSintaks.tokenisasi();
 
@@ -103,19 +101,19 @@ void prosesBerkas(
   if(argumen.size() == 3) {
     // Lexer mode
     if(argumen[indeksSaatIni] == "-t") {
-      prosesBerkasLexer(lokasiFile);
+      prosesBerkasPemecahSintaks(lokasiFile);
       return;
     } // if
 
     // Parser mode
     if(argumen[indeksSaatIni] == "-u") {
-      prosesBerkasPengurai(lokasiFile);
+      prosesBerkasPenguraiSintaks(lokasiFile);
       return;
     } // if
 
     // Parser Ast mode
     if(argumen[indeksSaatIni] == "-psa") {
-      prosesBerkasPengurai(lokasiFile, true);
+      prosesBerkasPenguraiSintaks(lokasiFile, true);
       return;
     } // if
 
