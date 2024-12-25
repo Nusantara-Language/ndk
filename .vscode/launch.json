@@ -10,7 +10,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/build/bin/nusantara.exe",
       "args": [
-        "${workspaceFolder}/examples/main.n"
+        "${workspaceFolder}/contoh/main.n"
       ],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",

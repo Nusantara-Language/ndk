@@ -1,29 +1,40 @@
+/*
+ * ----------------------------------------------------------------------------
+ * Proyek: Nusantara Language
+ * Penulis: Fern Aerell
+ * Lisensi: BSD 3-Clause License
+ * Hak Cipta (c) 2024, Nusantara
+ * ----------------------------------------------------------------------------
+ */
+
 #pragma once
 
-#include <regex>
 #include <utility>
+#include <regex>
 
-#include "token/token_type.hpp"
+#include "token/tipe_token.hpp"
 
-// Namespace
-namespace nusantara 
-{
+namespace nusantara {
 
-  class TokenRegex 
-  {
+  class TokenRegex {
     public:
-      TokenRegex(std::regex regex, const TokenType& type)
-        : regex(std::move(regex)), type(type) {}
+      TokenRegex(std::regex regex, const TipeToken& tipe): regex(std::move(regex)), tipe(tipe) {}
 
-      [[nodiscard]] auto getRegex() const -> const std::regex& { return regex; }
-      [[nodiscard]] auto getType() const -> const TokenType& { return type; }
+      [[nodiscard]] const std::regex& ambilRegex() const { return regex; }
 
-      auto operator<(const TokenRegex& other) const -> bool { return type < other.type; }
-      auto operator>(const TokenRegex& other) const -> bool { return type > other.type; }
+      [[nodiscard]] const TipeToken& ambilTipe() const { return tipe; }
+
+      bool operator<(const TokenRegex& lain) const { return tipe < lain.tipe; }
+
+      bool operator>(const TokenRegex& lain) const { return tipe > lain.tipe; }
+    // akhir dari access modifiers public
 
     private:
       std::regex regex;
-      TokenType type;
-  };
 
-}  // namespace nusantara
+      TipeToken tipe;
+    // akhir dari access modifiers private
+
+  }; // class TokenRegex
+
+} // namespace nusantara

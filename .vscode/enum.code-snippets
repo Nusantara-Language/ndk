@@ -1,0 +1,12 @@
+{
+  "Enum": {
+    "scope": "c,cc,cpp,h,hpp",
+    "prefix": "enum",
+    "body": [
+      "enum $1 {",
+      "  $2",
+      "} // enum $1",
+    ],
+    "description": "Membuat enum dengan komentar di akhir."
+  }
+}

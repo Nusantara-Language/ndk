@@ -1,0 +1,20 @@
+{
+  "Class": {
+    "scope": "c,cc,cpp,h,hpp",
+    "prefix": "class",
+    "body": [
+      "class $1 {",
+      "  public:",
+      "  // akhir dari access modifiers public",
+      "",
+      "  private:",
+      "  // akhir dari access modifiers private",
+      "",
+      "  protected:",
+      "  // akhir dari access modifiers protected",
+      "",
+      "}; // class $1",
+    ],
+    "description": "Membuat class dengan komentar di akhir."
+  }
+}

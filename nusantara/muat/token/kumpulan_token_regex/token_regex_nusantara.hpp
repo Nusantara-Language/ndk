@@ -1,12 +1,20 @@
+/*
+ * ----------------------------------------------------------------------------
+ * Proyek: Nusantara Language
+ * Penulis: Fern Aerell
+ * Lisensi: BSD 3-Clause License
+ * Hak Cipta (c) 2024, Nusantara
+ * ----------------------------------------------------------------------------
+ */
+
 #pragma once
 
-#include "token/token_regex.hpp"
 #include <set>
 
-// Namespace
-namespace nusantara 
-{
+#include "token/token_regex.hpp"
+
+namespace nusantara {
 
   auto nusantaraTokenRegexs() -> const std::set<TokenRegex>&;
 
-}  // namespace nusantara
+} // namespace nusantara

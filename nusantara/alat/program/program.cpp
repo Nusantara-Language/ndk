@@ -7,16 +7,15 @@
  * ----------------------------------------------------------------------------
  */
 
-
 #include <regex>
 #include <string>
 
 #include "token/kumpulan_token_regex/token_regex_nusantara.hpp"
-#include "semantic_analyzer/semantic_analyzer.hpp"
-#include "interpreter/interpreter.hpp"
+#include "penganalisis_semantik/penganalisis_semantik.hpp"
+#include "pengurai_sintaks/pengurai_sintaks.hpp"
+#include "pemecah_sintaks/pemecah_sintaks.hpp"
+#include "penafsir/penafsir.hpp"
 #include "perintah/perintah.hpp"
-#include "parser/parser.hpp"
-#include "lexer/lexer.hpp"
 #include "cetak/cetak.hpp"
 #include "version.hpp"
 #include <config.hpp>
@@ -25,79 +24,79 @@
   #include <waktu_eksekusi/waktu_eksekusi.hpp>
 #endif
 
-
-auto info(nusantara::EksekusiPerintah& eksekusiPerintah, size_t& indeksSaatIni, std::vector<std::string>& argumen) -> void {
+void info(nusantara::EksekusiPerintah& eksekusiPerintah, size_t& indeksSaatIni, std::vector<std::string>& argumen) {
   nstd::cetakDBB("Penggunaan: nusantara <perintah> [argumen]\n");
   nstd::cetakDBB("Perintah yang tersedia:");
 
   for (const auto& perintah : eksekusiPerintah.ambilKumpulanPerintah()) {
     bool iniPerintahAwal = perintah.ambilNama() == eksekusiPerintah.ambilKumpulanPerintah().begin()->ambilNama();
     nstd::cetakDF("{}{}", (iniPerintahAwal ? " " : "\n "), perintah.ubahKeString());
-  }
-}
+  } // for
+} // function info
 
-auto versi(nusantara::EksekusiPerintah&, size_t &, std::vector<std::string>&) -> void {
+void versi(nusantara::EksekusiPerintah&, size_t &, std::vector<std::string>&) {
   nstd::cetakDF("nusantara v{}", VERSION);
-}
+} // function versi
 
-auto prosesBerkasLexer(const std::string &lokasFile) -> void {
-  nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
+void prosesBerkasLexer(const std::string &lokasFile) {
+  nusantara::PemecahSintaks lexer(nusantara::nusantaraTokenRegexs());
 
-  if(!lexer.baca(lokasFile)) {
+  if(!lexer.bacaBerkas(lokasFile)) {
     return;
-  }
+  } // if
 
   lexer.tokenisasi();
   lexer.cetak();
-}
+} // function prosesBerkasLexer
 
-auto prosesBerkasPengurai(const std::string &lokasiFile, const bool& ast = false) -> void {
-  nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
+void prosesBerkasPengurai(const std::string &lokasiFile, const bool& psa = false) {
+  nusantara::PemecahSintaks pemecahSintaks(nusantara::nusantaraTokenRegexs());
 
-  if(!lexer.baca(lokasiFile)) {
+  if(!pemecahSintaks.bacaBerkas(lokasiFile)) {
     return;
-  }
+  } // if
 
-  lexer.tokenisasi();
+  pemecahSintaks.tokenisasi();
 
-  nusantara::Parser parser(ast);
+  nusantara::PenguraiSintaks penguraiSintaks(psa);
 
-  parser.ambilKumpulanToken(lexer.ambilHasil());
-  parser.parsing();
-  parser.print();
-}
+  penguraiSintaks.aturKumpulanToken(pemecahSintaks.ambilHasil());
+  penguraiSintaks.uraikan();
+  penguraiSintaks.cetak();
+} // function prosesBerkasPengurai
 
-auto prosesBerkasPenerjemah(const std::string &lokasiFile) -> void {
-  nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
+void prosesBerkasPenerjemah(const std::string &lokasiFile) {
+  nusantara::PemecahSintaks pemecahSintaks(nusantara::nusantaraTokenRegexs());
 
-  if(!lexer.baca(lokasiFile)) {
+  if(!pemecahSintaks.bacaBerkas(lokasiFile)) {
     return;
-  }
+  } // if
 
-  lexer.tokenisasi();
+  pemecahSintaks.tokenisasi();
 
-  nusantara::Parser parser(true);
-  parser.ambilKumpulanToken(lexer.ambilHasil());
-  parser.parsing();
+  nusantara::PenguraiSintaks penguraiSintaks(true);
 
-  nusantara::SemanticAnalyzer semanticAnalyzer;
-  if(!parser.getResult()->accept(semanticAnalyzer)) return;
+  penguraiSintaks.aturKumpulanToken(pemecahSintaks.ambilHasil());
+  penguraiSintaks.uraikan();
 
-  nusantara::Interpreter interpreter;
-  parser.getResult()->accept(interpreter);
+  nusantara::PenganalisisSemantik penganalisisSemantik;
+  if(!penguraiSintaks.ambilHasil()->terima(penganalisisSemantik)) return;
+
+  nusantara::Penafsir penafsir;
+  penguraiSintaks.ambilHasil()->terima(penafsir);
 }
 
-auto prosesBerkas(
-  nusantara::EksekusiPerintah&  /*eksekusiPerintah*/,
+void prosesBerkas(
+  nusantara::EksekusiPerintah&,
   size_t &indeksSaatIni,
   std::vector<std::string>& argumen
-) -> void {
+) {
   std::string lokasiFile = argumen[indeksSaatIni];
-  nusantara::Lexer lexer(nusantara::nusantaraTokenRegexs());
+  nusantara::PemecahSintaks lexer(nusantara::nusantaraTokenRegexs());
   
   if(argumen.size() < 3) {
-    argumen.emplace_back("-p"); // Default mode interpreter
-  }
+    argumen.emplace_back("-p");
+  } // if
 
   indeksSaatIni++;
 
@@ -106,29 +105,29 @@ auto prosesBerkas(
     if(argumen[indeksSaatIni] == "-t") {
       prosesBerkasLexer(lokasiFile);
       return;
-    }
+    } // if
 
     // Parser mode
     if(argumen[indeksSaatIni] == "-u") {
       prosesBerkasPengurai(lokasiFile);
       return;
-    }
+    } // if
 
     // Parser Ast mode
     if(argumen[indeksSaatIni] == "-psa") {
       prosesBerkasPengurai(lokasiFile, true);
       return;
-    }
+    } // if
 
     // Interpreter mode
     if(argumen[indeksSaatIni] == "-p") {
       prosesBerkasPenerjemah(lokasiFile);
       return;
-    }
-  }
+    } // if
+  } // if
 
   nstd::cetakDF("Argumen '{}' tidak dikenali", argumen[indeksSaatIni]);
-}
+} // function prosesBerkas
 
 auto main(int argc, const char* argv[]) -> int {
 
@@ -143,14 +142,14 @@ auto main(int argc, const char* argv[]) -> int {
     "Untuk melihat informasi.",
     info,
     true,
-  });
+  }); // function tambah
 
   eksekusiPerintah.tambah({
     "versi",
     "Untuk melihat versi.",
     versi,
     true,
-  });
+  }); // function tambah
 
   eksekusiPerintah.tambah({
     std::regex(".*\\.n"),
@@ -158,7 +157,7 @@ auto main(int argc, const char* argv[]) -> int {
     "Untuk mengolah file nusantara.",
     prosesBerkas,
     false,
-  });
+  }); // function tambah
 
   eksekusiPerintah.eksekusi({argv, argv + argc});
 
@@ -168,4 +167,4 @@ auto main(int argc, const char* argv[]) -> int {
   #endif
 
   return 0;
-}
+} // function main

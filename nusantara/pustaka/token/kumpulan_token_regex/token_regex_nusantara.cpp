@@ -1,15 +1,24 @@
+/*
+ * ----------------------------------------------------------------------------
+ * Proyek: Nusantara Language
+ * Penulis: Fern Aerell
+ * Lisensi: BSD 3-Clause License
+ * Hak Cipta (c) 2024, Nusantara
+ * ----------------------------------------------------------------------------
+ */
+
 #include "token/kumpulan_token_regex/token_regex_nusantara.hpp"
 
-auto nusantara::nusantaraTokenRegexs() -> const std::set<TokenRegex>& 
+const std::set<nusantara::TokenRegex>& nusantara::nusantaraTokenRegexs()
 {
   const static std::set<TokenRegex> result = {
-    TokenRegex{std::regex("^[(]"), TokenType::kurungBulatBuka},
-    TokenRegex{std::regex("^[)]"), TokenType::kurungBulatTutup},
-    TokenRegex{std::regex("^[\n]"), TokenType::barisBaru},
-    TokenRegex{std::regex("^\\s"), TokenType::ruangKosong},
-    TokenRegex{std::regex("^;"), TokenType::titikKoma},
-    TokenRegex{std::regex("^[a-zA-Z][a-zA-Z0-9_]*"), TokenType::identifikasi},
-    TokenRegex{std::regex("^."), TokenType::tidakDiketahui},
-  };
+    TokenRegex{std::regex("^[(]"), TipeToken::kurungBulatBuka},
+    TokenRegex{std::regex("^[)]"), TipeToken::kurungBulatTutup},
+    TokenRegex{std::regex("^[\n]"), TipeToken::barisBaru},
+    TokenRegex{std::regex("^\\s"), TipeToken::ruangKosong},
+    TokenRegex{std::regex("^;"), TipeToken::titikKoma},
+    TokenRegex{std::regex("^[a-zA-Z][a-zA-Z0-9_]*"), TipeToken::identifikasi},
+    TokenRegex{std::regex("^."), TipeToken::tidakDiketahui}
+  }; // variable result
   return result;
-}
+} // function nusantaraTokenRegexs

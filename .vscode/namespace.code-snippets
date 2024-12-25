@@ -1,0 +1,14 @@
+{
+  "Namespace": {
+    "scope": "c,cc,cpp,h,hpp",
+    "prefix": "namespace",
+    "body": [
+      "namespace $1 {",
+      "",
+      " $2",
+      "",
+      "} // namespace $1",
+    ],
+    "description": "Membuat namespace dengan komentar di akhir."
+  }
+}

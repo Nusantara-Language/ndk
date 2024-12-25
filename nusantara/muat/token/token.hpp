@@ -1,25 +1,30 @@
+/*
+ * ----------------------------------------------------------------------------
+ * Proyek: Nusantara Language
+ * Penulis: Fern Aerell
+ * Lisensi: BSD 3-Clause License
+ * Hak Cipta (c) 2024, Nusantara
+ * ----------------------------------------------------------------------------
+ */
+
 #pragma once
 
 #include <string>
 
-#include "token/token_type.hpp"
+#include "token/tipe_token.hpp"
 
-// Namespace
-namespace nusantara 
-{
+namespace nusantara {
 
-  struct TokenLocation 
-  {
-    size_t row;
-    size_t column;
-  };
+  struct LokasiToken {
+    size_t baris;    
+    size_t kolom;
+  }; // struct LokasiToken
 
-  struct Token 
-  {
-    std::string filePath;
-    TokenLocation location;
-    TokenType type;
-    std::string content;
-  };
+  struct Token {
+    std::string lokasiBerkas;
+    LokasiToken lokasi;
+    TipeToken tipe;
+    std::string konten;
+  }; // struct Token
 
-}  // namespace nusantara
+} // namespace nusantara

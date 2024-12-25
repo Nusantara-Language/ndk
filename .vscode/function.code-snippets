@@ -1,0 +1,12 @@
+{
+  "Function": {
+    "scope": "c,cc,cpp,h,hpp",
+    "prefix": "function",
+    "body": [
+      "$1 $2($3) {",
+      "  $4",
+      "} // function $2",
+    ],
+    "description": "Membuat function dengan komentar di akhir."
+  }
+}
