@@ -4,12 +4,15 @@ include_directories("muat")
 # Mencari semua file .cpp dalam subdirektori libs dan sub-subdirektorinya
 file(GLOB_RECURSE SOURCES
   "pustaka/**/*.cpp"
+  "pustaka/*.cpp"
   "alat/**/*.cpp"
+  "alat/*.cpp"
 )
 
 # Mencari semua file .hpp dalam subdirektori includes dan sub-subdirektorinya
 file(GLOB_RECURSE HEADERS
   "muat/**/*.hpp"
+  "muat/*.hpp"
 )
 
 # Membuat objek lib yang statis (tidak dapat diubah) dan menambahkan file C++ dan header ke dalam objek tersebut

@@ -17,10 +17,10 @@
 #include "penafsir/penafsir.hpp"
 #include "perintah/perintah.hpp"
 #include "cetak/cetak.hpp"
-#include "versi.hpp"
 #include <konfig.hpp>
+#include "versi.hpp"
 
-#ifdef SHOW_WAKTU_EKSEKUSI
+#ifdef PERLIHATKAN_WAKTU_EKSEKUSI
   #include <waktu_eksekusi/waktu_eksekusi.hpp>
 #endif
 
@@ -131,7 +131,7 @@ void prosesBerkas(
 
 auto main(int argc, const char* argv[]) -> int {
 
-  #ifdef SHOW_WAKTU_EKSEKUSI
+  #ifdef PERLIHATKAN_WAKTU_EKSEKUSI
     nstd::WaktuEksekusi::mulai();
   #endif
 
@@ -161,7 +161,7 @@ auto main(int argc, const char* argv[]) -> int {
 
   eksekusiPerintah.eksekusi({argv, argv + argc});
 
-  #ifdef SHOW_WAKTU_EKSEKUSI
+  #ifdef PERLIHATKAN_WAKTU_EKSEKUSI
     nstd::WaktuEksekusi::selesai();
     nstd::WaktuEksekusi::cetak();
   #endif

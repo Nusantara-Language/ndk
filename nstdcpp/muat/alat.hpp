@@ -7,10 +7,12 @@
  * ----------------------------------------------------------------------------
  */
 
-#define CATATAN
-#define CATATAN_SIMPAN_BERKAS
-#define CATATAN_PERLIHATKAN_INFO
-#define CATATAN_PERLIHATKAN_KESALAHAN
-#define CATATAN_PERLIHATKAN_PERINGATAN
+#pragma once
 
-#define PERLIHATKAN_WAKTU_EKSEKUSI 1
+#include <filesystem>
+
+namespace nstd {
+
+  std::filesystem::path ambilLokasiBerkasProgram();
+
+} // namespace nstd
