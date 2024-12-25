@@ -7,4 +7,4 @@
  * ----------------------------------------------------------------------------
  */
 
-// #define SHOW_WAKTU_EKSEKUSI 1
+#define SHOW_WAKTU_EKSEKUSI 1

@@ -17,8 +17,8 @@
 #include "penafsir/penafsir.hpp"
 #include "perintah/perintah.hpp"
 #include "cetak/cetak.hpp"
-#include "version.hpp"
-#include <config.hpp>
+#include "versi.hpp"
+#include <konfig.hpp>
 
 #ifdef SHOW_WAKTU_EKSEKUSI
   #include <waktu_eksekusi/waktu_eksekusi.hpp>
@@ -35,7 +35,7 @@ void info(nusantara::EksekusiPerintah& eksekusiPerintah, size_t& indeksSaatIni, 
 } // function info
 
 void versi(nusantara::EksekusiPerintah&, size_t &, std::vector<std::string>&) {
-  nstd::cetakDF("nusantara v{}", VERSION);
+  nstd::cetakDF("nusantara v{}", VERSI);
 } // function versi
 
 void prosesBerkasLexer(const std::string &lokasFile) {
