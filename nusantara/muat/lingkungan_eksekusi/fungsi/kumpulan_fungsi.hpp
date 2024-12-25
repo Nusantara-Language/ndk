@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "lingkungan_eksekusi/fungsi/a_fungsi.hpp"
+#include "lingkungan_eksekusi/fungsi/antarmuka/a_fungsi.hpp"
 #include <memory>
 #include <string>
 #include <vector>

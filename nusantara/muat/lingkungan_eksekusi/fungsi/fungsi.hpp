@@ -10,7 +10,7 @@
 #pragma once
 
 #include "lingkungan_eksekusi/blok_kode/blok_kode.hpp"
-#include "a_fungsi.hpp"
+#include "antarmuka/a_fungsi.hpp"
 #include <string>
 
 namespace nusantara {
