@@ -59,7 +59,7 @@ void nusantara::PemecahSintaks::buatToken(Token& token) {
   } // for
 
   if (!std::regex_search(this->konten, dataYangSama, std::regex(""))) {
-    std::cerr << "Error: Tidak dapat membuat token dari konten.\n";
+    std::cerr << "[PS] Tidak dapat membuat token dari konten.\n";
     return;
   } // if
 } // function buatToken
@@ -68,7 +68,7 @@ void nusantara::PemecahSintaks::buatBanyakToken() {
   while (this->konten.size() > 0) {
     Token token;
     this->buatToken(token);
-    if (token.tipe != TipeToken::ruangKosong && token.tipe != TipeToken::barisBaru && token.tipe != TipeToken::tidakDiketahui) {
+    if (token.tipe != TipeToken::ruangKosong && token.tipe != TipeToken::barisBaru && token.tipe && token.tipe != TipeToken::tidakDiketahui) {
       this->hasilTokenisasi.push_back(std::move(token));
     } // if
   } // while

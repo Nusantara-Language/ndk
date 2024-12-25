@@ -13,16 +13,16 @@
 
 #include "lingkungan_eksekusi/lingkungan_eksekusi.hpp"
 #include "lingkungan_eksekusi/fungsi/kumpulan_fungsi/fungsi_halodunia.hpp"
-#include "lingkungan_eksekusi/kawasan/kawasan.hpp"
+#include "lingkungan_eksekusi/blok_kode/blok_kode.hpp"
 
-nusantara::LingkunganEksekusi::LingkunganEksekusi(): kawasan({}, {}) {
+nusantara::LingkunganEksekusi::LingkunganEksekusi(): blokKode({}, {}) {
   // Inisialisasi
-  this->kawasan.ambilKumpulanFungsi().tambahFungsi(std::move(std::make_unique<FungsiHaloDunia>()));
-} // constructor kawasan
+  this->blokKode.ambilKumpulanFungsi().tambahFungsi(std::move(std::make_unique<FungsiHaloDunia>()));
+} // constructor LingkunganEksekusi
 
-nusantara::Kawasan& nusantara::LingkunganEksekusi::ambilKawasan() {
-  return this->kawasan;
-} // function ambilKawasan
+nusantara::BlokKode& nusantara::LingkunganEksekusi::ambilBlokKode() {
+  return this->blokKode;
+} // function ambilBlokKode
 
 std::any nusantara::LingkunganEksekusi::ambilDataSementara() {
   return this->dataSementara;

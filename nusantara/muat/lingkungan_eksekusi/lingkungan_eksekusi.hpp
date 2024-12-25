@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "kawasan/kawasan.hpp"
+#include "blok_kode/blok_kode.hpp"
 #include <any>
 
 namespace nusantara {
@@ -18,7 +18,7 @@ namespace nusantara {
     public:
       LingkunganEksekusi();
 
-      Kawasan& ambilKawasan();
+      BlokKode& ambilBlokKode();
 
       std::any ambilDataSementara();
       
@@ -29,7 +29,7 @@ namespace nusantara {
 
     private:
       std::any dataSementara;
-      Kawasan kawasan;
+      BlokKode blokKode;
     // akhir dari access modifiers private
 
   }; // class Runtime

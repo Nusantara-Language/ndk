@@ -11,10 +11,9 @@
 
 #include "lingkungan_eksekusi/intruksi/kumpulan_intruksi/intruksi_halodunia.hpp"
 #include "lingkungan_eksekusi/fungsi/kumpulan_fungsi/fungsi_halodunia.hpp"
-#include "lingkungan_eksekusi/kawasan/kawasan.hpp"
 #include "lingkungan_eksekusi/fungsi/fungsi.hpp"
 
 nusantara::FungsiHaloDunia::FungsiHaloDunia(): Fungsi("halodunia")  {
-  this->kawasan.ambilKumpulanIntruksi().tambahIntruksi(std::move(std::make_unique<IntruksiHaloDunia>()));
+  this->blokKode.ambilKumpulanIntruksi().tambahIntruksi(std::move(std::make_unique<IntruksiHaloDunia>()));
 } // constructor FungsiHaloDunia
 

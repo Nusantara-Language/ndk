@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "lingkungan_eksekusi/kawasan/kawasan.hpp"
+#include "lingkungan_eksekusi/blok_kode/blok_kode.hpp"
 #include "a_fungsi.hpp"
 #include <string>
 
@@ -19,7 +19,7 @@ namespace nusantara {
     public:
       Fungsi(const std::string& nama);
       
-      Fungsi(const std::string& nama, Kawasan&& kawasan);
+      Fungsi(const std::string& nama, BlokKode&& blokKode);
 
       void panggil() override;
 
@@ -31,7 +31,7 @@ namespace nusantara {
     // akhir dari access modifiers private
 
     protected:
-      Kawasan kawasan;
+      BlokKode blokKode;
     // akhir dari access modifiers protected
 
   }; // class Fungsi

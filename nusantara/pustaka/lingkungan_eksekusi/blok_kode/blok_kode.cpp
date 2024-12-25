@@ -9,20 +9,20 @@
 
 #include "lingkungan_eksekusi/intruksi/kumpulan_intruksi.hpp"
 #include "lingkungan_eksekusi/fungsi/kumpulan_fungsi.hpp"
-#include "lingkungan_eksekusi/kawasan/kawasan.hpp"
+#include "lingkungan_eksekusi/blok_kode/blok_kode.hpp"
 
-nusantara::Kawasan::Kawasan(
+nusantara::BlokKode::BlokKode(
   KumpulanFungsi &&kumpulanFungsi,
   KumpulanIntruksi &&kumpulanIntruksi
 ): 
 kumpulanIntruksi(std::move(kumpulanIntruksi)), 
 kumpulanFungsi(std::move(kumpulanFungsi)) 
-{} // constructor Kawasan
+{} // constructor BlokKode
 
-nusantara::KumpulanIntruksi& nusantara::Kawasan::ambilKumpulanIntruksi() {
+nusantara::KumpulanIntruksi& nusantara::BlokKode::ambilKumpulanIntruksi() {
   return this->kumpulanIntruksi;
 } // function ambilKumpulanIntruksi
 
-nusantara::KumpulanFungsi& nusantara::Kawasan::ambilKumpulanFungsi() {
+nusantara::KumpulanFungsi& nusantara::BlokKode::ambilKumpulanFungsi() {
   return this->kumpulanFungsi;
 } // function ambilKumpulanFungsi

@@ -22,7 +22,7 @@ void nusantara::Penafsir::kunjungiTitikPanggilFungsi(const nusantara::Titik& nod
   node.ambilKumpulanTitikTurunan()[0]->terima(*this);
 
   // Panggil fungsi sesuai nama
-  this->lingkunganEksekusi.ambilKawasan()
+  this->lingkunganEksekusi.ambilBlokKode()
     .ambilKumpulanFungsi()
     .panggilFungsi(
       std::any_cast<std::string>(

@@ -21,7 +21,7 @@ namespace nstd {
     if (BisaDiCetak<Type>()) {
       std::cout << nilai;
     } else {
-      std::cerr << "Tipe data " << typeid(Type).name() << " tidak dapat dicetak.\n";
+      std::cerr << "[FUNGSI CETAK] Tipe data " << typeid(Type).name() << " tidak dapat dicetak.\n";
     }
   }  // function cetak
 

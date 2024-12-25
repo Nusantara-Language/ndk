@@ -7,20 +7,20 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "lingkungan_eksekusi/kawasan/kawasan.hpp"
+#include "lingkungan_eksekusi/blok_kode/blok_kode.hpp"
 #include "lingkungan_eksekusi/fungsi/fungsi.hpp"
 
 nusantara::Fungsi::Fungsi(
   const std::string& nama
-): nama(nama), kawasan({}, {}) {}
+): nama(nama), blokKode({}, {}) {}
 
 nusantara::Fungsi::Fungsi(
   const std::string& nama, 
-  Kawasan&& kawasan
-): nama(nama), kawasan(std::move(kawasan)) {}
+  BlokKode&& blokKode
+): nama(nama), blokKode(std::move(blokKode)) {}
 
 void nusantara::Fungsi::panggil() {
-  this->kawasan.ambilKumpulanIntruksi().jalankan();
+  this->blokKode.ambilKumpulanIntruksi().jalankan();
 } // function panggil
 
 const std::string& nusantara::Fungsi::ambilNama() {

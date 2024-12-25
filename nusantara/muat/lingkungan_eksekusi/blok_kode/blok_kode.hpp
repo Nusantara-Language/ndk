@@ -14,9 +14,9 @@
 
 namespace nusantara {
 
-  class Kawasan {
+  class BlokKode {
     public:
-      Kawasan(
+      BlokKode(
         KumpulanFungsi &&kumpulanFungsi,
         KumpulanIntruksi &&kumpulanIntruksi
       );
@@ -31,6 +31,6 @@ namespace nusantara {
       KumpulanFungsi kumpulanFungsi;
     // akhir dari access modifiers private
 
-  }; // class Kawasan
+  }; // class BlokKode
 
 } // namespace nusantara

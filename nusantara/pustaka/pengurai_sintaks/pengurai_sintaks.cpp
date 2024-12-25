@@ -150,7 +150,10 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPanggilFungsi(
     ) // constructor make_unique
   ); // function tambahTitikTurunan
 
-  titik.tambahTitikTurunan(this->uraiTempatParameterPanggilFungsi());
+  auto titikTempatParameterPanggilFungsi = this->uraiTempatParameterPanggilFungsi();
+  if(titikTempatParameterPanggilFungsi != nullptr && titikTempatParameterPanggilFungsi->ambilKumpulanTitikTurunan().size() > 0) {
+    titik.tambahTitikTurunan(std::move(titikTempatParameterPanggilFungsi));
+  } // if
 
   return std::make_unique<Titik>(std::move(titik));
 } // function uraiPanggilFungsi
