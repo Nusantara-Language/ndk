@@ -8,7 +8,9 @@
  */
 
 #include <iostream>
+
 #include "pengurai_sintaks/titik/tipe_titik.hpp"
+#include "konfig/konfig_label_keluaran.hpp"
 
 std::string nusantara::tipeTitikKeString(const TipeTitik &type) {
   switch(type) {
@@ -25,7 +27,7 @@ std::string nusantara::tipeTitikKeString(const TipeTitik &type) {
     case AKHIR_DARI_FILE:
       return "AKHIR_DARI_FILE";
     default:
-      std::cerr << "[Fungsi tipeTitikKeString] Tipe titik tidak dapat di ubah menjadi string." << '\n';
+      std::cerr << __NK__LABEL_KELUARAN_CUSTOM("Fungsi tipeTitikKeString") "Tipe titik tidak dapat di ubah menjadi string." << '\n';
       break;
   } // switch
   

@@ -47,8 +47,8 @@ set(NUSANTARA_VERSION "0.0.1${NUSANTARA_VERSION_SUFFIX}")
 set(PERLIHATKAN_WAKTU_EKSEKUSI OFF)
 
 # Atur versi header sesuai template
-configure_file(${CMAKE_SOURCE_DIR}/nusantara/muat/konfig.hpp.template ${CMAKE_SOURCE_DIR}/nusantara/muat/konfig.hpp)
-configure_file(${CMAKE_SOURCE_DIR}/nusantara/muat/versi.hpp.template ${CMAKE_SOURCE_DIR}/nusantara/muat/versi.hpp)
+configure_file(${CMAKE_SOURCE_DIR}/nusantara/muat/konfig/konfig.hpp.template ${CMAKE_SOURCE_DIR}/nusantara/muat/konfig/konfig.hpp)
+configure_file(${CMAKE_SOURCE_DIR}/nusantara/muat/konfig/versi.hpp.template ${CMAKE_SOURCE_DIR}/nusantara/muat/konfig/versi.hpp)
 
 # SRC FILE
 file(GLOB_RECURSE LIB_SOURCES 

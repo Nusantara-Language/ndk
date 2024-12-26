@@ -18,6 +18,7 @@
 #include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "pengurai_sintaks/pengurai_sintaks.hpp"
 #include "pengunjung/a_pengunjung_titik.hpp"
+#include "konfig/konfig_label_keluaran.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
 #include "pendengar/a_pendengar_titik.hpp"
 #include "token/tipe_token.hpp"
@@ -111,7 +112,7 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataanEksp
   auto makanTokenTitikKoma = [this] -> const Token & {
     return this->makanToken(
       nusantara::TipeToken::titikKoma,
-      "[PENGURAI SINTAKS] Jangan lupa titik koma."
+      __NK__LABEL_KELUARAN_PS "Jangan lupa titik koma."
     ); // fucntion makanToken
   }; // lambda makanTokenTitikKoma
 
@@ -148,7 +149,7 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPanggilFungsi(
         TipeTitik::TOKEN, 
         this->makanToken(
           nusantara::TipeToken::identifikasi,
-          "[PENGURAI SINTAKS] Nama fungsi belum dibuat."
+          __NK__LABEL_KELUARAN_PS "Nama fungsi belum dibuat."
         ) // function makanToken
       } // constructor Titik
     ) // constructor make_unique
@@ -168,14 +169,14 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiTempatParamete
   auto makanTokenKurungBulatBuka = [this] -> const nusantara::Token& {
     return this->makanToken(
       TipeToken::kurungBulatBuka,
-      "[PENGURAI SINTAKS] Tempat parameter pada fungsi harus ada kurung bulat buka '('."
+      __NK__LABEL_KELUARAN_PS "Tempat parameter pada fungsi harus ada kurung bulat buka '('."
     ); // function makanToken
   }; // lambda makanTokenKurungBulatBuka
 
   auto makanTokenKurungBulatTutup = [this] -> const nusantara::Token& {
     return this->makanToken(
       TipeToken::kurungBulatTutup,
-      "[PENGURAI SINTAKS] Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
+      __NK__LABEL_KELUARAN_PS "Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
     ); // function makanToken
   }; // lambda makanTokenKurungBulatTutup
 
@@ -223,7 +224,7 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiAkhirDariFile(
       .lokasiBerkas=this->tokenSaatIni().lokasiBerkas,
       .lokasiToken=this->tokenSaatIni().lokasi,
       .konten=this->tokenSaatIni().konten,
-      .pesan="[PENGURAI SINTAKS] harus nya akhir dari file."
+      .pesan=__NK__LABEL_KELUARAN_PS "harus nya akhir dari file."
     }; // throw
   } // else
   return std::make_unique<Titik>(std::move(titik));

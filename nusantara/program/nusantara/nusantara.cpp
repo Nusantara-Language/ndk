@@ -10,16 +10,18 @@
 #include <regex>
 #include <string>
 
-#include "alat.hpp"
 #include "token/kumpulan_token_regex/token_regex_nusantara.hpp"
 #include "penganalisis_semantik/penganalisis_semantik.hpp"
+#include "konfig/konfig_argumen_proses_berkas.hpp"
+#include "konfig/konfig_ekstensi_berkas.hpp"
 #include "pengurai_sintaks/pengurai_sintaks.hpp"
 #include "pemecah_sintaks/pemecah_sintaks.hpp"
 #include "penafsir/penafsir.hpp"
 #include "perintah/perintah.hpp"
 #include "cetak/cetak.hpp"
-#include <konfig.hpp>
-#include "versi.hpp"
+#include <konfig/konfig.hpp>
+#include "konfig/versi.hpp"
+#include "alat.hpp"
 
 #ifdef PERLIHATKAN_WAKTU_EKSEKUSI
   #include <waktu_eksekusi/waktu_eksekusi.hpp>
@@ -92,32 +94,32 @@ void prosesBerkas(
   std::string lokasiFile = argumen[indeksSaatIni];
   
   if(argumen.size() < 3) {
-    argumen.emplace_back("-p");
+    argumen.emplace_back(__NK__ARGUMEN_PROSES_BERKAS_P);
   } // if
 
   indeksSaatIni++;
 
   if(argumen.size() == 3) {
     // Lexer mode
-    if(argumen[indeksSaatIni] == "-t") {
+    if(argumen[indeksSaatIni] == __NK__ARGUMEN_PROSES_BERKAS_TS) {
       prosesBerkasPemecahSintaks(lokasiFile);
       return;
     } // if
 
     // Parser mode
-    if(argumen[indeksSaatIni] == "-u") {
+    if(argumen[indeksSaatIni] == __NK__ARGUMEN_PROSES_BERKAS_PS) {
       prosesBerkasPenguraiSintaks(lokasiFile);
       return;
     } // if
 
     // Parser Ast mode
-    if(argumen[indeksSaatIni] == "-psa") {
+    if(argumen[indeksSaatIni] == __NK__ARGUMEN_PROSES_BERKAS_PSA) {
       prosesBerkasPenguraiSintaks(lokasiFile, true);
       return;
     } // if
 
     // Interpreter mode
-    if(argumen[indeksSaatIni] == "-p") {
+    if(argumen[indeksSaatIni] == __NK__ARGUMEN_PROSES_BERKAS_P) {
       prosesBerkasPenerjemah(lokasiFile);
       return;
     } // if
@@ -149,8 +151,13 @@ auto main(int argc, const char* argv[]) -> int {
   }); // function tambah
 
   eksekusiPerintah.tambah({
-    std::regex(".*\\.n"),
-    "filename.n",
+    #ifdef __NK__EKSTENSI_BERKAS_WAJIB
+      std::regex(__NK__EKSTENSI_BERKAS_REGEX),
+      "filename." __NK__EKSTENSI_BERKAS,
+    #else
+      std::regex(".*"),
+      "filename",
+    #endif
     "Untuk mengolah file nusantara.",
     prosesBerkas,
     false,

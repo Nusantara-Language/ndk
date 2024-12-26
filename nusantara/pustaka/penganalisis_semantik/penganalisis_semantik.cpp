@@ -11,8 +11,9 @@
 #include <string>
 
 #include "penganalisis_semantik/penganalisis_semantik.hpp"
-#include "cetak/cetak.hpp"
+#include "konfig/konfig_label_keluaran.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
+#include "cetak/cetak.hpp"
 
 void nusantara::PenganalisisSemantik::kunjungiTitikToken(const Titik&) {
   // Tidak melakukan apa-apa
@@ -25,7 +26,7 @@ void nusantara::PenganalisisSemantik::kunjungiTitikPanggilFungsi(const Titik& ti
       namaFungsiToken.lokasiBerkas,
       namaFungsiToken.lokasi,
       namaFungsiToken.konten,
-      "[AS] fungsi '" + namaFungsiToken.konten + "' belum dibuat."
+      __NK__LABEL_KELUARAN_AS "fungsi '" + namaFungsiToken.konten + "' belum dibuat."
     }); // function tambahData
   } // if
 } // function kunjungiTitikPanggilFungsi

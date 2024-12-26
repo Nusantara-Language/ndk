@@ -16,6 +16,7 @@
 #include "alat.hpp"
 #include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "pemecah_sintaks/pemecah_sintaks.hpp"
+#include "konfig/konfig_label_keluaran.hpp"
 #include "token/tipe_token.hpp"
 #include "cetak/cetak.hpp"
 
@@ -52,7 +53,7 @@ void nusantara::PemecahSintaks::buatBanyakToken() {
           token.lokasiBerkas, 
           token.lokasi, 
           token.konten, 
-          "[PEMECAH SINTAKS] Karakter tidak di ketahui."
+          __NK__LABEL_KELUARAN_PS "Karakter tidak di ketahui."
       }); // function tambahData
     }else if (token.tipe != TipeToken::ruangKosong && token.tipe != TipeToken::barisBaru) {
       this->hasilTokenisasi.push_back(std::move(token));

@@ -15,6 +15,7 @@
 
 #include "pengurai_sintaks/titik/tipe_titik.hpp"
 #include "pengunjung/a_pengunjung_titik.hpp"
+#include "konfig/konfig_label_keluaran.hpp"
 #include "pendengar/a_pendengar_titik.hpp"
 #include "token/token.hpp"
 
@@ -62,7 +63,7 @@ namespace nusantara {
           case TipeTitik::AKHIR_DARI_FILE:
               return pengunjung.kunjungiTitikAkhirDariFile(*this);
           default:
-              std::cerr << "[Class Titik] Tipe titik tidak dapat di kunjungi." << std::endl;
+              std::cerr << __NK__LABEL_KELUARAN_CUSTOM("Class Titik") "Tipe titik tidak dapat di kunjungi." << std::endl;
               break;
         }
       }

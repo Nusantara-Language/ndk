@@ -7,21 +7,22 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
-#include "pengecualian/antarmuka/a_pengecualian.h"
-#include "token/token.hpp"
-#include "alat.hpp"
-
 #include <algorithm>
 #include <format>
 #include <string>
 #include <vector>
 
+#include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
+#include "pengecualian/antarmuka/a_pengecualian.h"
+#include "konfig/konfig_label_keluaran.hpp"
+#include "token/token.hpp"
+#include "alat.hpp"
+
 nusantara::PengecualianSintaks::PengecualianSintaks(): PengecualianSintaks(std::vector<DataPengecualianSintaks>{}) {} // constructor PengecualianSintaks
 
 nusantara::PengecualianSintaks::PengecualianSintaks(
   const std::vector<DataPengecualianSintaks>& kumpulanData
-): APengecualian("[Class PengecualianSintaks] Pesan pengecualian belum dibuat."), kumpulanData(kumpulanData) {} // constructor PengecualianSintaks
+): APengecualian( __NK__LABEL_KELUARAN_CUSTOM("Class PengecualianSintaks") "Pesan pengecualian belum dibuat."), kumpulanData(kumpulanData) {} // constructor PengecualianSintaks
 
 nusantara::PengecualianSintaks::PengecualianSintaks(
   const DataPengecualianSintaks& data

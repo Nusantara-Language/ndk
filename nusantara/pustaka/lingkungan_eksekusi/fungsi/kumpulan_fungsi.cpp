@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "lingkungan_eksekusi/fungsi/kumpulan_fungsi.hpp"
+#include "konfig/konfig_label_keluaran.hpp"
 #include "cetak/cetak.hpp"
 
 nusantara::KumpulanFungsi::KumpulanFungsi(): isinya() {}
@@ -26,7 +27,7 @@ void nusantara::KumpulanFungsi::panggilFungsi(const std::string& nama) {
     return;
   } // if
 
-  nusantara::cetakDBBDF("[RT] Fungsi '{}' tidak ada.", nama);
+  nusantara::cetakDBBDF(__NK__LABEL_KELUARAN_LE "Fungsi '{}' tidak ada.", nama);
 } // function panggilFungsi
 
 void nusantara::KumpulanFungsi::tambahFungsi(std::unique_ptr<AFungsi>&& intruksi) {

@@ -63,7 +63,7 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
         pendengar.akhirDariFileMasuk(*this);
         break;
     default:
-        std::cerr << "[Class Titik] Tipe titik tidak dapat di dengar." << std::endl;
+        std::cerr << __NK__LABEL_KELUARAN_CUSTOM("Class Titik") "Tipe titik tidak dapat di dengar." << std::endl;
         break;
   } // switch
 
@@ -91,7 +91,7 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
         pendengar.akhirDariFileKeluar(*this);
         break;
     default:
-        std::cerr << "[Class Titik] Tipe titik tidak dapat di dengar." << std::endl;
+        std::cerr << __NK__LABEL_KELUARAN_CUSTOM("Class Titik") "Tipe titik tidak dapat di dengar." << std::endl;
         break;
   } // switch
   
@@ -119,7 +119,7 @@ void nusantara::cetakTitik(const Titik &titik, int jarak) {
 
 std::unique_ptr<nusantara::Titik>&& nusantara::Titik::keluarKanTitikTurunan(const size_t& index) {
   if(index >= this->kumpulanTitikTurunan.size() || index < 0) {
-    throw APengecualian("[CLASS TITIK] kesalahan, karena mencoba mengeluarkan titik turunan dengan indeks diluar kapasitas titik turunan.");
+    throw APengecualian(__NK__LABEL_KELUARAN_CUSTOM("Class Titik") "kesalahan, karena mencoba mengeluarkan titik turunan dengan indeks diluar kapasitas titik turunan.");
   } // if
 
   return std::move(this->kumpulanTitikTurunan[index]);
