@@ -66,6 +66,8 @@ namespace nusantara {
       std::unique_ptr<Titik> uraiPanggilFungsi();
 
       std::unique_ptr<Titik> uraiTempatParameterPanggilFungsi();
+
+      std::unique_ptr<Titik> uraiAkhirDariFile();
     // akhir dari access modifiers private
   
   }; // class PenguraiSintaks

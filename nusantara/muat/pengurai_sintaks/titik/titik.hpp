@@ -59,8 +59,10 @@ namespace nusantara {
               return pengunjung.kunjungiTitikTempatParameterPanggilFungsi(*this);
           case TipeTitik::TOKEN:
               return pengunjung.kunjungiTitikToken(*this);
+          case TipeTitik::AKHIR_DARI_FILE:
+              return pengunjung.kunjungiTitikAkhirDariFile(*this);
           default:
-              std::cerr << "[CLASS TITIK] Tipe titik tidak dapat di kunjungi." << std::endl;
+              std::cerr << "[Class Titik] Tipe titik tidak dapat di kunjungi." << std::endl;
               break;
         }
       }

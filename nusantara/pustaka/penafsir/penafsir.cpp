@@ -44,3 +44,7 @@ void nusantara::Penafsir::kunjungiTitikPernyataanEkspresi(const nusantara::Titik
 void nusantara::Penafsir::kunjungiTitikTempatParameterPanggilFungsi(const nusantara::Titik&) {
   // Tidak mengeksekusi apa apa
 } // function kunjungiTitikTempatParameterPanggilFungsi
+
+void nusantara::Penafsir::kunjungiTitikAkhirDariFile(const nusantara::Titik& titik) {
+  // Tidak mengeksekusi apa apa
+} // function kunjungiTitikAkhirDariFile

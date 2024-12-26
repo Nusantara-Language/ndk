@@ -22,8 +22,10 @@ std::string nusantara::tipeTitikKeString(const TipeTitik &type) {
       return "TEMPAT PARAMETER PANGGIL FUNGSI";
     case TOKEN:
       return "TOKEN";
+    case AKHIR_DARI_FILE:
+      return "AKHIR_DARI_FILE";
     default:
-      std::cerr << "Invalid Node type!" << '\n';
+      std::cerr << "[Fungsi tipeTitikKeString] Tipe titik tidak dapat di ubah menjadi string." << '\n';
       break;
   } // switch
   

@@ -45,3 +45,8 @@ bool nusantara::PenganalisisSemantik::kunjungiTitikPernyataanEkspresi(const Titi
 bool nusantara::PenganalisisSemantik::kunjungiTitikTempatParameterPanggilFungsi(const Titik&) {
   return true;
 } // function kunjungiTitikTempatParameterPanggilFungsi
+
+bool nusantara::PenganalisisSemantik::kunjungiTitikAkhirDariFile(const Titik& titik) {
+  // Tidak mengeksekusi apa apa
+  return true;
+} // function kunjungiTitikAkhirDariFile

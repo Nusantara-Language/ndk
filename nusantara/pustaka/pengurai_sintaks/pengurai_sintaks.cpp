@@ -90,6 +90,12 @@ void nusantara::PenguraiSintaks::uraikan() {
     } // catch
   } // while
 
+  try {
+    titik.tambahTitikTurunan(this->uraiAkhirDariFile());
+  } catch (const DataPengecualianSintaks &data) {
+    this->pengecualianSintaks.tambahData(data);
+  } // catch
+
   if(this->pengecualianSintaks.apaKahAdaData()) {
     this->pengecualianSintaks.perbaruiPesanSesuaiData();
     nstd::cetak(this->pengecualianSintaks.what());
@@ -198,6 +204,30 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiTempatParamete
 
   return std::make_unique<Titik>(std::move(titik));
 } // function uraiTempatParameterPanggilFungsi
+
+std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiAkhirDariFile() {
+  auto titik = Titik{TipeTitik::AKHIR_DARI_FILE};
+  if(this->apakahSudahDiAkhirFile()) {
+    if(!this->psa) {
+      titik.tambahTitikTurunan(
+          std::make_unique<Titik>(
+            Titik{
+              TipeTitik::TOKEN,
+              this->tokenSaatIni()
+            } // constructor Titik
+          ) // constructor make_unique
+        ); // function tambahTitikTurunan
+    } // if
+  }else{
+    throw DataPengecualianSintaks{
+      .lokasiBerkas=this->tokenSaatIni().lokasiBerkas,
+      .lokasiToken=this->tokenSaatIni().lokasi,
+      .konten=this->tokenSaatIni().konten,
+      .pesan="[PENGURAI SINTAKS] harus nya akhir dari file."
+    }; // throw
+  } // else
+  return std::make_unique<Titik>(std::move(titik));
+} // fungsi uraiAkhirDariFile
 
 void nusantara::PenguraiSintaks::cetak() {
   if(this->hasilPenguraian != nullptr) {

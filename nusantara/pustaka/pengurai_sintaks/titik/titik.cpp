@@ -59,8 +59,11 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
     case TipeTitik::TOKEN:
         pendengar.tokenMasuk(*this);
         break;
+    case TipeTitik::AKHIR_DARI_FILE:
+        pendengar.akhirDariFileMasuk(*this);
+        break;
     default:
-        std::cerr << "Tipe titik tidak dapat di dengar." << std::endl;
+        std::cerr << "[Class Titik] Tipe titik tidak dapat di dengar." << std::endl;
         break;
   } // switch
 
@@ -84,8 +87,11 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
     case TipeTitik::TOKEN:
         pendengar.tokenKeluar(*this);
         break;
+    case TipeTitik::AKHIR_DARI_FILE:
+        pendengar.akhirDariFileKeluar(*this);
+        break;
     default:
-        std::cerr << "Tipe titik tidak dapat di dengar." << std::endl;
+        std::cerr << "[Class Titik] Tipe titik tidak dapat di dengar." << std::endl;
         break;
   } // switch
   

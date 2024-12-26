@@ -46,6 +46,10 @@ namespace nusantara {
       virtual void tokenMasuk(const Titik &titik) = 0;
 
       virtual void tokenKeluar(const Titik &titik) = 0;
+
+      virtual void akhirDariFileMasuk(const Titik &titik) = 0;
+
+      virtual void akhirDariFileKeluar(const Titik &titik) = 0;
     // akhir dari access modifiers public
 
   }; // class APendengarTitik
