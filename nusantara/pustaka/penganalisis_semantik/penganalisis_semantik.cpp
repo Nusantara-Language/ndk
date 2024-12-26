@@ -7,46 +7,49 @@
  * ----------------------------------------------------------------------------
  */
 
-#include <algorithm>
-#include <iostream>
 #include <memory>
 #include <string>
 
 #include "penganalisis_semantik/penganalisis_semantik.hpp"
+#include "cetak/cetak.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
 
-bool nusantara::PenganalisisSemantik::kunjungiTitikToken(const Titik&) {
-  return true;
+void nusantara::PenganalisisSemantik::kunjungiTitikToken(const Titik&) {
+  // Tidak melakukan apa-apa
 } // function kunjungiTitikToken
 
-bool nusantara::PenganalisisSemantik::kunjungiTitikPanggilFungsi(const Titik& titik) {
-  if(titik.ambilKumpulanTitikTurunan().empty()) {
-    std::cerr << "[AS] Kesalahan: pemanggilan fungsi tanpa nama" << std::endl;
-    return false;
+void nusantara::PenganalisisSemantik::kunjungiTitikPanggilFungsi(const Titik& titik) {
+  const Token& namaFungsiToken = titik.ambilKumpulanTitikTurunan()[0]->ambilToken().value();
+  if (namaFungsiToken.konten != "halodunia") {
+    this->pengecualianSintaks.tambahData({
+      namaFungsiToken.lokasiBerkas,
+      namaFungsiToken.lokasi,
+      namaFungsiToken.konten,
+      "[AS] fungsi '" + namaFungsiToken.konten + "' belum dibuat."
+    }); // function tambahData
   } // if
-
-  const std::string functionName = titik.ambilKumpulanTitikTurunan()[0]->ambilToken()->konten;
-  if (functionName != "halodunia") {
-    std::cerr << "[AS] Kesalahan: fungsi '" << functionName << "' tidak dikenali." << std::endl;
-    return false;
-  } // if
-
-  return true;
 } // function kunjungiTitikPanggilFungsi
 
-bool nusantara::PenganalisisSemantik::kunjungiTitikAwal(const Titik& titik) {
-  return std::all_of(titik.ambilKumpulanTitikTurunan().begin(), titik.ambilKumpulanTitikTurunan().end(), [this](const std::unique_ptr<Titik>& titikTurunan) { return titikTurunan->terima<bool>(*this); });
+void nusantara::PenganalisisSemantik::kunjungiTitikAwal(const Titik& titik) {
+  for(const auto& titikTurunan: titik.ambilKumpulanTitikTurunan()) {
+    titikTurunan->terima(*this);
+  }
 } // function kunjungiTitikAwal 
 
-bool nusantara::PenganalisisSemantik::kunjungiTitikPernyataanEkspresi(const Titik& titik) {
-  return std::all_of(titik.ambilKumpulanTitikTurunan().begin(), titik.ambilKumpulanTitikTurunan().end(), [this](const std::unique_ptr<Titik>& titikTurunan) { return titikTurunan->terima<bool>(*this); });
+void nusantara::PenganalisisSemantik::kunjungiTitikPernyataanEkspresi(const Titik& titik) {
+  for(const auto& titikTurunan: titik.ambilKumpulanTitikTurunan()) {
+    titikTurunan->terima(*this);
+  }
 } // function kunjungiTitikPernyataanEkspresi
 
-bool nusantara::PenganalisisSemantik::kunjungiTitikTempatParameterPanggilFungsi(const Titik&) {
-  return true;
+void nusantara::PenganalisisSemantik::kunjungiTitikTempatParameterPanggilFungsi(const Titik&) {
+  // Tidak melakukan apa-apa
 } // function kunjungiTitikTempatParameterPanggilFungsi
 
-bool nusantara::PenganalisisSemantik::kunjungiTitikAkhirDariFile(const Titik& titik) {
-  // Tidak mengeksekusi apa apa
-  return true;
+void nusantara::PenganalisisSemantik::kunjungiTitikAkhirDariFile(const Titik& titik) {;
+  if(this->pengecualianSintaks.apaKahAdaData()) {
+    this->pengecualianSintaks.perbaruiPesanSesuaiData();
+    nstd::cetak(this->pengecualianSintaks.what());
+    exit(0);
+  } // if
 } // function kunjungiTitikAkhirDariFile

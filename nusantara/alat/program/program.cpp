@@ -78,7 +78,7 @@ void prosesBerkasPenerjemah(const std::string &lokasiFile) {
   penguraiSintaks.uraikan();
 
   nusantara::PenganalisisSemantik penganalisisSemantik;
-  if(!penguraiSintaks.ambilHasil()->terima(penganalisisSemantik)) return;
+  penguraiSintaks.ambilHasil()->terima(penganalisisSemantik);
 
   nusantara::Penafsir penafsir;
   penguraiSintaks.ambilHasil()->terima(penafsir);

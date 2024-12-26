@@ -9,19 +9,23 @@
 
 #pragma once
 
+#include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "pengunjung/a_pengunjung_titik.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
 
 namespace nusantara {
 
-  class PenganalisisSemantik: public APengunjungTitik<bool> {
+  class PenganalisisSemantik: public APengunjungTitik<void> {
+    public:
+      PenganalisisSemantik(): pengecualianSintaks() {}
     private:
-      bool kunjungiTitikToken(const Titik &titik) override;
-      bool kunjungiTitikPanggilFungsi(const Titik &titik) override;
-      bool kunjungiTitikAwal(const Titik &titik) override;
-      bool kunjungiTitikTempatParameterPanggilFungsi(const Titik &titik) override;
-      bool kunjungiTitikPernyataanEkspresi(const Titik &titik) override;
-      bool kunjungiTitikAkhirDariFile(const Titik &titik) override;
+      PengecualianSintaks pengecualianSintaks;
+      void kunjungiTitikToken(const Titik &titik) override;
+      void kunjungiTitikPanggilFungsi(const Titik &titik) override;
+      void kunjungiTitikAwal(const Titik &titik) override;
+      void kunjungiTitikTempatParameterPanggilFungsi(const Titik &titik) override;
+      void kunjungiTitikPernyataanEkspresi(const Titik &titik) override;
+      void kunjungiTitikAkhirDariFile(const Titik &titik) override;
     // akhir dari access modifiers private
 
   }; // class PenganalisisSemantik
