@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "token/token_regex.hpp"
 #include "token/tipe_token.hpp"
 #include "token/token.hpp"
@@ -21,7 +22,7 @@ namespace nusantara {
   class PemecahSintaks {
     public:
       explicit PemecahSintaks(std::set<TokenRegex> tokenRegexs)
-        : tokenRegexs(std::move(tokenRegexs)), lokasiToken({1, 1}) {}
+        : tokenRegexs(std::move(tokenRegexs)), lokasiToken({1, 1}), pengecualianSintaks() {}
 
       void aturLokasiBerkas(const std::string& lokasiBerkas);
       
@@ -37,6 +38,8 @@ namespace nusantara {
     private:
       std::string lokasiBerkas;
       std::string konten;
+
+      PengecualianSintaks pengecualianSintaks;
 
       std::set<TokenRegex> tokenRegexs;
 

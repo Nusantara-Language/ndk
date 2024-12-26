@@ -7,13 +7,13 @@
  * ----------------------------------------------------------------------------
  */
 
-#include <iostream>
 #include <cstdlib>
 #include <utility>
 #include <string>
 #include <vector>
 #include <regex>
 
+#include "alat.hpp"
 #include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "pemecah_sintaks/pemecah_sintaks.hpp"
 #include "token/tipe_token.hpp"
@@ -24,7 +24,7 @@ void nusantara::PemecahSintaks::aturLokasiBerkas(const std::string& lokasiBerkas
 } // function aturLokasiBerkas
       
 void nusantara::PemecahSintaks::aturKonten(const std::string& konten) {
-  this->konten = konten;
+  this->konten = nstd::hapusRuangKosongDiAwalDanAkhirString(konten);
 } // function aturKonten
 
 void nusantara::PemecahSintaks::buatToken(Token& token) {
@@ -41,11 +41,6 @@ void nusantara::PemecahSintaks::buatToken(Token& token) {
       break;
     } // if
   } // for
-
-  if (!std::regex_search(this->konten, dataYangSama, std::regex(""))) {
-    std::cerr << "[PS] Tidak dapat membuat token dari konten.\n";
-    return;
-  } // if
 } // function buatToken
 
 void nusantara::PemecahSintaks::buatBanyakToken() {
@@ -53,14 +48,12 @@ void nusantara::PemecahSintaks::buatBanyakToken() {
     Token token;
     this->buatToken(token);
     if(token.tipe == TipeToken::tidakDiketahui) {
-      nstd::cetak(
-        PengecualianSintaks(
+      this->pengecualianSintaks.tambahData({
           token.lokasiBerkas, 
           token.lokasi, 
           token.konten, 
-          "[PS] Karakter tidak di ketahui."
-        ).ambilPesan()
-      ); // fungsi cetak
+          "[PEMECAH SINTAKS] Karakter tidak di ketahui."
+      }); // function tambahData
     }else if (token.tipe != TipeToken::ruangKosong && token.tipe != TipeToken::barisBaru) {
       this->hasilTokenisasi.push_back(std::move(token));
     } // if
@@ -93,6 +86,12 @@ const std::vector<nusantara::Token>& nusantara::PemecahSintaks::ambilHasil() con
 
 void nusantara::PemecahSintaks::tokenisasi() {
   this->buatBanyakToken();
+
+  if(this->pengecualianSintaks.apaKahAdaData()) {
+    this->pengecualianSintaks.perbaruiPesanSesuaiData();
+    nstd::cetak(this->pengecualianSintaks.what());
+    exit(1);
+  }
 } // function tokenisasi
 
 void nusantara::PemecahSintaks::cetak() {

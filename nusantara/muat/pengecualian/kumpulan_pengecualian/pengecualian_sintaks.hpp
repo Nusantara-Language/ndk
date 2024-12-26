@@ -9,21 +9,39 @@
 
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include "pengecualian/antarmuka/a_pengecualian.h"
 #include "token/token.hpp"
-#include <string>
 
 namespace nusantara {
 
+  struct DataPengecualianSintaks {
+    std::string lokasiBerkas;
+    LokasiToken lokasiToken;
+    std::string konten;
+    std::string pesan;
+  }; // struct DataPengecualianSintaks
+
   class PengecualianSintaks: public APengecualian {
     public:
-      PengecualianSintaks(const std::string& lokasiBerkas, const LokasiToken& lokasi, const std::string& konten, const std::string& pesan);
+      PengecualianSintaks();
+
+      PengecualianSintaks(const std::vector<DataPengecualianSintaks>& kumpulanData);
+
+      PengecualianSintaks(const DataPengecualianSintaks& data);
+      
+      void perbaruiPesanSesuaiData();
+
+      bool apaKahAdaData();
+
+      void tambahData(const DataPengecualianSintaks& data);
     // akhir dari access modifiers public
   
     private:
-      std::string lokasiBerkas;
-      std::string konten;
-      LokasiToken lokasi;
+      std::vector<DataPengecualianSintaks> kumpulanData;
+
     // akhir dari access modifiers private
   
     protected:

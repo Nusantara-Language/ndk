@@ -8,43 +8,88 @@
  */
 
 #include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
+#include "pengecualian/antarmuka/a_pengecualian.h"
 #include "token/token.hpp"
 #include "alat.hpp"
 
 #include <algorithm>
 #include <format>
 #include <string>
-#include <variant>
 #include <vector>
 
+nusantara::PengecualianSintaks::PengecualianSintaks(): PengecualianSintaks(std::vector<DataPengecualianSintaks>{}) {} // constructor PengecualianSintaks
+
 nusantara::PengecualianSintaks::PengecualianSintaks(
-  const std::string& lokasiBerkas, 
-  const LokasiToken& lokasi, 
-  const std::string& konten,
-  const std::string& pesan
-): APengecualian(pesan), lokasiBerkas(lokasiBerkas), lokasi(lokasi), konten(konten) {
-  /**
-   * @brief Format pesan kesalahan yang akan muuncul di terminal
-   * 
-   * @code {terminal}
-   * main.n:5:10
-   *
-   * 1| halodunia-=();
-   *             ^
-   * Karakter tidak di kenali.
-   * @endcode
-   */
-  std::variant<std::string, std::vector<std::string>> kontenBerkas = nstd::bacaBerkasDalamBentukString(lokasiBerkas);
-  kontenBerkas = nstd::pisahkanStringDenganPembatas(std::get<std::string>(kontenBerkas), '\n');
-  const std::vector<std::string>& kontenBerkasVector = std::get<std::vector<std::string>>(kontenBerkas);
+  const std::vector<DataPengecualianSintaks>& kumpulanData
+): APengecualian("[Class PengecualianSintaks] Pesan pengecualian belum dibuat."), kumpulanData(kumpulanData) {} // constructor PengecualianSintaks
 
-  std::string prefix = std::format("{}| ", this->lokasi.baris);
-  int jarakPanah = prefix.size() + this->lokasi.kolom - 1;
+nusantara::PengecualianSintaks::PengecualianSintaks(
+  const DataPengecualianSintaks& data
+): PengecualianSintaks(std::vector<DataPengecualianSintaks>{data}) {} // constructor PengecualianSintaks
 
-  std::string pesanBaru = std::format("{}:{}:{}\n\n", this->lokasiBerkas, this->lokasi.baris, this->lokasi.kolom);
-  pesanBaru += std::format("{}{}\n", prefix, kontenBerkasVector[(this->lokasi.baris - 1) > (kontenBerkasVector.size() - 1) ? (kontenBerkasVector.size() - 1) : (this->lokasi.baris - 1)]);
-  pesanBaru += std::format("{}{}\n", std::string(jarakPanah, ' '), std::string(this->konten.size(), '^'));
-  pesanBaru += std::format("{}{}\n\n\n", std::string(std::max(0, jarakPanah + (static_cast<int>(this->konten.size()) - 1) - (static_cast<int>(this->pesan.size()) - 1) / 2) - (static_cast<int>(this->konten.size() - 1) / 2), ' '), this->pesan);
+void nusantara::PengecualianSintaks::perbaruiPesanSesuaiData() {
+  std::string lokasiBerkasSebelumnya;
+  std::vector<std::string> kontenBerkas;
+  LokasiToken lokasiTokenSebelumnya{0, 0};
+  std::string kontenSebelumnya;
+  std::string pesanSebelumnya;
 
-  this->pesan = pesanBaru;
-} // constructor PengecualianSintaks
+  // Hasil akhir
+  std::string hasil;
+
+  // Fungsi untuk mencetak pesan ke hasil
+  auto cetakPesan = [&](const std::string& lokasiBerkas, const LokasiToken& lokasiToken, const std::string& konten, const std::string& pesan) {
+    if (pesan.empty()) return;
+
+    // Format lokasi, baris kode, dan panah
+    std::string prefix = std::format("{}| ", lokasiToken.baris);
+    int jarakPanah = prefix.size() + lokasiToken.kolom - 1;
+
+    hasil += "---------------------------------------------\n";
+    hasil += std::format("{}:{}:{}\n\n", lokasiBerkas, lokasiToken.baris, lokasiToken.kolom);
+    hasil += std::format("{}{}\n", prefix, kontenBerkas[lokasiToken.baris - 1]);
+    hasil += std::format("{}{}\n", std::string(jarakPanah, ' '), std::string(std::max(1, static_cast<int>(konten.size())), '^'));
+    hasil += pesan + "\n\n";
+  };
+
+  // Iterasi melalui kumpulan data
+  for (const auto& data : this->kumpulanData) {
+    // Jika file berubah, cetak pesan sebelumnya dan reset
+    if (lokasiBerkasSebelumnya != data.lokasiBerkas) {
+      cetakPesan(lokasiBerkasSebelumnya, lokasiTokenSebelumnya, kontenSebelumnya, pesanSebelumnya);
+      lokasiBerkasSebelumnya = data.lokasiBerkas;
+      kontenBerkas = nstd::pisahkanStringDenganPembatas(nstd::bacaBerkasDalamBentukString(lokasiBerkasSebelumnya), '\n');
+      lokasiTokenSebelumnya = data.lokasiToken;
+      kontenSebelumnya = data.konten;
+      pesanSebelumnya = data.pesan;
+      continue;
+    }
+
+    // Jika pada baris yang sama dan pesan yang sama, gabungkan panah
+    if (lokasiTokenSebelumnya.baris == data.lokasiToken.baris && pesanSebelumnya == data.pesan) {
+      int panjangTambahan = data.lokasiToken.kolom - (lokasiTokenSebelumnya.kolom + kontenSebelumnya.size());
+      kontenSebelumnya += std::string(std::max(0, panjangTambahan), ' ') + data.konten;
+    } 
+    // Jika pesan berbeda, cetak pesan sebelumnya dan mulai baru
+    else {
+      cetakPesan(lokasiBerkasSebelumnya, lokasiTokenSebelumnya, kontenSebelumnya, pesanSebelumnya);
+      lokasiTokenSebelumnya = data.lokasiToken;
+      kontenSebelumnya = data.konten;
+      pesanSebelumnya = data.pesan;
+    }
+  }
+
+  // Cetak pesan terakhir
+  cetakPesan(lokasiBerkasSebelumnya, lokasiTokenSebelumnya, kontenSebelumnya, pesanSebelumnya);
+
+  // Trim hasil dan simpan
+  this->pesan = nstd::hapusRuangKosongDiAwalDanAkhirString(hasil);
+} // function perbaruiPesanSesuaiData
+
+bool nusantara::PengecualianSintaks::apaKahAdaData() {
+  return !this->kumpulanData.empty();
+}
+
+void nusantara::PengecualianSintaks::tambahData(const DataPengecualianSintaks& data) {
+  this->kumpulanData.push_back(data);
+}

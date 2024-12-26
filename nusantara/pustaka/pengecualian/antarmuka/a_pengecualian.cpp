@@ -13,7 +13,3 @@
 const char* nusantara::APengecualian::what() const noexcept {
   return this->pesan.c_str();
 }
-
-const std::string& nusantara::APengecualian::ambilPesan() {
-  return this->pesan;
-}

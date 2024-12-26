@@ -7,33 +7,20 @@
  * ----------------------------------------------------------------------------
  */
 
-#include <stdexcept>
 #include <algorithm>
-#include <iostream>
 #include <cstdlib>
 #include <utility>
 #include <memory>
 #include <string>
 #include <vector>
 
+#include "cetak/cetak.hpp"
 #include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "pengurai_sintaks/pengurai_sintaks.hpp"
 #include "pengunjung/a_pengunjung_titik.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
 #include "pendengar/a_pendengar_titik.hpp"
 #include "token/tipe_token.hpp"
-
-nusantara::PengecualianSintaks nusantara::PenguraiSintaks::kesalahan(
-  const nusantara::Token &token,
-  const std::string &pesan
-) {
-  return PengecualianSintaks(
-    token.lokasiBerkas, 
-    token.lokasi, 
-    token.konten, 
-    pesan
-  ); // constructor PengecualianSintaks
-} // function kesalahan
 
 const nusantara::Token& nusantara::PenguraiSintaks::tokenSaatIni() const {
   return this->kumpulanToken[this->indeksTokenSaatIni];
@@ -52,7 +39,7 @@ bool nusantara::PenguraiSintaks::cekTipeToken(const TipeToken &tipe) const {
 
 const nusantara::Token& nusantara::PenguraiSintaks::tokenSebelumnya() {
   if (this->indeksTokenSaatIni == 0) {
-    throw std::out_of_range("[PS] Berusaha mengakses token sebelum indeks awal.");
+    return this->kumpulanToken[0];
   }
   return this->kumpulanToken[this->indeksTokenSaatIni - 1];
 } // function tokenSebelumnya
@@ -71,7 +58,12 @@ const nusantara::Token& nusantara::PenguraiSintaks::makanToken(
   if (this->cekTipeToken(tipe)) {
     return this->majuKeTokenSelanjutnya();
   }
-  throw PenguraiSintaks::kesalahan(this->tokenSaatIni(), pesanKesalahan);
+  throw DataPengecualianSintaks{
+    .lokasiBerkas=this->tokenSaatIni().lokasiBerkas,
+    .lokasiToken=this->tokenSaatIni().lokasi,
+    .konten=this->tokenSaatIni().konten,
+    .pesan=pesanKesalahan
+  };
 } // function makanToken
 
 bool nusantara::PenguraiSintaks::apakahTokenSaatIniAdalah(const std::vector<nusantara::TipeToken> &kumpulanTipeToken) {
@@ -92,11 +84,18 @@ void nusantara::PenguraiSintaks::uraikan() {
   while (!this->apakahSudahDiAkhirFile()) {
     try {
       titik.tambahTitikTurunan(this->uraiPernyataanEkspresi());
-    } catch (const PengecualianSintaks &error) {
-      std::cerr << error.what();
+    } catch (const DataPengecualianSintaks &data) {
+      this->pengecualianSintaks.tambahData(data);
       this->majuKeTokenSelanjutnya();
     } // catch
   } // while
+
+  if(this->pengecualianSintaks.apaKahAdaData()) {
+    this->pengecualianSintaks.perbaruiPesanSesuaiData();
+    nstd::cetak(this->pengecualianSintaks.what());
+    exit(1);
+  }
+
   this->hasilPenguraian = std::make_unique<Titik>(std::move(titik));
 } // function uraikan
 
@@ -106,7 +105,7 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataanEksp
   auto makanTokenTitikKoma = [this] -> const Token & {
     return this->makanToken(
       nusantara::TipeToken::titikKoma,
-      "[PS] Jangan lupa titik koma."
+      "[PENGURAI SINTAKS] Jangan lupa titik koma."
     ); // fucntion makanToken
   }; // lambda makanTokenTitikKoma
 
@@ -124,9 +123,7 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataanEksp
         ) // constructor make_unique
       ); // function tambahTitikTurunan
     } // else
-  }else{
-    throw nusantara::PenguraiSintaks::kesalahan(this->tokenSaatIni(), "[PS] Pernyataan ekspresi tidak benar.");
-  } // else
+  }
 
   // Jika hanya ada 1 titik turunan saja itu yang akan di keluarkan.
   if(titik.ambilKumpulanTitikTurunan().size() == 1 && this->psa) {
@@ -145,7 +142,7 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPanggilFungsi(
         TipeTitik::TOKEN, 
         this->makanToken(
           nusantara::TipeToken::identifikasi,
-          "[PS] Nama fungsi belum ditentukan."
+          "[PENGURAI SINTAKS] Nama fungsi belum dibuat."
         ) // function makanToken
       } // constructor Titik
     ) // constructor make_unique
@@ -165,14 +162,14 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiTempatParamete
   auto makanTokenKurungBulatBuka = [this] -> const nusantara::Token& {
     return this->makanToken(
       TipeToken::kurungBulatBuka,
-      "[PS] Tempat parameter pada fungsi harus ada kurung bulat buka '('."
+      "[PENGURAI SINTAKS] Tempat parameter pada fungsi harus ada kurung bulat buka '('."
     ); // function makanToken
   }; // lambda makanTokenKurungBulatBuka
 
   auto makanTokenKurungBulatTutup = [this] -> const nusantara::Token& {
     return this->makanToken(
       TipeToken::kurungBulatTutup,
-      "[PS] Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
+      "[PENGURAI SINTAKS] Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
     ); // function makanToken
   }; // lambda makanTokenKurungBulatTutup
 

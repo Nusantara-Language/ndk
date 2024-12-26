@@ -23,7 +23,7 @@ namespace nusantara {
 
   class PenguraiSintaks {
     public:
-      explicit PenguraiSintaks(const bool &psa): psa(psa) {}
+      explicit PenguraiSintaks(const bool &psa): psa(psa), pengecualianSintaks() {}
 
       explicit PenguraiSintaks(): PenguraiSintaks(false) {}
 
@@ -43,12 +43,9 @@ namespace nusantara {
 
       std::unique_ptr<Titik> hasilPenguraian;
 
-      bool psa;
+      PengecualianSintaks pengecualianSintaks;
 
-      static PengecualianSintaks kesalahan(
-        const nusantara::Token &token, 
-        const std::string &pesan
-      );
+      bool psa;
 
       [[nodiscard]] const nusantara::Token & tokenSaatIni() const;
 

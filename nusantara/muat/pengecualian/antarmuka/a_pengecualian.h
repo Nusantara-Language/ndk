@@ -19,9 +19,7 @@ namespace nusantara {
       virtual ~APengecualian() = default;
       explicit APengecualian(const std::string& pesan) : pesan(pesan) {}
       
-      const char* what() const noexcept override;
-      
-      const std::string& ambilPesan();
+      virtual const char* what() const noexcept override;
     // akhir dari access modifiers public
   
     private:
