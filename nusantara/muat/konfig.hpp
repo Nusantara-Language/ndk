@@ -7,4 +7,4 @@
  * ----------------------------------------------------------------------------
  */
 
-#define PERLIHATKAN_WAKTU_EKSEKUSI 1
+/* #undef PERLIHATKAN_WAKTU_EKSEKUSI */

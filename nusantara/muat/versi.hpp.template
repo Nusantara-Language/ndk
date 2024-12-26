@@ -9,4 +9,4 @@
 
 #pragma once
 
-#define VERSI "0.0.1-dev"
+#define VERSI "@NUSANTARA_VERSION@"

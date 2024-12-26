@@ -36,6 +36,20 @@
 #   message(FATAL_ERROR "libxml2 tidak ditemukan. Pastikan libxml2_DIR diatur dengan benar atau libxml2 terinstal.")
 # endif()
 
+# Opsi untuk memperlihatkan waktu eksekusi (ON/OFF)
+option(PERLIHATKAN_WAKTU_EKSEKUSI "Memperlihatkan waktu yang di perlukan program untuk di eksekusi sampai selesai." ON)
+
+# Versi proyek
+set(NUSANTARA_VERSION_SUFFIX "-dev")
+set(NUSANTARA_VERSION "0.0.1${NUSANTARA_VERSION_SUFFIX}")
+
+# Perlihatkan waktu eksekusi
+set(PERLIHATKAN_WAKTU_EKSEKUSI OFF)
+
+# Atur versi header sesuai template
+configure_file(${CMAKE_SOURCE_DIR}/nusantara/muat/konfig.hpp.template ${CMAKE_SOURCE_DIR}/nusantara/muat/konfig.hpp)
+configure_file(${CMAKE_SOURCE_DIR}/nusantara/muat/versi.hpp.template ${CMAKE_SOURCE_DIR}/nusantara/muat/versi.hpp)
+
 # SRC FILE
 file(GLOB_RECURSE LIB_SOURCES 
   "pustaka/**/*.cpp" 

@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.31)
 
 # Nama proyek
-project(nusantara)
+project(NDK VERSION 0.0.1)
 
 # Opsi untuk tipe build (Debug/Release)
 option(CMAKE_BUILD_TYPE "Build type (Debug/Release)" "Release")

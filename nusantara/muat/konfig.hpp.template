@@ -7,6 +7,4 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
-
-#define VERSI "0.0.1-dev"
+#cmakedefine PERLIHATKAN_WAKTU_EKSEKUSI
