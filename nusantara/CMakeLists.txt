@@ -37,11 +37,14 @@
 # endif()
 
 # SRC FILE
-file(GLOB_RECURSE LIB_SOURCES "pustaka/**/*.cpp")
+file(GLOB_RECURSE LIB_SOURCES 
+  "pustaka/**/*.cpp" 
+  "pustaka/*.cpp"
+)
 
 # Executable
-add_executable(nusantara "alat/program/program.cpp" ${LIB_SOURCES})
-add_executable(tests "tests/test.cpp" ${LIB_SOURCES})
+add_executable(nusantara "program/nusantara/nusantara.cpp" ${LIB_SOURCES})
+add_executable(tests "program/test/test.cpp" ${LIB_SOURCES})
 
 # Include folder
 target_include_directories(tests PRIVATE "muat")
@@ -54,10 +57,7 @@ target_include_directories(nusantara PRIVATE ${LLD_INCLUDE_DIRS})
 link_directories(${LLVM_LIBRARY_DIRS})
 
 # Link library
-target_link_libraries(tests PRIVATE nstdcpp)
 target_link_libraries(nusantara PRIVATE
-# NSTDCPP
-nstdcpp
 # LLVM
 # libLLVMAArch64AsmParser.a
 # libLLVMAArch64CodeGen.a

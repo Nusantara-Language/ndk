@@ -11,5 +11,5 @@
 #include "cetak/cetak.hpp"
 
 void nusantara::IntruksiHaloDunia::jalankan() {
-  nstd::cetakDBB("Halo Dunia!");
+  nusantara::cetakDBB("Halo Dunia!");
 } // function jalankan

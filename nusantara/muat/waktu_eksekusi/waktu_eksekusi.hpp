@@ -11,7 +11,7 @@
 
 #include <chrono>
 
-namespace nstd {
+namespace nusantara {
 
   class WaktuEksekusi {
     public:
@@ -33,4 +33,4 @@ namespace nstd {
 
   }; // class WaktuEksekusi
 
-} // namespace nstd
+} // namespace nusantara

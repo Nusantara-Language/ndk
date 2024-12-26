@@ -68,7 +68,7 @@ std::string nusantara::Perintah::ubahKeString() const  {
 
 void nusantara::Perintah::eksekusi(EksekusiPerintah &eksekusiPerintah, size_t &indeksSaatIni, std::vector<std::string> &argumen) {
   if(this->tanpaArgumen && argumen.size() > 2) {
-    nstd::cetakDF("Perintah {} tidak memerlukan argumen.", this->nama);
+    nusantara::cetakDF("Perintah {} tidak memerlukan argumen.", this->nama);
     return;
   }
   this->intruksi(eksekusiPerintah, indeksSaatIni, argumen);

@@ -54,7 +54,7 @@ int main() {
   };
 
   kumpulanPengecualianSintaks.perbaruiPesanSesuaiData();
-  nstd::cetakDBB(kumpulanPengecualianSintaks.what());
+  nusantara::cetakDBB(kumpulanPengecualianSintaks.what());
 
   return 0;
 }

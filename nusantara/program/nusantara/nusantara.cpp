@@ -26,24 +26,24 @@
 #endif
 
 void info(nusantara::EksekusiPerintah& eksekusiPerintah, size_t& indeksSaatIni, std::vector<std::string>& argumen) {
-  nstd::cetakDBB("Penggunaan: nusantara <perintah> [argumen]\n");
-  nstd::cetakDBB("Perintah yang tersedia:");
+  nusantara::cetakDBB("Penggunaan: nusantara <perintah> [argumen]\n");
+  nusantara::cetakDBB("Perintah yang tersedia:");
 
   for (const auto& perintah : eksekusiPerintah.ambilKumpulanPerintah()) {
     bool iniPerintahAwal = perintah.ambilNama() == eksekusiPerintah.ambilKumpulanPerintah().begin()->ambilNama();
-    nstd::cetakDF("{}{}", (iniPerintahAwal ? " " : "\n "), perintah.ubahKeString());
+    nusantara::cetakDF("{}{}", (iniPerintahAwal ? " " : "\n "), perintah.ubahKeString());
   } // for
 } // function info
 
 void versi(nusantara::EksekusiPerintah&, size_t &, std::vector<std::string>&) {
-  nstd::cetakDF("nusantara v{}", VERSI);
+  nusantara::cetakDF("nusantara v{}", VERSI);
 } // function versi
 
 void prosesBerkasPemecahSintaks(const std::string &lokasiFile) {
   nusantara::PemecahSintaks pemecahSintaks(nusantara::nusantaraTokenRegexs());
 
   pemecahSintaks.aturLokasiBerkas(lokasiFile);
-  pemecahSintaks.aturKonten(nstd::bacaBerkasDalamBentukString(lokasiFile));
+  pemecahSintaks.aturKonten(nusantara::bacaBerkasDalamBentukString(lokasiFile));
 
   pemecahSintaks.tokenisasi();
   pemecahSintaks.cetak();
@@ -53,7 +53,7 @@ void prosesBerkasPenguraiSintaks(const std::string &lokasiFile, const bool& psa 
   nusantara::PemecahSintaks pemecahSintaks(nusantara::nusantaraTokenRegexs());
 
   pemecahSintaks.aturLokasiBerkas(lokasiFile);
-  pemecahSintaks.aturKonten(nstd::bacaBerkasDalamBentukString(lokasiFile));
+  pemecahSintaks.aturKonten(nusantara::bacaBerkasDalamBentukString(lokasiFile));
 
   pemecahSintaks.tokenisasi();
 
@@ -68,7 +68,7 @@ void prosesBerkasPenerjemah(const std::string &lokasiFile) {
   nusantara::PemecahSintaks pemecahSintaks(nusantara::nusantaraTokenRegexs());
 
   pemecahSintaks.aturLokasiBerkas(lokasiFile);
-  pemecahSintaks.aturKonten(nstd::bacaBerkasDalamBentukString(lokasiFile));
+  pemecahSintaks.aturKonten(nusantara::bacaBerkasDalamBentukString(lokasiFile));
 
   pemecahSintaks.tokenisasi();
 
@@ -90,7 +90,6 @@ void prosesBerkas(
   std::vector<std::string>& argumen
 ) {
   std::string lokasiFile = argumen[indeksSaatIni];
-  nusantara::PemecahSintaks lexer(nusantara::nusantaraTokenRegexs());
   
   if(argumen.size() < 3) {
     argumen.emplace_back("-p");
@@ -124,13 +123,13 @@ void prosesBerkas(
     } // if
   } // if
 
-  nstd::cetakDF("Argumen '{}' tidak dikenali", argumen[indeksSaatIni]);
+  nusantara::cetakDF("Argumen '{}' tidak dikenali", argumen[indeksSaatIni]);
 } // function prosesBerkas
 
 auto main(int argc, const char* argv[]) -> int {
 
   #ifdef PERLIHATKAN_WAKTU_EKSEKUSI
-    nstd::WaktuEksekusi::mulai();
+    nusantara::WaktuEksekusi::mulai();
   #endif
 
   nusantara::EksekusiPerintah eksekusiPerintah;
@@ -160,8 +159,8 @@ auto main(int argc, const char* argv[]) -> int {
   eksekusiPerintah.eksekusi({argv, argv + argc});
 
   #ifdef PERLIHATKAN_WAKTU_EKSEKUSI
-    nstd::WaktuEksekusi::selesai();
-    nstd::WaktuEksekusi::cetak();
+    nusantara::WaktuEksekusi::selesai();
+    nusantara::WaktuEksekusi::cetak();
   #endif
 
   return 0;

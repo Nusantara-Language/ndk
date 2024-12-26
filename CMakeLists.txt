@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.31)
 
 # Nama proyek
-project(nusantara VERSION 0.0.1)
+project(nusantara)
 
 # Opsi untuk tipe build (Debug/Release)
 option(CMAKE_BUILD_TYPE "Build type (Debug/Release)" "Release")
@@ -49,5 +49,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 set(CMAKE_INCLUDE_DIRECTORY_RELEASE ${CMAKE_INCLUDE_DIRECTORY})
 
 # Sub folder proyek
-add_subdirectory(nstdcpp)
 add_subdirectory(nusantara)

@@ -24,7 +24,7 @@ void nusantara::PemecahSintaks::aturLokasiBerkas(const std::string& lokasiBerkas
 } // function aturLokasiBerkas
       
 void nusantara::PemecahSintaks::aturKonten(const std::string& konten) {
-  this->konten = nstd::hapusRuangKosongDiAwalDanAkhirString(konten);
+  this->konten = nusantara::hapusRuangKosongDiAwalDanAkhirString(konten);
 } // function aturKonten
 
 void nusantara::PemecahSintaks::buatToken(Token& token) {
@@ -89,13 +89,13 @@ void nusantara::PemecahSintaks::tokenisasi() {
 
   if(this->pengecualianSintaks.apaKahAdaData()) {
     this->pengecualianSintaks.perbaruiPesanSesuaiData();
-    nstd::cetak(this->pengecualianSintaks.what());
+    nusantara::cetak(this->pengecualianSintaks.what());
     exit(1);
   }
 } // function tokenisasi
 
 void nusantara::PemecahSintaks::cetak() {
   for (auto& token : this->hasilTokenisasi) {
-    nstd::cetakDBB(token.ubahKeString());
+    nusantara::cetakDBB(token.ubahKeString());
   } // for
 } // function cetak

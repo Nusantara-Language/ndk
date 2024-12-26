@@ -26,7 +26,7 @@ void nusantara::KumpulanFungsi::panggilFungsi(const std::string& nama) {
     return;
   } // if
 
-  nstd::cetakDBBDF("[RT] Fungsi '{}' tidak ada.", nama);
+  nusantara::cetakDBBDF("[RT] Fungsi '{}' tidak ada.", nama);
 } // function panggilFungsi
 
 void nusantara::KumpulanFungsi::tambahFungsi(std::unique_ptr<AFungsi>&& intruksi) {

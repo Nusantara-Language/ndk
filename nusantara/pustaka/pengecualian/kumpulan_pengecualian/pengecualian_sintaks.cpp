@@ -58,7 +58,7 @@ void nusantara::PengecualianSintaks::perbaruiPesanSesuaiData() {
     if (lokasiBerkasSebelumnya != data.lokasiBerkas) {
       cetakPesan(lokasiBerkasSebelumnya, lokasiTokenSebelumnya, kontenSebelumnya, pesanSebelumnya);
       lokasiBerkasSebelumnya = data.lokasiBerkas;
-      kontenBerkas = nstd::pisahkanStringDenganPembatas(nstd::bacaBerkasDalamBentukString(lokasiBerkasSebelumnya), '\n');
+      kontenBerkas = nusantara::pisahkanStringDenganPembatas(nusantara::bacaBerkasDalamBentukString(lokasiBerkasSebelumnya), '\n');
       lokasiTokenSebelumnya = data.lokasiToken;
       kontenSebelumnya = data.konten;
       pesanSebelumnya = data.pesan;
@@ -83,7 +83,7 @@ void nusantara::PengecualianSintaks::perbaruiPesanSesuaiData() {
   cetakPesan(lokasiBerkasSebelumnya, lokasiTokenSebelumnya, kontenSebelumnya, pesanSebelumnya);
 
   // Trim hasil dan simpan
-  this->pesan = nstd::hapusRuangKosongDiAwalDanAkhirString(hasil);
+  this->pesan = nusantara::hapusRuangKosongDiAwalDanAkhirString(hasil);
 } // function perbaruiPesanSesuaiData
 
 bool nusantara::PengecualianSintaks::apaKahAdaData() {

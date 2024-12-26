@@ -49,7 +49,7 @@ void nusantara::PenganalisisSemantik::kunjungiTitikTempatParameterPanggilFungsi(
 void nusantara::PenganalisisSemantik::kunjungiTitikAkhirDariFile(const Titik& titik) {;
   if(this->pengecualianSintaks.apaKahAdaData()) {
     this->pengecualianSintaks.perbaruiPesanSesuaiData();
-    nstd::cetak(this->pengecualianSintaks.what());
+    nusantara::cetak(this->pengecualianSintaks.what());
     exit(0);
   } // if
 } // function kunjungiTitikAkhirDariFile

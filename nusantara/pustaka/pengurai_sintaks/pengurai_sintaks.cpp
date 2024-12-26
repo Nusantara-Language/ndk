@@ -98,7 +98,7 @@ void nusantara::PenguraiSintaks::uraikan() {
 
   if(this->pengecualianSintaks.apaKahAdaData()) {
     this->pengecualianSintaks.perbaruiPesanSesuaiData();
-    nstd::cetak(this->pengecualianSintaks.what());
+    nusantara::cetak(this->pengecualianSintaks.what());
     exit(1);
   }
 

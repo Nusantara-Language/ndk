@@ -14,7 +14,7 @@
 
 #include "cetak/apakah_bisa_di_cetak_ke_konsol.hpp"
 
-namespace nstd {
+namespace nusantara {
 
   template<typename Type>
   void cetak(const Type& nilai) {
@@ -53,4 +53,4 @@ namespace nstd {
     std::cout << "\n";
   } // function cetakDBBDF
 
-} // namespace nstd
+} // namespace nusantara

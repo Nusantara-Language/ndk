@@ -15,7 +15,7 @@
 #include "tipe_catatan.hpp"
 #include "cetak/cetak.hpp"
 
-namespace nstd {
+namespace nusantara {
 
   class Catatan {
     public:
@@ -87,13 +87,13 @@ namespace nstd {
       static void cetak(const TipeCatatan& tipe, const Type& pesan) {
         switch (tipe) {
             case INFO:
-              nstd::cetak("\033[1;33m[CATATAN][INFO]\033[0m ");
+              nusantara::cetak("\033[1;33m[CATATAN][INFO]\033[0m ");
               break;
             case PERINGATAN:
-              nstd::cetak("\033[1;38;5;208m[CATATAN][PERINGATAN]\033[0m ");
+              nusantara::cetak("\033[1;38;5;208m[CATATAN][PERINGATAN]\033[0m ");
               break;
             case KESALAHAN:
-              nstd::cetak("\033[1;31m[CATATAN][KESALAHAN]\033[0m ");
+              nusantara::cetak("\033[1;31m[CATATAN][KESALAHAN]\033[0m ");
               break;
           default:
             break;
@@ -102,7 +102,7 @@ namespace nstd {
           case INFO:
           case PERINGATAN:
           case KESALAHAN:
-            nstd::cetakDBB(pesan);
+            nusantara::cetakDBB(pesan);
               std::ofstream file(Catatan::ambilInstance()->lokasiBerkas, std::ios_base::app);
               switch (tipe) {
                 case INFO:
@@ -126,13 +126,13 @@ namespace nstd {
       static void cetak(const TipeCatatan& tipe, const Types&... kumpulanPesan) {
         switch (tipe) {
           case INFO:
-            nstd::cetak("\033[1;33m[CATATAN][INFO]\033[0m ");
+            nusantara::cetak("\033[1;33m[CATATAN][INFO]\033[0m ");
             break;
           case PERINGATAN:
-            nstd::cetak("\033[1;38;5;208m[CATATAN][PERINGATAN]\033[0m ");
+            nusantara::cetak("\033[1;38;5;208m[CATATAN][PERINGATAN]\033[0m ");
             break;
           case KESALAHAN:
-            nstd::cetak("\033[1;31m[CATATAN][KESALAHAN]\033[0m ");
+            nusantara::cetak("\033[1;31m[CATATAN][KESALAHAN]\033[0m ");
             break;
           default:
             break;
@@ -141,8 +141,8 @@ namespace nstd {
           case INFO:
           case PERINGATAN:
           case KESALAHAN:
-            (nstd::cetak(kumpulanPesan), ...);
-            nstd::cetak("\n");
+            (nusantara::cetak(kumpulanPesan), ...);
+            nusantara::cetak("\n");
               std::ofstream file(Catatan::ambilInstance()->lokasiBerkas, std::ios_base::app);
               switch (tipe) {
                 case INFO:
@@ -168,13 +168,13 @@ namespace nstd {
       static void cetakF(const TipeCatatan& tipe, const std::format_string<Types...>& formatString, const Types&... kumpulanPesan) {
         switch (tipe) {
           case INFO:
-            nstd::cetak("\033[1;33m[CATATAN][INFO]\033[0m ");
+            nusantara::cetak("\033[1;33m[CATATAN][INFO]\033[0m ");
             break;
           case PERINGATAN:
-            nstd::cetak("\033[1;38;5;208m[CATATAN][PERINGATAN]\033[0m ");
+            nusantara::cetak("\033[1;38;5;208m[CATATAN][PERINGATAN]\033[0m ");
             break;
           case KESALAHAN:
-            nstd::cetak("\033[1;31m[CATATAN][KESALAHAN]\033[0m ");
+            nusantara::cetak("\033[1;31m[CATATAN][KESALAHAN]\033[0m ");
             break;
           default:
             break;
@@ -183,7 +183,7 @@ namespace nstd {
           case INFO:
           case PERINGATAN:
           case KESALAHAN:
-            nstd::cetakDBBDF(formatString, kumpulanPesan...);
+            nusantara::cetakDBBDF(formatString, kumpulanPesan...);
               std::ofstream file(Catatan::ambilInstance()->lokasiBerkas, std::ios_base::app);
               switch (tipe) {
                 case INFO:
@@ -207,4 +207,4 @@ namespace nstd {
   
   }; // class Catatan
 
-} // namespace nstd
+} // namespace nusantara

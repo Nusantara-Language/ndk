@@ -9,7 +9,7 @@
 
 #pragma once
 
-namespace nstd {
+namespace nusantara {
 
   enum TipeCatatan {
     INFO,
@@ -17,4 +17,4 @@ namespace nstd {
     KESALAHAN
   }; // enum TipeCatatan
 
-} // namespace nstd
+} // namespace nusantara

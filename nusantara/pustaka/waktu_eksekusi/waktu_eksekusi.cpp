@@ -12,22 +12,22 @@
 #include "waktu_eksekusi/waktu_eksekusi.hpp"
 #include "cetak/cetak.hpp"
 
-std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<long long, std::ratio<1LL, 1000000000LL>>> nstd::WaktuEksekusi::waktuMulai;  // NOLINT
+std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<long long, std::ratio<1LL, 1000000000LL>>> nusantara::WaktuEksekusi::waktuMulai;  // NOLINT
 
-std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<long long, std::ratio<1LL, 1000000000LL>>> nstd::WaktuEksekusi::waktuSelesai;  // NOLINT
+std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<long long, std::ratio<1LL, 1000000000LL>>> nusantara::WaktuEksekusi::waktuSelesai;  // NOLINT
 
-void nstd::WaktuEksekusi::mulai() {
-  nstd::WaktuEksekusi::waktuMulai = std::chrono::high_resolution_clock::now();
-} // function nstd::WaktuEksekusi::mulai
+void nusantara::WaktuEksekusi::mulai() {
+  nusantara::WaktuEksekusi::waktuMulai = std::chrono::high_resolution_clock::now();
+} // function nusantara::WaktuEksekusi::mulai
 
-void nstd::WaktuEksekusi::selesai() {
- nstd::WaktuEksekusi::waktuSelesai = std::chrono::high_resolution_clock::now();
-} // function nstd::WaktuEksekusi::selesai
+void nusantara::WaktuEksekusi::selesai() {
+ nusantara::WaktuEksekusi::waktuSelesai = std::chrono::high_resolution_clock::now();
+} // function nusantara::WaktuEksekusi::selesai
 
-void nstd::WaktuEksekusi::cetak() {
+void nusantara::WaktuEksekusi::cetak() {
   auto waktuSelesai = std::chrono::high_resolution_clock::now();
 
-  auto durasiWaktuEksekusi = std::chrono::duration_cast<std::chrono::microseconds>(waktuSelesai - nstd::WaktuEksekusi::waktuMulai).count();
+  auto durasiWaktuEksekusi = std::chrono::duration_cast<std::chrono::microseconds>(waktuSelesai - nusantara::WaktuEksekusi::waktuMulai).count();
 
   auto durasiDalamJam = durasiWaktuEksekusi / (1000LL * 1000LL * 60LL * 60LL);
 
@@ -41,13 +41,13 @@ void nstd::WaktuEksekusi::cetak() {
 
   auto durasiDalamMicroDetik = durasiWaktuEksekusi % 1000LL;
 
-  nstd::cetakDF(
+  nusantara::cetakDF(
     "\nDurasi waktu eksekusi: {} jam, {} menit, {} detik, {} milidetik, {} microdetik", 
     durasiDalamJam, 
     durasiDalamMenit, 
     durasiDalamDetik, 
     durasiDalamMiliDetik, 
     durasiDalamMicroDetik
-  ); // function nstd::cetakDF
+  ); // function nusantara::cetakDF
 
-} // function nstd::WaktuEksekusi::cetak
+} // function nusantara::WaktuEksekusi::cetak

@@ -12,7 +12,7 @@
 #include <type_traits>
 #include <iostream>
 
-namespace nstd {
+namespace nusantara {
 
   template <typename T, typename = void>
   struct ApakahBisaDiCetakKeKonsol : public std::false_type {
@@ -22,4 +22,4 @@ namespace nstd {
   template <typename T>
   struct ApakahBisaDiCetakKeKonsol<T, std::void_t<decltype(std::cout << std::declval<T>())>> : std::true_type {};
 
-} // namespace nstd
+} // namespace nusantara

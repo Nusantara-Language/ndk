@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 
-namespace nstd {
+namespace nusantara {
 
   std::filesystem::path ambilLokasiBerkasProgram();
 
@@ -23,4 +23,4 @@ namespace nstd {
 
   std::string hapusRuangKosongDiAwalDanAkhirString(const std::string& str);
 
-} // namespace nstd
+} // namespace nusantara

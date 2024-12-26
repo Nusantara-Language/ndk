@@ -13,9 +13,9 @@
 #include "catatan/catatan.hpp"
 #include "alat.hpp"
 
-nstd::Catatan::Catatan() {
+nusantara::Catatan::Catatan() {
   // Mengatur nama folder catatan
-  Catatan::lokasiFolder = nstd::ambilLokasiBerkasProgram().parent_path().string() + "/.catatan";
+  Catatan::lokasiFolder = nusantara::ambilLokasiBerkasProgram().parent_path().string() + "/.catatan";
 
   // Buat folder catatan jika belum ada
   if (!std::filesystem::exists(Catatan::lokasiFolder)) {
@@ -43,11 +43,11 @@ nstd::Catatan::Catatan() {
   } // if
 } // constructor Catatan
 
-nstd::Catatan::~Catatan() {
+nusantara::Catatan::~Catatan() {
   delete Catatan::instance;
 } // destructor Catatan
 
-nstd::Catatan* nstd::Catatan::ambilInstance() {
+nusantara::Catatan* nusantara::Catatan::ambilInstance() {
   if(Catatan::instance == nullptr) {
     // Jika instance belum ada, buat instance baru
     Catatan::instance = new Catatan();

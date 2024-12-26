@@ -19,7 +19,7 @@
 
 #include "alat.hpp"
 
-std::filesystem::path nstd::ambilLokasiBerkasProgram() {
+std::filesystem::path nusantara::ambilLokasiBerkasProgram() {
   static std::filesystem::path lokasiBerkasProgram;
   if(lokasiBerkasProgram.empty()) {
     #if defined(_WIN32)
@@ -40,7 +40,7 @@ std::filesystem::path nstd::ambilLokasiBerkasProgram() {
   return lokasiBerkasProgram;
 }
 
-std::string nstd::bacaBerkasDalamBentukString(const std::string& lokasiBerkas) {
+std::string nusantara::bacaBerkasDalamBentukString(const std::string& lokasiBerkas) {
   std::ifstream berkas(lokasiBerkas, std::ios::in | std::ios::binary);
 
   if(!berkas) {
@@ -58,7 +58,7 @@ std::string nstd::bacaBerkasDalamBentukString(const std::string& lokasiBerkas) {
   return hapusRuangKosongDiAwalDanAkhirString(kontenBerkas);
 }
 
-std::vector<std::string> nstd::pisahkanStringDenganPembatas(const std::string& str, const char& pembatas) {
+std::vector<std::string> nusantara::pisahkanStringDenganPembatas(const std::string& str, const char& pembatas) {
   std::vector<std::string> hasil;
   size_t awal = 0;
   size_t akhir = str.find(pembatas);
@@ -73,7 +73,7 @@ std::vector<std::string> nstd::pisahkanStringDenganPembatas(const std::string& s
   return hasil;
 }
 
-std::string nstd::hapusRuangKosongDiAwalDanAkhirString(const std::string& str) {
+std::string nusantara::hapusRuangKosongDiAwalDanAkhirString(const std::string& str) {
   size_t start = 0;
   size_t end = str.size();
 
