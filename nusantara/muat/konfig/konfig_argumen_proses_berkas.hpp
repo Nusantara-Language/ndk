@@ -13,28 +13,28 @@
  * @brief Argumen untuk tokenisasi file nusantara (lexer).
  * 
  */
-#define __NK__ARGUMEN_PROSES_BERKAS_TS "-ts"
+#define __NK__ARGUMEN_PROSES_BERKAS_TS__ "-ts"
 
 /**
  * @brief Argumen untuk analisis semantik file nusantara (Semantic Analyzer).
  * 
  */
-#define __NK__ARGUMEN_PROSES_BERKAS_AS "-as"
+#define __NK__ARGUMEN_PROSES_BERKAS_AS__ "-as"
 
 /**
  * @brief Argumen untuk mengurai file nusantara (parser).
  * 
  */
-#define __NK__ARGUMEN_PROSES_BERKAS_PS "-ps"
+#define __NK__ARGUMEN_PROSES_BERKAS_PS__ "-ps"
 
 /**
  * @brief Argumen untuk mengurai file nusantara (parser) (dalam mode ast/psa).
  * 
  */
-#define __NK__ARGUMEN_PROSES_BERKAS_PSA "-psa"
+#define __NK__ARGUMEN_PROSES_BERKAS_PSA__ "-psa"
 
 /**
  * @brief Argumen untuk penafsir (intepreter) file nusantara untuk dijalankan di runtime.
  * 
  */
-#define __NK__ARGUMEN_PROSES_BERKAS_P "-p"
+#define __NK__ARGUMEN_PROSES_BERKAS_P__ "-p"

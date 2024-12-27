@@ -26,6 +26,7 @@ namespace nusantara {
       void kunjungiTitikTempatParameterPanggilFungsi(const Titik &titik) override;
       void kunjungiTitikPernyataanEkspresi(const Titik &titik) override;
       void kunjungiTitikAkhirDariFile(const Titik &titik) override;
+      void kunjungiTitikBilangan(const Titik &titik) override;
     // akhir dari access modifiers private
 
   }; // class PenganalisisSemantik

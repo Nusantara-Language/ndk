@@ -11,6 +11,7 @@
 #include <string>
 
 #include "penafsir/penafsir.hpp"
+#include "cetak/cetak.hpp"
 
 void nusantara::Penafsir::kunjungiTitikToken(const Titik& titik) {
   // Atur data sementara di runtime untuk menyimpan nama fungsi.
@@ -48,3 +49,8 @@ void nusantara::Penafsir::kunjungiTitikTempatParameterPanggilFungsi(const nusant
 void nusantara::Penafsir::kunjungiTitikAkhirDariFile(const nusantara::Titik& titik) {
   // Tidak mengeksekusi apa apa
 } // function kunjungiTitikAkhirDariFile
+
+void nusantara::Penafsir::kunjungiTitikBilangan(const nusantara::Titik& titik) {
+  // Karena belum ada kode untuk mengelolah ekspresi bilangan, cetak aja langsung ke konsol
+  cetakDBB(titik.ambilKumpulanTitikTurunan()[0]->ambilToken().value().konten);
+} // function kunjungiTitikBilangan

@@ -9,12 +9,20 @@
 
 #pragma once
 
+#include "konfig/konfig_catatan.hpp"
+
+#ifdef __NK__CATATAN_AKTIF__
+
 namespace nusantara {
 
   enum TipeCatatan {
+    DEBUG,
     INFO,
     PERINGATAN,
-    KESALAHAN
+    KESALAHAN,
+    KESALAHAN_FATAL,
   }; // enum TipeCatatan
 
 } // namespace nusantara
+
+#endif

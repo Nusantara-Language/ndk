@@ -39,6 +39,8 @@ namespace nusantara {
       virtual T kunjungiTitikToken(const Titik& titik) = 0;
 
       virtual T kunjungiTitikAkhirDariFile(const Titik& titik) = 0;
+
+      virtual T kunjungiTitikBilangan(const Titik& titik) = 0;
     // akhir dari access modifiers public
 
   }; // class APengunjungTitik

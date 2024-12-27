@@ -27,7 +27,7 @@ void nusantara::KumpulanFungsi::panggilFungsi(const std::string& nama) {
     return;
   } // if
 
-  nusantara::cetakDBBDF(__NK__LABEL_KELUARAN_LE "Fungsi '{}' tidak ada.", nama);
+  nusantara::cetakDBBDF(__NK__LABEL_KELUARAN_LE__ "Fungsi '{}' tidak ada.", nama);
 } // function panggilFungsi
 
 void nusantara::KumpulanFungsi::tambahFungsi(std::unique_ptr<AFungsi>&& intruksi) {

@@ -53,7 +53,7 @@ void nusantara::PemecahSintaks::buatBanyakToken() {
           token.lokasiBerkas, 
           token.lokasi, 
           token.konten, 
-          __NK__LABEL_KELUARAN_PS "Karakter tidak di ketahui."
+          __NK__LABEL_KELUARAN_TS__ "Karakter tidak di ketahui."
       }); // function tambahData
     }else if (token.tipe != TipeToken::ruangKosong && token.tipe != TipeToken::barisBaru) {
       this->hasilTokenisasi.push_back(std::move(token));

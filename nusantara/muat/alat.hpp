@@ -23,4 +23,6 @@ namespace nusantara {
 
   std::string hapusRuangKosongDiAwalDanAkhirString(const std::string& str);
 
+  bool apaKahStringNumeric(const std::string& str);
+
 } // namespace nusantara

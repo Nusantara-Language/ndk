@@ -22,7 +22,7 @@ nusantara::PengecualianSintaks::PengecualianSintaks(): PengecualianSintaks(std::
 
 nusantara::PengecualianSintaks::PengecualianSintaks(
   const std::vector<DataPengecualianSintaks>& kumpulanData
-): APengecualian( __NK__LABEL_KELUARAN_CUSTOM("Class PengecualianSintaks") "Pesan pengecualian belum dibuat."), kumpulanData(kumpulanData) {} // constructor PengecualianSintaks
+): APengecualian( __NK__LABEL_KELUARAN_CUSTOM__("Class PengecualianSintaks") "Pesan pengecualian belum dibuat."), kumpulanData(kumpulanData) {} // constructor PengecualianSintaks
 
 nusantara::PengecualianSintaks::PengecualianSintaks(
   const DataPengecualianSintaks& data

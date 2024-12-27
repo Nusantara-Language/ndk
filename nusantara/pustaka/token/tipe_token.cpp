@@ -7,9 +7,9 @@
  * ----------------------------------------------------------------------------
  */
 
-#include <iostream>
-
 #include "token/tipe_token.hpp"
+#include "konfig/konfig_label_keluaran.hpp"
+#include "catatan/catatan.ap.hpp"
 
 std::string nusantara::tipeTokenKeString(TipeToken const& type)
 {
@@ -18,10 +18,16 @@ std::string nusantara::tipeTokenKeString(TipeToken const& type)
     case TipeToken::ruangKosong: return "ruang kosong";
     case TipeToken::barisBaru: return "baris baru";
     case TipeToken::akhirDariFile: return "akhir dari file";
+    case TipeToken::bilangan: return "bilangan";
     case TipeToken::identifikasi: return "identifikasi";
     case TipeToken::kurungBulatBuka: return "kurung bulat buka";
     case TipeToken::kurungBulatTutup: return "kurung bulat tutup";
     case TipeToken::titikKoma: return "titik koma";
-    default: std::cerr << "Tipe token tidak dapat diubah ke string." << "\n"; break;
+    default: 
+      __CATATAN__KESALAHAN_FATAL_M__(
+        __NK__LABEL_KELUARAN_CUSTOM__("Fungsi tipeTokenKeString"),
+        "Tipe token tidak dapat diubah ke string."
+      ); // __CATATAN__KESALAHAN_FATAL_M__
+      break;
   } // switch
 } // function tipeTokenKeString

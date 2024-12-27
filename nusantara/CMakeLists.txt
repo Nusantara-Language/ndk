@@ -35,7 +35,6 @@
 # else()
 #   message(FATAL_ERROR "libxml2 tidak ditemukan. Pastikan libxml2_DIR diatur dengan benar atau libxml2 terinstal.")
 # endif()
-
 # Opsi untuk memperlihatkan waktu eksekusi (ON/OFF)
 option(PERLIHATKAN_WAKTU_EKSEKUSI "Memperlihatkan waktu yang di perlukan program untuk di eksekusi sampai selesai." ON)
 
@@ -44,7 +43,7 @@ set(NUSANTARA_VERSION_SUFFIX "-dev")
 set(NUSANTARA_VERSION "0.0.1${NUSANTARA_VERSION_SUFFIX}")
 
 # Perlihatkan waktu eksekusi
-set(PERLIHATKAN_WAKTU_EKSEKUSI OFF)
+set(PERLIHATKAN_WAKTU_EKSEKUSI ON)
 
 # Atur versi header sesuai template
 configure_file(${CMAKE_SOURCE_DIR}/nusantara/muat/konfig/konfig.hpp.template ${CMAKE_SOURCE_DIR}/nusantara/muat/konfig/konfig.hpp)
@@ -63,6 +62,7 @@ add_executable(tests "program/test/test.cpp" ${LIB_SOURCES})
 # Include folder
 target_include_directories(tests PRIVATE "muat")
 target_include_directories(nusantara PRIVATE "muat")
+target_include_directories(nusantara PRIVATE "${CMAKE_SOURCE_DIR}/pustaka_eksternal/muat")
 target_include_directories(nusantara PRIVATE ${LLVM_INCLUDE_DIRS})
 target_include_directories(nusantara PRIVATE ${CLANG_INCLUDE_DIRS})
 target_include_directories(nusantara PRIVATE ${LLD_INCLUDE_DIRS})

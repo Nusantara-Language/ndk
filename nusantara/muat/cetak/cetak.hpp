@@ -14,6 +14,7 @@
 
 #include "cetak/apakah_bisa_di_cetak_ke_konsol.hpp"
 #include "konfig/konfig_label_keluaran.hpp"
+#include "catatan/catatan.ap.hpp"
 
 namespace nusantara {
 
@@ -22,8 +23,13 @@ namespace nusantara {
     if (ApakahBisaDiCetakKeKonsol<Type>()) {
       std::cout << nilai;
     } else {
-      std::cerr << __NK__LABEL_KELUARAN_CUSTOM("Fungsi Cetak") "Tipe data " << typeid(Type).name() << " tidak dapat dicetak ke konsol.\n";
-    }
+      __CATATAN__KESALAHAN_FATAL_M__(
+        __NK__LABEL_KELUARAN_CUSTOM__("Fungsi Cetak"),
+        "Tipe data ",
+        typeid(Type).name(),
+        " tidak dapat dicetak ke konsol.\n"
+      ); // __CATATAN__KESALAHAN_FATAL_M__
+    } // else
   }  // function cetak
 
   template<typename... Types>

@@ -7,10 +7,13 @@
  * ----------------------------------------------------------------------------
  */
 
+#include <memory>
+#include <iostream>
+
 #include "pengecualian/antarmuka/a_pengecualian.h"
 #include "pengurai_sintaks/titik/tipe_titik.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
-#include <memory>
+#include "catatan/catatan.ap.hpp"
 
 nusantara::Titik::Titik(const Titik& lainnya): tipe(lainnya.tipe), token(lainnya.token) {
   for(const auto& titikTurunan : lainnya.kumpulanTitikTurunan) {
@@ -62,8 +65,14 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
     case TipeTitik::AKHIR_DARI_FILE:
         pendengar.akhirDariFileMasuk(*this);
         break;
+    case TipeTitik::BILANGAN:
+        pendengar.bilanganMasuk(*this);
+        break;
     default:
-        std::cerr << __NK__LABEL_KELUARAN_CUSTOM("Class Titik") "Tipe titik tidak dapat di dengar." << std::endl;
+        __CATATAN__KESALAHAN_FATAL_M__(
+          __NK__LABEL_KELUARAN_CUSTOM__("Class Titik"),
+          "Tipe titik tidak dapat di dengar."
+        ); // __CATATAN__KESALAHAN_FATAL_M__
         break;
   } // switch
 
@@ -90,8 +99,14 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
     case TipeTitik::AKHIR_DARI_FILE:
         pendengar.akhirDariFileKeluar(*this);
         break;
+    case TipeTitik::BILANGAN:
+        pendengar.bilanganKeluar(*this);
+        break;
     default:
-        std::cerr << __NK__LABEL_KELUARAN_CUSTOM("Class Titik") "Tipe titik tidak dapat di dengar." << std::endl;
+        __CATATAN__KESALAHAN_FATAL_M__(
+          __NK__LABEL_KELUARAN_CUSTOM__("Class Titik"),
+          "Tipe titik tidak dapat di dengar."
+        ); // __CATATAN__KESALAHAN_FATAL_M__
         break;
   } // switch
   
@@ -119,7 +134,7 @@ void nusantara::cetakTitik(const Titik &titik, int jarak) {
 
 std::unique_ptr<nusantara::Titik>&& nusantara::Titik::keluarKanTitikTurunan(const size_t& index) {
   if(index >= this->kumpulanTitikTurunan.size() || index < 0) {
-    throw APengecualian(__NK__LABEL_KELUARAN_CUSTOM("Class Titik") "kesalahan, karena mencoba mengeluarkan titik turunan dengan indeks diluar kapasitas titik turunan.");
+    throw APengecualian(__NK__LABEL_KELUARAN_CUSTOM__("Class Titik") "kesalahan, karena mencoba mengeluarkan titik turunan dengan indeks diluar kapasitas titik turunan.");
   } // if
 
   return std::move(this->kumpulanTitikTurunan[index]);

@@ -9,7 +9,6 @@
 
 #pragma once
 
-#include <iostream>
 #include <optional>
 #include <vector>
 
@@ -17,6 +16,7 @@
 #include "pengunjung/a_pengunjung_titik.hpp"
 #include "konfig/konfig_label_keluaran.hpp"
 #include "pendengar/a_pendengar_titik.hpp"
+#include "catatan/catatan.ap.hpp"
 #include "token/token.hpp"
 
 namespace nusantara {
@@ -51,20 +51,25 @@ namespace nusantara {
       auto terima(APengunjungTitik<T>& pengunjung) const -> T {
         switch (this->tipe) {
           case TipeTitik::AWAL:
-              return pengunjung.kunjungiTitikAwal(*this);
+            return pengunjung.kunjungiTitikAwal(*this);
           case TipeTitik::PERNYATAAN_EKSPRESI:
-              return pengunjung.kunjungiTitikPernyataanEkspresi(*this);
+            return pengunjung.kunjungiTitikPernyataanEkspresi(*this);
           case TipeTitik::PANGGIL_FUNGSI:
-              return pengunjung.kunjungiTitikPanggilFungsi(*this);
+            return pengunjung.kunjungiTitikPanggilFungsi(*this);
           case TipeTitik::TEMPAT_PARAMETER_PANGGIL_FUNGSI:
-              return pengunjung.kunjungiTitikTempatParameterPanggilFungsi(*this);
+            return pengunjung.kunjungiTitikTempatParameterPanggilFungsi(*this);
           case TipeTitik::TOKEN:
-              return pengunjung.kunjungiTitikToken(*this);
+            return pengunjung.kunjungiTitikToken(*this);
           case TipeTitik::AKHIR_DARI_FILE:
-              return pengunjung.kunjungiTitikAkhirDariFile(*this);
+            return pengunjung.kunjungiTitikAkhirDariFile(*this);
+          case TipeTitik::BILANGAN:
+            return pengunjung.kunjungiTitikBilangan(*this);
           default:
-              std::cerr << __NK__LABEL_KELUARAN_CUSTOM("Class Titik") "Tipe titik tidak dapat di kunjungi." << std::endl;
-              break;
+            __CATATAN__KESALAHAN_FATAL_M__(
+              __NK__LABEL_KELUARAN_CUSTOM__("Class Titik"), 
+              "Tipe titik tidak dapat di kunjungi."
+            ); // __CATATAN__KESALAHAN_FATAL_M__
+            break;
         }
       }
 

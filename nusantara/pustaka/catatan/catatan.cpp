@@ -7,6 +7,12 @@
  * ----------------------------------------------------------------------------
  */
 
+#include "konfig/konfig_catatan.hpp"
+
+#ifdef __NK__CATATAN_AKTIF__
+
+#ifdef __NK__CATATAN_SIMPAN_BERKAS__
+
 #include <filesystem>
 #include <fstream>
 
@@ -54,3 +60,6 @@ nusantara::Catatan* nusantara::Catatan::ambilInstance() {
   }// if
   return Catatan::instance;
 } // function ambilInstance
+#endif
+
+#endif

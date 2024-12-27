@@ -11,6 +11,7 @@
 #include <string>
 
 #include "penganalisis_semantik/penganalisis_semantik.hpp"
+#include "alat.hpp"
 #include "konfig/konfig_label_keluaran.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
 #include "cetak/cetak.hpp"
@@ -26,7 +27,7 @@ void nusantara::PenganalisisSemantik::kunjungiTitikPanggilFungsi(const Titik& ti
       namaFungsiToken.lokasiBerkas,
       namaFungsiToken.lokasi,
       namaFungsiToken.konten,
-      __NK__LABEL_KELUARAN_AS "fungsi '" + namaFungsiToken.konten + "' belum dibuat."
+      __NK__LABEL_KELUARAN_AS__ "fungsi '" + namaFungsiToken.konten + "' belum dibuat."
     }); // function tambahData
   } // if
 } // function kunjungiTitikPanggilFungsi
@@ -54,3 +55,15 @@ void nusantara::PenganalisisSemantik::kunjungiTitikAkhirDariFile(const Titik& ti
     exit(0);
   } // if
 } // function kunjungiTitikAkhirDariFile
+
+void nusantara::PenganalisisSemantik::kunjungiTitikBilangan(const Titik& titik) {
+  const Token& tokenBilangan = titik.ambilKumpulanTitikTurunan()[0]->ambilToken().value();
+  if(!apaKahStringNumeric(tokenBilangan.konten)) {
+    this->pengecualianSintaks.tambahData({
+      tokenBilangan.lokasiBerkas,
+      tokenBilangan.lokasi,
+      tokenBilangan.konten,
+      __NK__LABEL_KELUARAN_AS__ "Bukan lah sebuah bilangan."
+    }); // function tambahData
+  } // if
+} // function kunjungiTitikBilangan

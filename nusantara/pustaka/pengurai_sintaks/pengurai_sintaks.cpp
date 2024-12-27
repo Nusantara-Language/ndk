@@ -111,13 +111,12 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataanEksp
 
   auto makanTokenTitikKoma = [this] -> const Token & {
     return this->makanToken(
-      nusantara::TipeToken::titikKoma,
-      __NK__LABEL_KELUARAN_PS "Jangan lupa titik koma."
+      TipeToken::titikKoma,
+      __NK__LABEL_KELUARAN_PS__ "Jangan lupa titik koma."
     ); // fucntion makanToken
   }; // lambda makanTokenTitikKoma
 
-  if(this->cekTipeToken(nusantara::TipeToken::identifikasi)) {
-    titik.tambahTitikTurunan(this->uraiPanggilFungsi()); 
+  auto makanTokenTitikKomaMendukungPsa = [&makanTokenTitikKoma, this, &titik] -> void {
     if(this->psa) {
       makanTokenTitikKoma();
     }else{
@@ -130,7 +129,22 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataanEksp
         ) // constructor make_unique
       ); // function tambahTitikTurunan
     } // else
-  }
+  };
+
+  if(this->cekTipeToken(TipeToken::identifikasi)) {
+    titik.tambahTitikTurunan(this->uraiPanggilFungsi()); 
+    makanTokenTitikKomaMendukungPsa();
+  }else if(this->cekTipeToken(TipeToken::bilangan)) {
+    titik.tambahTitikTurunan(this->uraiBilangan());
+    makanTokenTitikKomaMendukungPsa();
+  } else {
+    throw DataPengecualianSintaks{
+      .lokasiBerkas=this->tokenSaatIni().lokasiBerkas,
+      .lokasiToken=this->tokenSaatIni().lokasi,
+      .konten=this->tokenSaatIni().konten,
+      .pesan= __NK__LABEL_KELUARAN_PS__ "Ekspresi pernyataan gak benar."
+    };
+  } // else
 
   // Jika hanya ada 1 titik turunan saja itu yang akan di keluarkan.
   if(titik.ambilKumpulanTitikTurunan().size() == 1 && this->psa) {
@@ -149,7 +163,7 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPanggilFungsi(
         TipeTitik::TOKEN, 
         this->makanToken(
           nusantara::TipeToken::identifikasi,
-          __NK__LABEL_KELUARAN_PS "Nama fungsi belum dibuat."
+          __NK__LABEL_KELUARAN_PS__ "Nama fungsi belum dibuat."
         ) // function makanToken
       } // constructor Titik
     ) // constructor make_unique
@@ -169,14 +183,14 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiTempatParamete
   auto makanTokenKurungBulatBuka = [this] -> const nusantara::Token& {
     return this->makanToken(
       TipeToken::kurungBulatBuka,
-      __NK__LABEL_KELUARAN_PS "Tempat parameter pada fungsi harus ada kurung bulat buka '('."
+      __NK__LABEL_KELUARAN_PS__ "Tempat parameter pada fungsi harus ada kurung bulat buka '('."
     ); // function makanToken
   }; // lambda makanTokenKurungBulatBuka
 
   auto makanTokenKurungBulatTutup = [this] -> const nusantara::Token& {
     return this->makanToken(
       TipeToken::kurungBulatTutup,
-      __NK__LABEL_KELUARAN_PS "Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
+      __NK__LABEL_KELUARAN_PS__ "Tempat parameter pada fungsi harus di akhiri dengan kurung tutup ')'."
     ); // function makanToken
   }; // lambda makanTokenKurungBulatTutup
 
@@ -224,11 +238,25 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiAkhirDariFile(
       .lokasiBerkas=this->tokenSaatIni().lokasiBerkas,
       .lokasiToken=this->tokenSaatIni().lokasi,
       .konten=this->tokenSaatIni().konten,
-      .pesan=__NK__LABEL_KELUARAN_PS "harus nya akhir dari file."
+      .pesan=__NK__LABEL_KELUARAN_PS__ "harus nya akhir dari file."
     }; // throw
   } // else
   return std::make_unique<Titik>(std::move(titik));
 } // fungsi uraiAkhirDariFile
+
+std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiBilangan() {
+  auto titik = Titik{TipeTitik::BILANGAN};
+  titik.tambahTitikTurunan(
+    std::make_unique<Titik>(Titik{
+      TipeTitik::TOKEN,
+      this->makanToken(
+        TipeToken::bilangan, 
+        "Bukanlah sebuah bilangan."
+      ) // function makanToken
+    }) // constructor make_unique
+  ); // function tambahTitikTurunan
+  return std::make_unique<Titik>(std::move(titik));
+} // fungsi uraiBilangan
 
 void nusantara::PenguraiSintaks::cetak() {
   if(this->hasilPenguraian != nullptr) {

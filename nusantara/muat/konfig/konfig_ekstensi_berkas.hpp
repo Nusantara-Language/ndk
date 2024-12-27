@@ -9,8 +9,8 @@
 
 #pragma once
 
-#define __NK__EKSTENSI_BERKAS "n"
+#define __NK__EKSTENSI_BERKAS__ "n"
 
-#define __NK__EKSTENSI_BERKAS_REGEX ".*\\." __NK__EKSTENSI_BERKAS
+#define __NK__EKSTENSI_BERKAS_REGEX__ ".*\\." __NK__EKSTENSI_BERKAS__
 
-#define __NK__EKSTENSI_BERKAS_WAJIB
+#define __NK__EKSTENSI_BERKAS_WAJIB__
