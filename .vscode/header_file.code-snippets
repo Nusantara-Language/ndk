@@ -13,13 +13,16 @@
       " * ----------------------------------------------------------------------------",
       " */",
       "",
-      "#pragma once",
+      "#ifndef $1",
+      "#define $1",
       "",
-      "namespace $1 {",
+      "namespace $2 {",
       "",
-      "  $2",
+      "  $3",
       "",
-      "} // namespace $1",
+      "} // namespace $2",
+      "",
+      "#endif"
     ],
     "description": "Menulis sesuatu yang penting untuk file header"
   }
