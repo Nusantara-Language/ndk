@@ -20,10 +20,10 @@ file(GLOB_RECURSE LIB_SOURCES
 
 # Executable
 add_executable(nusantara "program/abp/abp_main.cpp" "program/abp/abp.cpp" ${LIB_SOURCES})
-add_executable(tests "program/test/test.cpp" ${LIB_SOURCES})
+# add_executable(tests "program/test/test.cpp" ${LIB_SOURCES})
 
 # Include folder
-target_include_directories(tests PRIVATE "muat")
+# target_include_directories(tests PRIVATE "muat")
 target_include_directories(nusantara PRIVATE "muat")
 target_include_directories(nusantara PRIVATE "${CMAKE_SOURCE_DIR}/pustaka_eksternal/muat")
 target_include_directories(nusantara PRIVATE ${LLVM_INCLUDE_DIRS})

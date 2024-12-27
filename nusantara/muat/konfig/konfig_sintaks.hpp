@@ -7,13 +7,9 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef ABP_HPP
-#define ABP_HPP
+#ifndef KONFIG_SINTAKS_HPP
+#define KONFIG_SINTAKS_HPP
 
-namespace nusantara {
-
-  int abp(const int& argc, const char*& argv);
-
-} // namespace nusantara
+#define __NK__SINTAKS_PERNYATAAN_DENGAN_TITIK_KOMA_WAJIB__
 
 #endif

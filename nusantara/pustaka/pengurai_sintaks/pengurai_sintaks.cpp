@@ -19,6 +19,7 @@
 #include "pengurai_sintaks/pengurai_sintaks.hpp"
 #include "pengunjung/a_pengunjung_titik.hpp"
 #include "konfig/konfig_label_keluaran.hpp"
+#include "konfig/konfig_sintaks.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
 #include "pendengar/a_pendengar_titik.hpp"
 #include "token/tipe_token.hpp"
@@ -109,6 +110,7 @@ void nusantara::PenguraiSintaks::uraikan() {
 std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataanEkspresi() {
   auto titik = Titik{TipeTitik::PERNYATAAN_EKSPRESI};
 
+  #ifdef __NK__SINTAKS_PERNYATAAN_DENGAN_TITIK_KOMA_WAJIB__
   auto makanTokenTitikKoma = [this] -> const Token & {
     return this->makanToken(
       TipeToken::titikKoma,
@@ -130,19 +132,29 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataanEksp
       ); // function tambahTitikTurunan
     } // else
   };
+  #endif
 
   if(this->cekTipeToken(TipeToken::identifikasi)) {
     titik.tambahTitikTurunan(this->uraiPanggilFungsi()); 
+    #ifdef __NK__SINTAKS_PERNYATAAN_DENGAN_TITIK_KOMA_WAJIB__
     makanTokenTitikKomaMendukungPsa();
+    #endif
   }else if(this->cekTipeToken(TipeToken::bilangan)) {
     titik.tambahTitikTurunan(this->uraiBilangan());
+    #ifdef __NK__SINTAKS_PERNYATAAN_DENGAN_TITIK_KOMA_WAJIB__
     makanTokenTitikKomaMendukungPsa();
+    #endif
   } else {
     throw DataPengecualianSintaks{
       .lokasiBerkas=this->tokenSaatIni().lokasiBerkas,
       .lokasiToken=this->tokenSaatIni().lokasi,
       .konten=this->tokenSaatIni().konten,
-      .pesan= __NK__LABEL_KELUARAN_PS__ "Ekspresi pernyataan gak benar."
+      .pesan= __NK__LABEL_KELUARAN_PS__
+      #ifndef __NK__SINTAKS_PERNYATAAN_DENGAN_TITIK_KOMA_WAJIB__
+      + std::string((this->tokenSaatIni().tipe == TipeToken::titikKoma) ? "Titik koma tidak di perlukan." : "Ekspresi pernyataan gak benar.")
+      #else
+      "Ekspresi pernyataan gak benar."
+      #endif
     };
   } // else
 
