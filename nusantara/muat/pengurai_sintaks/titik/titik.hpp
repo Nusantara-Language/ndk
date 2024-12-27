@@ -64,7 +64,7 @@ namespace nusantara {
           case TipeTitik::AKHIR_DARI_FILE:
             return pengunjung.kunjungiTitikAkhirDariFile(*this);
           case TipeTitik::BILANGAN:
-            return pengunjung.kunjungiTitikBilangan(*this);
+            return pengunjung.kunjungiTitikNilaiBilangan(*this);
           default:
             __CATATAN__KESALAHAN_FATAL_M__(
               __NK__LABEL_KELUARAN_CUSTOM__("Class Titik"), 

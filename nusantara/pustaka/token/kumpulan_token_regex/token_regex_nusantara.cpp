@@ -17,7 +17,7 @@ const std::set<nusantara::TokenRegex>& nusantara::nusantaraTokenRegexs()
     TokenRegex{std::regex("^[(]"), TipeToken::kurungBulatBuka},
     TokenRegex{std::regex("^[)]"), TipeToken::kurungBulatTutup},
     TokenRegex{std::regex("^;"), TipeToken::titikKoma},
-    TokenRegex{std::regex("^[0-9][0-9]*"), TipeToken::bilangan},
+    TokenRegex{std::regex("^[0-9][0-9]*"), TipeToken::nilaiBilangan},
     TokenRegex{std::regex("^[a-zA-Z][a-zA-Z0-9_]*"), TipeToken::identifikasi},
     TokenRegex{std::regex("^."), TipeToken::tidakDiketahui}
   }; // variable result

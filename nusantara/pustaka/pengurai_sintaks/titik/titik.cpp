@@ -66,7 +66,7 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
         pendengar.akhirDariFileMasuk(*this);
         break;
     case TipeTitik::BILANGAN:
-        pendengar.bilanganMasuk(*this);
+        pendengar.nilaiBilanganMasuk(*this);
         break;
     default:
         __CATATAN__KESALAHAN_FATAL_M__(
@@ -100,7 +100,7 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
         pendengar.akhirDariFileKeluar(*this);
         break;
     case TipeTitik::BILANGAN:
-        pendengar.bilanganKeluar(*this);
+        pendengar.nilaiBilanganKeluar(*this);
         break;
     default:
         __CATATAN__KESALAHAN_FATAL_M__(

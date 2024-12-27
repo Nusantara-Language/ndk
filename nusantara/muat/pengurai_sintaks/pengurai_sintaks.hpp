@@ -70,7 +70,7 @@ namespace nusantara {
 
       std::unique_ptr<Titik> uraiAkhirDariFile();
 
-      std::unique_ptr<Titik> uraiBilangan();
+      std::unique_ptr<Titik> uraiNilaiBilangan();
     // akhir dari access modifiers private
   
   }; // class PenguraiSintaks

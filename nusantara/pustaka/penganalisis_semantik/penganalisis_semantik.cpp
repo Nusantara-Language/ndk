@@ -56,14 +56,14 @@ void nusantara::PenganalisisSemantik::kunjungiTitikAkhirDariFile(const Titik& ti
   } // if
 } // function kunjungiTitikAkhirDariFile
 
-void nusantara::PenganalisisSemantik::kunjungiTitikBilangan(const Titik& titik) {
-  const Token& tokenBilangan = titik.ambilKumpulanTitikTurunan()[0]->ambilToken().value();
-  if(!apaKahStringNumeric(tokenBilangan.konten)) {
+void nusantara::PenganalisisSemantik::kunjungiTitikNilaiBilangan(const Titik& titik) {
+  const Token& tokenNilaiBilangan = titik.ambilKumpulanTitikTurunan()[0]->ambilToken().value();
+  if(!apaKahStringNumeric(tokenNilaiBilangan.konten)) {
     this->pengecualianSintaks.tambahData({
-      tokenBilangan.lokasiBerkas,
-      tokenBilangan.lokasi,
-      tokenBilangan.konten,
-      __NK__LABEL_KELUARAN_AS__ "Bukan lah sebuah bilangan."
+      tokenNilaiBilangan.lokasiBerkas,
+      tokenNilaiBilangan.lokasi,
+      tokenNilaiBilangan.konten,
+      __NK__LABEL_KELUARAN_AS__ "Bukan lah sebuah nilaiBilangan."
     }); // function tambahData
   } // if
-} // function kunjungiTitikBilangan
+} // function kunjungiTitikNilaiBilangan

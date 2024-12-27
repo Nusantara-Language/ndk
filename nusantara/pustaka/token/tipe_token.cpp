@@ -18,7 +18,7 @@ std::string nusantara::tipeTokenKeString(TipeToken const& type)
     case TipeToken::ruangKosong: return "ruang kosong";
     case TipeToken::barisBaru: return "baris baru";
     case TipeToken::akhirDariFile: return "akhir dari file";
-    case TipeToken::bilangan: return "bilangan";
+    case TipeToken::nilaiBilangan: return "nilai bilangan";
     case TipeToken::identifikasi: return "identifikasi";
     case TipeToken::kurungBulatBuka: return "kurung bulat buka";
     case TipeToken::kurungBulatTutup: return "kurung bulat tutup";

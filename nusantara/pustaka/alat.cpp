@@ -89,7 +89,7 @@ std::string nusantara::hapusRuangKosongDiAwalDanAkhirString(const std::string& s
 }
 
 bool nusantara::apaKahStringNumeric(const std::string& str) {
-  if (str.empty()) return false; // String kosong bukan bilangan
+  if (str.empty()) return false; // String kosong bukan nilaiBilangan
   for (char ch : str) {
       if (!std::isdigit(ch)) {
           return false; // Jika ada karakter bukan digit

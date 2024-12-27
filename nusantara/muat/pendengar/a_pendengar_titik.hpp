@@ -52,9 +52,9 @@ namespace nusantara {
 
       virtual void akhirDariFileKeluar(const Titik &titik) = 0;
 
-      virtual void bilanganMasuk(const Titik &titik) = 0;
+      virtual void nilaiBilanganMasuk(const Titik &titik) = 0;
 
-      virtual void bilanganKeluar(const Titik &titik) = 0;
+      virtual void nilaiBilanganKeluar(const Titik &titik) = 0;
     // akhir dari access modifiers public
 
   }; // class APendengarTitik

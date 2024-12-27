@@ -20,7 +20,7 @@ namespace nusantara {
     barisBaru,
     ruangKosong,
     titikKoma,
-    bilangan,
+    nilaiBilangan,
     identifikasi,
     tidakDiketahui,
     akhirDariFile,
