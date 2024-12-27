@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef PEMECAH_SINTAKS_HPP
+#define PEMECAH_SINTAKS_HPP
 
 #include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "token/token_regex.hpp"
@@ -57,3 +58,5 @@ namespace nusantara {
   }; // class PemecahSintaks
   
 } // namespace nusantara
+
+#endif

@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef A_PENGUNJUNG_TITIK_HPP
+#define A_PENGUNJUNG_TITIK_HPP
 
 namespace nusantara {
 
@@ -46,3 +47,5 @@ namespace nusantara {
   }; // class APengunjungTitik
   
 } // namespace nusantara
+
+#endif

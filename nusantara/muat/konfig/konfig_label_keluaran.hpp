@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef KONFIG_LABEL_KELUARAN_HPP
+#define KONFIG_LABEL_KELUARAN_HPP
 
 /**
  * @brief Label Keluaran
@@ -53,3 +54,5 @@
  * 
  */
 #define __NK__LABEL_KELUARAN_CUSTOM__(LABEL) "[" LABEL "] "
+
+#endif

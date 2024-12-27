@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef TIPE_TOKEN_HPP
+#define TIPE_TOKEN_HPP
 
 #include <string>
 
@@ -28,3 +29,5 @@ namespace nusantara {
   auto tipeTokenKeString(const TipeToken& type) -> std::string;
 
 } // namespace nusantara
+
+#endif

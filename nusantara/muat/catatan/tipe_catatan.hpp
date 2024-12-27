@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef TIPE_CATATAN_HPP
+#define TIPE_CATATAN_HPP
 
 #include "konfig/konfig_catatan.hpp"
 
@@ -24,5 +25,7 @@ namespace nusantara {
   }; // enum TipeCatatan
 
 } // namespace nusantara
+
+#endif
 
 #endif

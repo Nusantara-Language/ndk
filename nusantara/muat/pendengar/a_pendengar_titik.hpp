@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef A_PENDENGAR_TITIK_HPP
+#define A_PENDENGAR_TITIK_HPP
 
 namespace nusantara {
 
@@ -59,3 +60,5 @@ namespace nusantara {
   }; // class APendengarTitik
 
 } // namespace nusantara
+
+#endif

@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef A_FUNGSI_HPP
+#define A_FUNGSI_HPP
 
 #include <string>
 
@@ -23,3 +24,5 @@ namespace nusantara {
   }; // class AFungsi
 
 } // namespace nusantara
+
+#endif

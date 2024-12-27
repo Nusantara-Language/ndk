@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef APAKAH_BISA_DI_CETAK_KE_KONSOL_HPP
+#define APAKAH_BISA_DI_CETAK_KE_KONSOL_HPP
 
 #include <type_traits>
 #include <iostream>
@@ -23,3 +24,5 @@ namespace nusantara {
   struct ApakahBisaDiCetakKeKonsol<T, std::void_t<decltype(std::cout << std::declval<T>())>> : std::true_type {};
 
 } // namespace nusantara
+
+#endif

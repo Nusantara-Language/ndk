@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef FUNGSI_HPP
+#define FUNGSI_HPP
 
 #include "lingkungan_eksekusi/blok_kode/blok_kode.hpp"
 #include "antarmuka/a_fungsi.hpp"
@@ -37,3 +38,5 @@ namespace nusantara {
   }; // class Fungsi
 
 } // namespace nusantara
+
+#endif

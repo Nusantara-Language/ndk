@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef TOKEN_HPP
+#define TOKEN_HPP
 
 #include <format>
 #include <string>
@@ -38,3 +39,5 @@ namespace nusantara {
   }; // struct Token
 
 } // namespace nusantara
+
+#endif

@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef ALAT_HPP
+#define ALAT_HPP
 
 #include <filesystem>
 #include <string>
@@ -26,3 +27,5 @@ namespace nusantara {
   bool apaKahStringNumeric(const std::string& str);
 
 } // namespace nusantara
+
+#endif

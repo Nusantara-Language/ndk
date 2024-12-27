@@ -7,6 +7,9 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef VERSI_HPP_TEMPLATE
+#define VERSI_HPP_TEMPLATE
 
 #define VERSI "0.0.1-dev"
+
+#endif

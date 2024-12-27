@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef KONFIG_CATATAN_HPP
+#define KONFIG_CATATAN_HPP
 
 #define __NK__CATATAN_AKTIF__
 
@@ -24,3 +25,5 @@
 #define __NK__CATATAN_CETAK_KESALAHAN_FATAL__
 
 #define __NK__CATATAN_SIMPAN_BERKAS__
+
+#endif

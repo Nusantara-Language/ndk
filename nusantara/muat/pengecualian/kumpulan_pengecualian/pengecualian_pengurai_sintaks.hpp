@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef PENGECUALIAN_PENGURAI_SINTAKS_HPP
+#define PENGECUALIAN_PENGURAI_SINTAKS_HPP
 
 #include <string>
 
@@ -20,3 +21,5 @@ namespace nusantara {
   }; // struct PengecualianPenguraiSintaks
 
 }// namespace nusantara
+
+#endif

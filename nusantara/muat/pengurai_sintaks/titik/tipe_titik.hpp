@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef TIPE_TITIK_HPP
+#define TIPE_TITIK_HPP
 
 #include <string>
 
@@ -26,3 +27,5 @@ namespace nusantara {
   auto tipeTitikKeString(const TipeTitik &tipe) -> std::string;
 
 } // namespace nusantara
+
+#endif

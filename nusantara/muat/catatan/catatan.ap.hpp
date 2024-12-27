@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef CATATAN_AP_HPP
+#define CATATAN_AP_HPP
 
 #include "konfig/konfig_catatan.hpp"
 
@@ -76,5 +77,7 @@
   #define __CATATAN__KESALAHAN_FATAL_M__(format, ...)
 
   #define __CATATAN__KESALAHAN_FATAL_F__(format, ...)
+
+#endif
 
 #endif

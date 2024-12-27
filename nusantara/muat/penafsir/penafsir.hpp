@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef PENAFSIR_HPP
+#define PENAFSIR_HPP
 
 #include "pengunjung/a_pengunjung_titik.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
@@ -30,3 +31,5 @@ namespace nusantara {
   }; // class Penafsir
 
 } // namespace nusantara
+
+#endif

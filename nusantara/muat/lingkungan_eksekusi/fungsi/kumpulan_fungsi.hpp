@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef KUMPULAN_FUNGSI_HPP
+#define KUMPULAN_FUNGSI_HPP
 
 #include "lingkungan_eksekusi/fungsi/antarmuka/a_fungsi.hpp"
 #include <memory>
@@ -34,3 +35,5 @@ namespace nusantara {
   }; // class KumpulanFungsi
 
 } // namespace nusantara
+
+#endif

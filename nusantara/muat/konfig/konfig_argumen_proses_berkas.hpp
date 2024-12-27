@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef KONFIG_ARGUMEN_PROSES_BERKAS_HPP
+#define KONFIG_ARGUMEN_PROSES_BERKAS_HPP
 
 /**
  * @brief Argumen untuk tokenisasi file nusantara (lexer).
@@ -38,3 +39,5 @@
  * 
  */
 #define __NK__ARGUMEN_PROSES_BERKAS_P__ "-p"
+
+#endif

@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef LINGKUNGAN_EKSEKUSI_HPP
+#define LINGKUNGAN_EKSEKUSI_HPP
 
 #include "blok_kode/blok_kode.hpp"
 #include <any>
@@ -35,3 +36,5 @@ namespace nusantara {
   }; // class Runtime
 
 } // namespace nusantara
+
+#endif

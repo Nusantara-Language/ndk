@@ -7,10 +7,13 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef KONFIG_EKSTENSI_BERKAS_HPP
+#define KONFIG_EKSTENSI_BERKAS_HPP
 
 #define __NK__EKSTENSI_BERKAS__ "n"
 
 #define __NK__EKSTENSI_BERKAS_REGEX__ ".*\\." __NK__EKSTENSI_BERKAS__
 
 #define __NK__EKSTENSI_BERKAS_WAJIB__
+
+#endif

@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef WAKTU_EKSEKUSI_HPP
+#define WAKTU_EKSEKUSI_HPP
 
 #include <chrono>
 
@@ -34,3 +35,5 @@ namespace nusantara {
   }; // class WaktuEksekusi
 
 } // namespace nusantara
+
+#endif

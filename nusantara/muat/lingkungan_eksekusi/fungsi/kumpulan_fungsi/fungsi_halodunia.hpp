@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef FUNGSI_HALODUNIA_HPP
+#define FUNGSI_HALODUNIA_HPP
 
 #include "lingkungan_eksekusi/fungsi/fungsi.hpp"
 
@@ -21,3 +22,5 @@ namespace nusantara {
   }; // class FungsiHaloDunia
 
 } // namespace nusantara
+
+#endif

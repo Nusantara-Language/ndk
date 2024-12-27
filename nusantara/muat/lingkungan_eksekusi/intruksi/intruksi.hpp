@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef INTRUKSI_HPP
+#define INTRUKSI_HPP
 
 namespace nusantara {
 
@@ -21,3 +22,5 @@ namespace nusantara {
   }; // class Intruksi
 
 } // namespace nusantara
+
+#endif

@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef TOKEN_REGEX_HPP
+#define TOKEN_REGEX_HPP
 
 #include <utility>
 #include <regex>
@@ -38,3 +39,5 @@ namespace nusantara {
   }; // class TokenRegex
 
 } // namespace nusantara
+
+#endif

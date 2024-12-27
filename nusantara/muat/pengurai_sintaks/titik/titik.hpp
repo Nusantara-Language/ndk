@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef TITIK_HPP
+#define TITIK_HPP
 
 #include <optional>
 #include <vector>
@@ -89,3 +90,5 @@ namespace nusantara {
   void cetakTitik(const Titik &titik, int jarak);
 
 }  // namespace nusantara
+
+#endif

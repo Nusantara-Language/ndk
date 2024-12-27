@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef KUMPULAN_INTRUKSI_HPP
+#define KUMPULAN_INTRUKSI_HPP
 
 #include "intruksi.hpp"
 #include <memory>
@@ -35,3 +36,5 @@ namespace nusantara {
   }; // class KumpulanIntruksi
 
 } // namespace nusantara
+
+#endif

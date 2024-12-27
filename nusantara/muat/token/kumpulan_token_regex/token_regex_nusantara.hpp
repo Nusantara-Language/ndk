@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef TOKEN_REGEX_NUSANTARA_HPP
+#define TOKEN_REGEX_NUSANTARA_HPP
 
 #include <set>
 
@@ -18,3 +19,5 @@ namespace nusantara {
   auto nusantaraTokenRegexs() -> const std::set<TokenRegex>&;
 
 } // namespace nusantara
+
+#endif

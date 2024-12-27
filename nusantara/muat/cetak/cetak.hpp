@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef CETAK_HPP
+#define CETAK_HPP
 
 #include <iostream>
 #include <format>
@@ -61,3 +62,5 @@ namespace nusantara {
   } // function cetakDBBDF
 
 } // namespace nusantara
+
+#endif

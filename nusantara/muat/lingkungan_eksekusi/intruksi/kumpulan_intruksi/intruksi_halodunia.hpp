@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
  
-#pragma once
+#ifndef INTRUKSI_HALODUNIA_HPP
+#define INTRUKSI_HALODUNIA_HPP
 
 #include "lingkungan_eksekusi/intruksi/intruksi.hpp"
 
@@ -23,3 +24,5 @@ namespace nusantara {
   }; // class IntruksiHaloDunia
 
 } // namespace nusantara
+
+#endif

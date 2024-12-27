@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef PENGECUALIAN_SINTAKS_HPP
+#define PENGECUALIAN_SINTAKS_HPP
 
 #include <string>
 #include <vector>
@@ -50,3 +51,5 @@ namespace nusantara {
   }; // class PengecualianToken
 
 } // namespace nusantara
+
+#endif

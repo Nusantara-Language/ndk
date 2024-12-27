@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef CATATAN_HPP
+#define CATATAN_HPP
 
 #include "konfig/konfig_catatan.hpp"
 #include <iostream>
@@ -341,5 +342,7 @@ namespace nusantara {
   }; // class Catatan
 
 } // namespace nusantara
+
+#endif
 
 #endif

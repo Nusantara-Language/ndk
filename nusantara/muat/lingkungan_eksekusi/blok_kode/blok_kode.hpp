@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef BLOK_KODE_HPP
+#define BLOK_KODE_HPP
 
 #include "lingkungan_eksekusi/intruksi/kumpulan_intruksi.hpp"
 #include "lingkungan_eksekusi/fungsi/kumpulan_fungsi.hpp"
@@ -34,3 +35,5 @@ namespace nusantara {
   }; // class BlokKode
 
 } // namespace nusantara
+
+#endif

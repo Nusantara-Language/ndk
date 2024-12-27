@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef PENGURAI_SINTAKS_HPP
+#define PENGURAI_SINTAKS_HPP
 
 #include <string>
 #include <vector>
@@ -75,3 +76,5 @@ namespace nusantara {
   }; // class PenguraiSintaks
 
 } // namespace nusantara
+
+#endif

@@ -7,7 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#pragma once
+#ifndef PENGANALISIS_SEMANTIK_HPP
+#define PENGANALISIS_SEMANTIK_HPP
 
 #include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "pengunjung/a_pengunjung_titik.hpp"
@@ -32,3 +33,5 @@ namespace nusantara {
   }; // class PenganalisisSemantik
 
 } // namespace nusantara
+
+#endif
