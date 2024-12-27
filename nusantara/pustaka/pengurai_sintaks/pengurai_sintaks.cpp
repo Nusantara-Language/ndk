@@ -85,7 +85,7 @@ void nusantara::PenguraiSintaks::uraikan() {
   auto titik = Titik{TipeTitik::AWAL};
   while (!this->apakahSudahDiAkhirFile()) {
     try {
-      titik.tambahTitikTurunan(this->uraiPernyataanEkspresi());
+      titik.tambahTitikTurunan(this->uraiPernyataan());
     } catch (const DataPengecualianSintaks &data) {
       this->pengecualianSintaks.tambahData(data);
       this->majuKeTokenSelanjutnya();
@@ -107,8 +107,8 @@ void nusantara::PenguraiSintaks::uraikan() {
   this->hasilPenguraian = std::make_unique<Titik>(std::move(titik));
 } // function uraikan
 
-std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataanEkspresi() {
-  auto titik = Titik{TipeTitik::PERNYATAAN_EKSPRESI};
+std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataan() {
+  auto titik = Titik{TipeTitik::PERNYATAAN};
 
   #ifdef __NK__SINTAKS_PERNYATAAN_DENGAN_TITIK_KOMA_WAJIB__
   auto makanTokenTitikKoma = [this] -> const Token & {
@@ -151,9 +151,9 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataanEksp
       .konten=this->tokenSaatIni().konten,
       .pesan= __NK__LABEL_KELUARAN_PS__
       #ifndef __NK__SINTAKS_PERNYATAAN_DENGAN_TITIK_KOMA_WAJIB__
-      + std::string((this->tokenSaatIni().tipe == TipeToken::titikKoma) ? "Titik koma tidak di perlukan." : "Ekspresi pernyataan gak benar.")
+      + std::string((this->tokenSaatIni().tipe == TipeToken::titikKoma) ? "Titik koma tidak di perlukan." : "Pernyataan gak benar.")
       #else
-      "Ekspresi pernyataan gak benar."
+      "Pernyataan gak benar."
       #endif
     };
   } // else
@@ -164,7 +164,7 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataanEksp
   }
 
   return std::make_unique<Titik>(std::move(titik));
-} // function uraiPernyataanEkspresi
+} // function uraiPernyataan
 
 std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPanggilFungsi() {
   auto titik = Titik{TipeTitik::PANGGIL_FUNGSI};

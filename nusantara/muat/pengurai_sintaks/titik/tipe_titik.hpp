@@ -17,7 +17,7 @@ namespace nusantara {
   enum TipeTitik {
     TOKEN,
     AWAL,
-    PERNYATAAN_EKSPRESI,
+    PERNYATAAN,
     PANGGIL_FUNGSI,
     TEMPAT_PARAMETER_PANGGIL_FUNGSI,
     AKHIR_DARI_FILE,

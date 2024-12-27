@@ -38,9 +38,9 @@ void nusantara::Penafsir::kunjungiTitikAwal(const nusantara::Titik& titik) {
   }
 } // function kunjungiTitikAwalNode
 
-void nusantara::Penafsir::kunjungiTitikPernyataanEkspresi(const nusantara::Titik& titik) {
+void nusantara::Penafsir::kunjungiTitikPernyataan(const nusantara::Titik& titik) {
   if(titik.ambilKumpulanTitikTurunan().size() > 0) titik.ambilKumpulanTitikTurunan()[0]->terima(*this);
-} // function kunjungiTitikPernyataanEkspresiNode
+} // function kunjungiTitikPernyataanNode
 
 void nusantara::Penafsir::kunjungiTitikTempatParameterPanggilFungsi(const nusantara::Titik&) {
   // Tidak mengeksekusi apa apa

@@ -38,11 +38,11 @@ void nusantara::PenganalisisSemantik::kunjungiTitikAwal(const Titik& titik) {
   }
 } // function kunjungiTitikAwal 
 
-void nusantara::PenganalisisSemantik::kunjungiTitikPernyataanEkspresi(const Titik& titik) {
+void nusantara::PenganalisisSemantik::kunjungiTitikPernyataan(const Titik& titik) {
   for(const auto& titikTurunan: titik.ambilKumpulanTitikTurunan()) {
     titikTurunan->terima(*this);
   }
-} // function kunjungiTitikPernyataanEkspresi
+} // function kunjungiTitikPernyataan
 
 void nusantara::PenganalisisSemantik::kunjungiTitikTempatParameterPanggilFungsi(const Titik&) {
   // Tidak melakukan apa-apa

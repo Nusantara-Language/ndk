@@ -50,8 +50,8 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
     case TipeTitik::AWAL:
         pendengar.awalMasuk(*this);
         break;
-    case TipeTitik::PERNYATAAN_EKSPRESI:
-        pendengar.pernyataanEkspresiMasuk(*this);
+    case TipeTitik::PERNYATAAN:
+        pendengar.pernyataanMasuk(*this);
         break;
     case TipeTitik::PANGGIL_FUNGSI:
         pendengar.panggilFungsiMasuk(*this);
@@ -84,8 +84,8 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
     case TipeTitik::AWAL:
         pendengar.awalKeluar(*this);
         break;
-    case TipeTitik::PERNYATAAN_EKSPRESI:
-        pendengar.pernyataanEkspresiKeluar(*this);
+    case TipeTitik::PERNYATAAN:
+        pendengar.pernyataanKeluar(*this);
         break;
     case TipeTitik::PANGGIL_FUNGSI:
         pendengar.panggilFungsiKeluar(*this);

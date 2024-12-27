@@ -17,8 +17,8 @@ std::string nusantara::tipeTitikKeString(const TipeTitik &type) {
   switch(type) {
     case AWAL:
       return "AWAL";
-    case PERNYATAAN_EKSPRESI:
-      return "PERNYATAAN EKSPRESI";
+    case PERNYATAAN:
+      return "PERNYATAAN";
     case PANGGIL_FUNGSI:
       return "PANGGIL FUNGSI";
     case TEMPAT_PARAMETER_PANGGIL_FUNGSI:

@@ -32,9 +32,9 @@ namespace nusantara {
 
       virtual void awalKeluar(const Titik &titik) = 0;
 
-      virtual void pernyataanEkspresiMasuk(const Titik &titik) = 0;
+      virtual void pernyataanMasuk(const Titik &titik) = 0;
 
-      virtual void pernyataanEkspresiKeluar(const Titik &titik) = 0;
+      virtual void pernyataanKeluar(const Titik &titik) = 0;
 
       virtual void panggilFungsiMasuk(const Titik &titik) = 0;
 

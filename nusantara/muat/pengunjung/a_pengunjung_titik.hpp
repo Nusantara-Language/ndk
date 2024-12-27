@@ -31,7 +31,7 @@ namespace nusantara {
 
       virtual T kunjungiTitikAwal(const Titik& titik) = 0;
 
-      virtual T kunjungiTitikPernyataanEkspresi(const Titik& titik) = 0;
+      virtual T kunjungiTitikPernyataan(const Titik& titik) = 0;
 
       virtual T kunjungiTitikPanggilFungsi(const Titik& titik) = 0;
 

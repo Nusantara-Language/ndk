@@ -62,7 +62,7 @@ namespace nusantara {
 
       bool apakahTokenSaatIniAdalah(const std::vector<nusantara::TipeToken> &kumpulanTipeToken);
 
-      std::unique_ptr<Titik> uraiPernyataanEkspresi();
+      std::unique_ptr<Titik> uraiPernyataan();
 
       std::unique_ptr<Titik> uraiPanggilFungsi();
 

@@ -53,8 +53,8 @@ namespace nusantara {
         switch (this->tipe) {
           case TipeTitik::AWAL:
             return pengunjung.kunjungiTitikAwal(*this);
-          case TipeTitik::PERNYATAAN_EKSPRESI:
-            return pengunjung.kunjungiTitikPernyataanEkspresi(*this);
+          case TipeTitik::PERNYATAAN:
+            return pengunjung.kunjungiTitikPernyataan(*this);
           case TipeTitik::PANGGIL_FUNGSI:
             return pengunjung.kunjungiTitikPanggilFungsi(*this);
           case TipeTitik::TEMPAT_PARAMETER_PANGGIL_FUNGSI:
