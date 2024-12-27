@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <iostream>
+#include <optional>
 
 #include "pengecualian/antarmuka/a_pengecualian.h"
 #include "pengurai_sintaks/titik/tipe_titik.hpp"
@@ -47,26 +48,20 @@ bool nusantara::Titik::operator<(const Titik& lainnya) const {
 
 void nusantara::Titik::terima(APendengarTitik& pendengar) const {
   switch (this->tipe) {
+    case TipeTitik::TOKEN:
+        pendengar.tokenMasuk(*this);
+        break;
     case TipeTitik::AWAL:
         pendengar.awalMasuk(*this);
         break;
     case TipeTitik::PERNYATAAN:
         pendengar.pernyataanMasuk(*this);
         break;
+    case TipeTitik::EKSPRESI:
+        pendengar.ekspresiMasuk(*this);
+        break;
     case TipeTitik::PANGGIL_FUNGSI:
         pendengar.panggilFungsiMasuk(*this);
-        break;
-    case TipeTitik::TEMPAT_PARAMETER_PANGGIL_FUNGSI:
-        pendengar.tempatParameterPanggilFungsiMasuk(*this);
-        break;
-    case TipeTitik::TOKEN:
-        pendengar.tokenMasuk(*this);
-        break;
-    case TipeTitik::AKHIR_DARI_FILE:
-        pendengar.akhirDariFileMasuk(*this);
-        break;
-    case TipeTitik::BILANGAN:
-        pendengar.nilaiBilanganMasuk(*this);
         break;
     default:
         __CATATAN__KESALAHAN_FATAL_M__(
@@ -81,26 +76,20 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
   } // for
 
   switch (this->tipe) {
+    case TipeTitik::TOKEN:
+        pendengar.tokenKeluar(*this);
+        break;
     case TipeTitik::AWAL:
         pendengar.awalKeluar(*this);
         break;
     case TipeTitik::PERNYATAAN:
         pendengar.pernyataanKeluar(*this);
         break;
+    case TipeTitik::EKSPRESI:
+        pendengar.ekspresiKeluar(*this);
+        break;
     case TipeTitik::PANGGIL_FUNGSI:
         pendengar.panggilFungsiKeluar(*this);
-        break;
-    case TipeTitik::TEMPAT_PARAMETER_PANGGIL_FUNGSI:
-        pendengar.tempatParameterPanggilFungsiKeluar(*this);
-        break;
-    case TipeTitik::TOKEN:
-        pendengar.tokenKeluar(*this);
-        break;
-    case TipeTitik::AKHIR_DARI_FILE:
-        pendengar.akhirDariFileKeluar(*this);
-        break;
-    case TipeTitik::BILANGAN:
-        pendengar.nilaiBilanganKeluar(*this);
         break;
     default:
         __CATATAN__KESALAHAN_FATAL_M__(
@@ -113,7 +102,7 @@ void nusantara::Titik::terima(APendengarTitik& pendengar) const {
 } // function terima
 
 void nusantara::cetakTitik(const Titik &titik, int jarak) {
-  if (titik.ambilTipe() != TipeTitik::TOKEN) {
+  if (titik.ambilTipe() != TipeTitik::TOKEN && titik.ambilToken() == std::nullopt) {
     std::cout << "\033[34m[" << tipeTitikKeString(titik.ambilTipe()) << "]\033[0m\n";
   } // if
 
@@ -139,3 +128,7 @@ std::unique_ptr<nusantara::Titik>&& nusantara::Titik::keluarKanTitikTurunan(cons
 
   return std::move(this->kumpulanTitikTurunan[index]);
 } // function keluarKanTitikTurunan
+
+void nusantara::Titik::aturToken(const Token& token) {
+  this->token = token;
+} // function aturToken

@@ -13,6 +13,8 @@
 #include "pengecualian/kumpulan_pengecualian/pengecualian_sintaks.hpp"
 #include "pengunjung/a_pengunjung_titik.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
+#include <string>
+#include <variant>
 
 namespace nusantara {
 
@@ -20,14 +22,13 @@ namespace nusantara {
     public:
       PenganalisisSemantik(): pengecualianSintaks() {}
     private:
+      std::variant<std::string, int> tempatNilaiSementara;
       PengecualianSintaks pengecualianSintaks;
       void kunjungiTitikToken(const Titik &titik) override;
-      void kunjungiTitikPanggilFungsi(const Titik &titik) override;
       void kunjungiTitikAwal(const Titik &titik) override;
-      void kunjungiTitikTempatParameterPanggilFungsi(const Titik &titik) override;
       void kunjungiTitikPernyataan(const Titik &titik) override;
-      void kunjungiTitikAkhirDariFile(const Titik &titik) override;
-      void kunjungiTitikNilaiBilangan(const Titik &titik) override;
+      void kunjungiTitikEkspresi(const Titik &titik) override;
+      void kunjungiTitikPanggilFungsi(const Titik &titik) override;
     // akhir dari access modifiers private
 
   }; // class PenganalisisSemantik

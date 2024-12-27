@@ -48,23 +48,21 @@ namespace nusantara {
 
       std::unique_ptr<Titik>&& keluarKanTitikTurunan(const size_t& index);
 
+      void aturToken(const Token& token);
+
       template<typename T>
       auto terima(APengunjungTitik<T>& pengunjung) const -> T {
         switch (this->tipe) {
+          case TipeTitik::TOKEN:
+            return pengunjung.kunjungiTitikToken(*this);
           case TipeTitik::AWAL:
             return pengunjung.kunjungiTitikAwal(*this);
           case TipeTitik::PERNYATAAN:
             return pengunjung.kunjungiTitikPernyataan(*this);
+          case TipeTitik::EKSPRESI:
+            return pengunjung.kunjungiTitikEkspresi(*this);
           case TipeTitik::PANGGIL_FUNGSI:
             return pengunjung.kunjungiTitikPanggilFungsi(*this);
-          case TipeTitik::TEMPAT_PARAMETER_PANGGIL_FUNGSI:
-            return pengunjung.kunjungiTitikTempatParameterPanggilFungsi(*this);
-          case TipeTitik::TOKEN:
-            return pengunjung.kunjungiTitikToken(*this);
-          case TipeTitik::AKHIR_DARI_FILE:
-            return pengunjung.kunjungiTitikAkhirDariFile(*this);
-          case TipeTitik::BILANGAN:
-            return pengunjung.kunjungiTitikNilaiBilangan(*this);
           default:
             __CATATAN__KESALAHAN_FATAL_M__(
               __NK__LABEL_KELUARAN_CUSTOM__("Class Titik"), 

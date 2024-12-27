@@ -14,23 +14,10 @@
 #include "alat.hpp"
 #include "konfig/konfig_label_keluaran.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
-#include "cetak/cetak.hpp"
 
-void nusantara::PenganalisisSemantik::kunjungiTitikToken(const Titik&) {
-  // Tidak melakukan apa-apa
+void nusantara::PenganalisisSemantik::kunjungiTitikToken(const Titik& titik) {
+  this->tempatNilaiSementara = titik.ambilToken().value().konten;
 } // function kunjungiTitikToken
-
-void nusantara::PenganalisisSemantik::kunjungiTitikPanggilFungsi(const Titik& titik) {
-  const Token& namaFungsiToken = titik.ambilKumpulanTitikTurunan()[0]->ambilToken().value();
-  if (namaFungsiToken.konten != "halodunia") {
-    this->pengecualianSintaks.tambahData({
-      namaFungsiToken.lokasiBerkas,
-      namaFungsiToken.lokasi,
-      namaFungsiToken.konten,
-      __NK__LABEL_KELUARAN_AS__ "fungsi '" + namaFungsiToken.konten + "' belum dibuat."
-    }); // function tambahData
-  } // if
-} // function kunjungiTitikPanggilFungsi
 
 void nusantara::PenganalisisSemantik::kunjungiTitikAwal(const Titik& titik) {
   for(const auto& titikTurunan: titik.ambilKumpulanTitikTurunan()) {
@@ -44,26 +31,21 @@ void nusantara::PenganalisisSemantik::kunjungiTitikPernyataan(const Titik& titik
   }
 } // function kunjungiTitikPernyataan
 
-void nusantara::PenganalisisSemantik::kunjungiTitikTempatParameterPanggilFungsi(const Titik&) {
-  // Tidak melakukan apa-apa
-} // function kunjungiTitikTempatParameterPanggilFungsi
+void nusantara::PenganalisisSemantik::kunjungiTitikEkspresi(const Titik& titik) {
+  titik.ambilKumpulanTitikTurunan()[0]->terima(*this);
+  if(apaKahStringNumeric(std::get<std::string>(this->tempatNilaiSementara))) {
+    this->tempatNilaiSementara = std::stoi(std::get<std::string>(this->tempatNilaiSementara));
+  }
+} // function kunjungiTitikEkspresi
 
-void nusantara::PenganalisisSemantik::kunjungiTitikAkhirDariFile(const Titik& titik) {;
-  if(this->pengecualianSintaks.apaKahAdaData()) {
-    this->pengecualianSintaks.perbaruiPesanSesuaiData();
-    nusantara::cetak(this->pengecualianSintaks.what());
-    exit(0);
-  } // if
-} // function kunjungiTitikAkhirDariFile
-
-void nusantara::PenganalisisSemantik::kunjungiTitikNilaiBilangan(const Titik& titik) {
-  const Token& tokenNilaiBilangan = titik.ambilKumpulanTitikTurunan()[0]->ambilToken().value();
-  if(!apaKahStringNumeric(tokenNilaiBilangan.konten)) {
+void nusantara::PenganalisisSemantik::kunjungiTitikPanggilFungsi(const Titik& titik) {
+  const Token& namaFungsiToken = titik.ambilKumpulanTitikTurunan()[0]->ambilToken().value();
+  if (namaFungsiToken.konten != "halodunia") {
     this->pengecualianSintaks.tambahData({
-      tokenNilaiBilangan.lokasiBerkas,
-      tokenNilaiBilangan.lokasi,
-      tokenNilaiBilangan.konten,
-      __NK__LABEL_KELUARAN_AS__ "Bukan lah sebuah nilaiBilangan."
+      namaFungsiToken.lokasiBerkas,
+      namaFungsiToken.lokasi,
+      namaFungsiToken.konten,
+      __NK__LABEL_KELUARAN_AS__ "fungsi '" + namaFungsiToken.konten + "' belum dibuat."
     }); // function tambahData
   } // if
-} // function kunjungiTitikNilaiBilangan
+} // function kunjungiTitikPanggilFungsi

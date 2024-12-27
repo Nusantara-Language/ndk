@@ -18,6 +18,20 @@ void nusantara::Penafsir::kunjungiTitikToken(const Titik& titik) {
   if(titik.ambilToken()) this->lingkunganEksekusi.aturDataSementara(titik.ambilToken()->konten);
 } // function kunjungiTitikToken
 
+void nusantara::Penafsir::kunjungiTitikAwal(const nusantara::Titik& titik) {
+  for (const auto& child : titik.ambilKumpulanTitikTurunan()) {
+    child->terima(*this);
+  }
+} // function kunjungiTitikAwalNode
+
+void nusantara::Penafsir::kunjungiTitikPernyataan(const nusantara::Titik& titik) {
+  if(titik.ambilKumpulanTitikTurunan().size() > 0) titik.ambilKumpulanTitikTurunan()[0]->terima(*this);
+} // function kunjungiTitikPernyataanNode
+
+void nusantara::Penafsir::kunjungiTitikEkspresi(const nusantara::Titik& titik) {
+  cetakDBB(titik.ambilKumpulanTitikTurunan()[0]->ambilToken().value().konten);
+} // function kunjungiTitikEkspresi
+
 void nusantara::Penafsir::kunjungiTitikPanggilFungsi(const nusantara::Titik& node) {
   // Pergi ke child index ke-0 untuk mendapatkan nama fungsi
   node.ambilKumpulanTitikTurunan()[0]->terima(*this);
@@ -31,26 +45,3 @@ void nusantara::Penafsir::kunjungiTitikPanggilFungsi(const nusantara::Titik& nod
       )
     );
 } // function kunjungiTitikPanggilFungsi
-
-void nusantara::Penafsir::kunjungiTitikAwal(const nusantara::Titik& titik) {
-  for (const auto& child : titik.ambilKumpulanTitikTurunan()) {
-    child->terima(*this);
-  }
-} // function kunjungiTitikAwalNode
-
-void nusantara::Penafsir::kunjungiTitikPernyataan(const nusantara::Titik& titik) {
-  if(titik.ambilKumpulanTitikTurunan().size() > 0) titik.ambilKumpulanTitikTurunan()[0]->terima(*this);
-} // function kunjungiTitikPernyataanNode
-
-void nusantara::Penafsir::kunjungiTitikTempatParameterPanggilFungsi(const nusantara::Titik&) {
-  // Tidak mengeksekusi apa apa
-} // function kunjungiTitikTempatParameterPanggilFungsi
-
-void nusantara::Penafsir::kunjungiTitikAkhirDariFile(const nusantara::Titik& titik) {
-  // Tidak mengeksekusi apa apa
-} // function kunjungiTitikAkhirDariFile
-
-void nusantara::Penafsir::kunjungiTitikNilaiBilangan(const nusantara::Titik& titik) {
-  // Karena belum ada kode untuk mengelolah ekspresi nilaiBilangan, cetak aja langsung ke konsol
-  cetakDBB(titik.ambilKumpulanTitikTurunan()[0]->ambilToken().value().konten);
-} // function kunjungiTitikNilaiBilangan

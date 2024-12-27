@@ -18,10 +18,8 @@ namespace nusantara {
     TOKEN,
     AWAL,
     PERNYATAAN,
-    PANGGIL_FUNGSI,
-    TEMPAT_PARAMETER_PANGGIL_FUNGSI,
-    AKHIR_DARI_FILE,
-    BILANGAN,
+    EKSPRESI,
+    PANGGIL_FUNGSI
   }; // enum TipeTitik
 
   auto tipeTitikKeString(const TipeTitik &tipe) -> std::string;

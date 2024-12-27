@@ -54,6 +54,8 @@ namespace nusantara {
 
       [[nodiscard]] bool cekTipeToken(const nusantara::TipeToken &tipe) const;
 
+      [[nodiscard]] bool cekTipeToken(const std::vector<nusantara::TipeToken> &kumpulanTipeToken) const;
+
       const Token & tokenSebelumnya();
 
       const nusantara::Token & majuKeTokenSelanjutnya();
@@ -64,13 +66,11 @@ namespace nusantara {
 
       std::unique_ptr<Titik> uraiPernyataan();
 
+      std::unique_ptr<Titik> uraiEkspresi();
+
+      std::unique_ptr<Titik> uraiMuatBerkas();
+
       std::unique_ptr<Titik> uraiPanggilFungsi();
-
-      std::unique_ptr<Titik> uraiTempatParameterPanggilFungsi();
-
-      std::unique_ptr<Titik> uraiAkhirDariFile();
-
-      std::unique_ptr<Titik> uraiNilaiBilangan();
     // akhir dari access modifiers private
   
   }; // class PenguraiSintaks

@@ -20,6 +20,7 @@
 #include "pengunjung/a_pengunjung_titik.hpp"
 #include "konfig/konfig_label_keluaran.hpp"
 #include "konfig/konfig_sintaks.hpp"
+#include "pengurai_sintaks/titik/tipe_titik.hpp"
 #include "pengurai_sintaks/titik/titik.hpp"
 #include "pendengar/a_pendengar_titik.hpp"
 #include "token/tipe_token.hpp"
@@ -37,6 +38,18 @@ bool nusantara::PenguraiSintaks::cekTipeToken(const TipeToken &tipe) const {
     return false;
   }
   return this->tokenSaatIni().tipe == tipe;
+} // function cekTipeToken
+
+bool nusantara::PenguraiSintaks::cekTipeToken(const std::vector<nusantara::TipeToken> &kumpulanTipeToken) const {
+  if(
+    std::ranges::any_of(
+      kumpulanTipeToken,
+      [this](auto type) { return this->cekTipeToken(type); }
+    ) // function any_of
+  ) {
+    return true;
+  } // if
+  return false;
 } // function cekTipeToken
 
 const nusantara::Token& nusantara::PenguraiSintaks::tokenSebelumnya() {
@@ -93,7 +106,25 @@ void nusantara::PenguraiSintaks::uraikan() {
   } // while
 
   try {
-    titik.tambahTitikTurunan(this->uraiAkhirDariFile());
+    if(this->apakahSudahDiAkhirFile()) {
+      if(!this->psa) {
+        titik.tambahTitikTurunan(
+            std::make_unique<Titik>(
+              Titik{
+                TipeTitik::TOKEN,
+                this->tokenSaatIni()
+              } // constructor Titik
+            ) // constructor make_unique
+          ); // function tambahTitikTurunan
+      } // if
+    }else{
+      throw DataPengecualianSintaks{
+        .lokasiBerkas=this->tokenSaatIni().lokasiBerkas,
+        .lokasiToken=this->tokenSaatIni().lokasi,
+        .konten=this->tokenSaatIni().konten,
+        .pesan=__NK__LABEL_KELUARAN_PS__ "harus nya akhir dari file."
+      }; // throw
+    } // else
   } catch (const DataPengecualianSintaks &data) {
     this->pengecualianSintaks.tambahData(data);
   } // catch
@@ -139,11 +170,27 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPernyataan() {
     #ifdef __NK__SINTAKS_PERNYATAAN_DENGAN_TITIK_KOMA_WAJIB__
     makanTokenTitikKomaMendukungPsa();
     #endif
-  }else if(this->cekTipeToken(TipeToken::nilaiBilangan)) {
-    titik.tambahTitikTurunan(this->uraiNilaiBilangan());
+  }else if(this->cekTipeToken({TipeToken::nilaiBilangan, TipeToken::nilaiTeks})) {  
+    titik.tambahTitikTurunan(this->uraiEkspresi());
     #ifdef __NK__SINTAKS_PERNYATAAN_DENGAN_TITIK_KOMA_WAJIB__
     makanTokenTitikKomaMendukungPsa();
     #endif
+  }else if(this->cekTipeToken(TipeToken::muat)) {
+    this->makanToken(
+      TipeToken::muat, 
+      "Untuk memuat berkas, harus menggunakan kata kunci 'muat'."
+    ); // function makanToken
+    const auto& ekspresi = this->uraiEkspresi();
+    #ifdef __NK__SINTAKS_PERNYATAAN_DENGAN_TITIK_KOMA_WAJIB__
+    makanTokenTitikKoma();
+    #endif
+    const auto& token = ekspresi->ambilKumpulanTitikTurunan()[0]->ambilToken().value();
+    throw DataPengecualianSintaks{
+      .lokasiBerkas=token.lokasiBerkas,
+      .lokasiToken=token.lokasi,
+      .konten=token.konten,
+      .pesan= __NK__LABEL_KELUARAN_PS__"Pengurai sintaks belum dapat memuat file external."
+    };
   } else {
     throw DataPengecualianSintaks{
       .lokasiBerkas=this->tokenSaatIni().lokasiBerkas,
@@ -180,17 +227,6 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiPanggilFungsi(
       } // constructor Titik
     ) // constructor make_unique
   ); // function tambahTitikTurunan
-
-  auto titikTempatParameterPanggilFungsi = this->uraiTempatParameterPanggilFungsi();
-  if(titikTempatParameterPanggilFungsi != nullptr && titikTempatParameterPanggilFungsi->ambilKumpulanTitikTurunan().size() > 0) {
-    titik.tambahTitikTurunan(std::move(titikTempatParameterPanggilFungsi));
-  } // if
-
-  return std::make_unique<Titik>(std::move(titik));
-} // function uraiPanggilFungsi
-
-std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiTempatParameterPanggilFungsi() {
-  auto titik = Titik{TipeTitik::TEMPAT_PARAMETER_PANGGIL_FUNGSI};
 
   auto makanTokenKurungBulatBuka = [this] -> const nusantara::Token& {
     return this->makanToken(
@@ -230,43 +266,39 @@ std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiTempatParamete
   } // else
 
   return std::make_unique<Titik>(std::move(titik));
-} // function uraiTempatParameterPanggilFungsi
+} // function uraiPanggilFungsi
 
-std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiAkhirDariFile() {
-  auto titik = Titik{TipeTitik::AKHIR_DARI_FILE};
-  if(this->apakahSudahDiAkhirFile()) {
-    if(!this->psa) {
-      titik.tambahTitikTurunan(
-          std::make_unique<Titik>(
-            Titik{
-              TipeTitik::TOKEN,
-              this->tokenSaatIni()
-            } // constructor Titik
-          ) // constructor make_unique
-        ); // function tambahTitikTurunan
-    } // if
-  }else{
+std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiEkspresi() {
+  auto titik = Titik{TipeTitik::EKSPRESI};
+  if(this->cekTipeToken(TipeToken::nilaiBilangan)) {
+    titik.tambahTitikTurunan(
+      std::make_unique<Titik>(Titik{
+        TipeTitik::TOKEN,
+        this->makanToken(
+          TipeToken::nilaiBilangan, 
+          "Bukanlah sebuah bilangan."
+        ) // function makanToken
+      }) // constructor make_unique
+    ); // function tambahTitikTurunan
+  } else if(this->cekTipeToken(TipeToken::nilaiTeks)) {
+    titik.tambahTitikTurunan(
+      std::make_unique<Titik>(Titik{
+        TipeTitik::TOKEN,
+        this->makanToken(
+          TipeToken::nilaiTeks, 
+          "Bukanlah sebuah teks."
+        ) // function makanToken
+      }) // constructor make_unique
+    ); // function tambahTitikTurunan
+  } else{
     throw DataPengecualianSintaks{
       .lokasiBerkas=this->tokenSaatIni().lokasiBerkas,
       .lokasiToken=this->tokenSaatIni().lokasi,
       .konten=this->tokenSaatIni().konten,
-      .pesan=__NK__LABEL_KELUARAN_PS__ "harus nya akhir dari file."
+      .pesan=__NK__LABEL_KELUARAN_PS__ "Ekspresi tidak benar."
     }; // throw
   } // else
-  return std::make_unique<Titik>(std::move(titik));
-} // fungsi uraiAkhirDariFile
 
-std::unique_ptr<nusantara::Titik> nusantara::PenguraiSintaks::uraiNilaiBilangan() {
-  auto titik = Titik{TipeTitik::BILANGAN};
-  titik.tambahTitikTurunan(
-    std::make_unique<Titik>(Titik{
-      TipeTitik::TOKEN,
-      this->makanToken(
-        TipeToken::nilaiBilangan, 
-        "Bukanlah sebuah bilangan."
-      ) // function makanToken
-    }) // constructor make_unique
-  ); // function tambahTitikTurunan
   return std::make_unique<Titik>(std::move(titik));
 } // fungsi uraiNilaiBilangan
 

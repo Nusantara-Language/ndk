@@ -29,19 +29,16 @@ namespace nusantara {
 
       APengunjungTitik & operator=(APengunjungTitik &&) = default;
 
+      virtual T kunjungiTitikToken(const Titik& titik) = 0;
+
       virtual T kunjungiTitikAwal(const Titik& titik) = 0;
 
       virtual T kunjungiTitikPernyataan(const Titik& titik) = 0;
 
+      virtual T kunjungiTitikEkspresi(const Titik& titik) = 0;
+
       virtual T kunjungiTitikPanggilFungsi(const Titik& titik) = 0;
-
-      virtual T kunjungiTitikTempatParameterPanggilFungsi(const Titik& titik) = 0;
-
-      virtual T kunjungiTitikToken(const Titik& titik) = 0;
-
-      virtual T kunjungiTitikAkhirDariFile(const Titik& titik) = 0;
-
-      virtual T kunjungiTitikNilaiBilangan(const Titik& titik) = 0;
+      
     // akhir dari access modifiers public
 
   }; // class APengunjungTitik
