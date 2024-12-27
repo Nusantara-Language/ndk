@@ -1,5 +1,3 @@
 build
 .cache
 .temp
-build.sh
-clean_build.sh

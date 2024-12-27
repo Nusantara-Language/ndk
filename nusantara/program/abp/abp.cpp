@@ -7,6 +7,7 @@
  * ----------------------------------------------------------------------------
  */
 
+#include <exception>
 #include <regex>
 #include <stdexcept>
 #include <string>
@@ -24,6 +25,7 @@
 #include <utility>
 #include "konfig/versi.hpp"
 #include "alat.hpp"
+#include "abp/abp.hpp"
 
 #include "argparse/argparse.hpp"
 
@@ -31,16 +33,16 @@
   #include <waktu_eksekusi/waktu_eksekusi.hpp>
 #endif
 
-auto main(int argc, const char* argv[]) -> int {
+int nusantara::abp(const int& argc, const char*& argv) {
 
   #ifdef PERLIHATKAN_WAKTU_EKSEKUSI
+
+    nusantara::WaktuEksekusi::mulai();
 
     auto programBerakhir = []() {
       nusantara::WaktuEksekusi::selesai();
       nusantara::WaktuEksekusi::cetak();
     }; // lambda programBerakhir
-
-    nusantara::WaktuEksekusi::mulai();
 
     if(atexit(programBerakhir) != 0) {
       __CATATAN__KESALAHAN__("Gagal mendaftarkan fungsi programBerakhir!");
@@ -80,10 +82,16 @@ auto main(int argc, const char* argv[]) -> int {
 
   program.add_usage_newline();
 
-  program.add_argument("<berkas.n>")
+  program.add_argument(
+    "<berkas"
+    #ifdef __NK__EKSTENSI_BERKAS_WAJIB__
+    "." __NK__EKSTENSI_BERKAS__
+    #endif
+    ">"
+    )
     .help("Untuk mengolah berkas nusantara.")
     .nargs(1)
-    .required()
+    .default_value(std::pair<std::string, std::string>())
     .action([](const std::string& lokasiBerkas) {
       #ifdef __NK__EKSTENSI_BERKAS_WAJIB__
       if(!std::regex_match(lokasiBerkas, std::regex(__NK__EKSTENSI_BERKAS_REGEX__))) {
@@ -134,7 +142,7 @@ auto main(int argc, const char* argv[]) -> int {
     .flag();
 
   try {
-    program.parse_args(argc, argv);
+    program.parse_args(argc, &argv);
   } catch (const std::exception& kesalahan) {
     nusantara::cetakDBB(kesalahan.what());
     nusantara::cetak(program);
@@ -146,14 +154,27 @@ auto main(int argc, const char* argv[]) -> int {
     exit(0);
   } // if
 
-  auto berkas = program.get<std::pair<std::string, std::string>>("<berkas.n>");
+  auto berkas = program.get<std::pair<std::string, std::string>>(
+    "<berkas"
+    #ifdef __NK__EKSTENSI_BERKAS_WAJIB__
+    "." __NK__EKSTENSI_BERKAS__
+    #endif
+    ">"
+  ); // fungsi get
+
+  if(!berkas.first.empty() && berkas.second.empty()) {
+    exit(0);
+  } // if
+
   auto tsArg = program.get<bool>(__NK__ARGUMEN_PROSES_BERKAS_TS__);
   auto psArg = program.get<bool>(__NK__ARGUMEN_PROSES_BERKAS_PS__);
   auto psaArg = program.get<bool>(__NK__ARGUMEN_PROSES_BERKAS_PSA__);
   auto asArg = program.get<bool>(__NK__ARGUMEN_PROSES_BERKAS_AS__);
   auto pArg = program.get<bool>(__NK__ARGUMEN_PROSES_BERKAS_P__);
 
-  if(berkas.second.empty()) {
+  if(berkas.first.empty() && berkas.second.empty()) {
+    if(tsArg || psArg || psaArg || asArg || pArg) cetakDBB("Berkas belum ditentukan.");
+    nusantara::cetak(program);
     exit(0);
   } // if
 

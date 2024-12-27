@@ -19,7 +19,7 @@ file(GLOB_RECURSE LIB_SOURCES
 )
 
 # Executable
-add_executable(nusantara "program/nusantara/nusantara.cpp" ${LIB_SOURCES})
+add_executable(nusantara "program/abp/abp_main.cpp" "program/abp/abp.cpp" ${LIB_SOURCES})
 add_executable(tests "program/test/test.cpp" ${LIB_SOURCES})
 
 # Include folder

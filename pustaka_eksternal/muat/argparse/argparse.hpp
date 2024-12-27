@@ -139,7 +139,7 @@ template <typename T> std::string repr(T const &val) {
     out << val;
     return out.str();
   } else {
-    return "<not representable>";
+    return "<tidak dapat direpresentasikan>";
   }
 }
 
@@ -1217,7 +1217,7 @@ public:
     bool add_space = false;
     if (argument.m_default_value.has_value() &&
         argument.m_num_args_range != NArgsRange{0, 0}) {
-      stream << "[default: " << argument.m_default_value_repr << "]";
+      stream << "[bawaan: " << argument.m_default_value_repr << "]";
       add_space = true;
     } else if (argument.m_is_required) {
       stream << "[diperlukan]";
@@ -1288,7 +1288,7 @@ private:
     NArgsRange(std::size_t minimum, std::size_t maximum)
         : m_min(minimum), m_max(maximum) {
       if (minimum > maximum) {
-        throw std::logic_error("Range of number of arguments is invalid");
+        throw std::logic_error("Rentang jumlah argumen tidak valid");
       }
     }
 

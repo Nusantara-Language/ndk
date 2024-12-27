@@ -1,0 +1,10 @@
+{
+  "material-icon-theme.folders.associations": {
+    "contoh": "Examples",
+    ".catatan": "Log",
+    "muat": "Include",
+    "pustaka": "Lib",
+    "pustaka_external": "Lib",
+    "program": "Src"
+  }
+}

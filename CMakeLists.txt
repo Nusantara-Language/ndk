@@ -14,6 +14,9 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_C_COMPILER "clang")
 set(CMAKE_CXX_COMPILER "clang++")
 set(CMAKE_LINKER "lld")
+# Mengatur ccache
+set(CMAKE_C_COMPILER_LAUNCHER "ccache")
+set(CMAKE_CXX_COMPILER_LAUNCHER "ccache")
 
 # Tentukan flag tambahan untuk compiler C++
 set(CXX_INCLUDE_FOLDER "C:/msys64/clang64/include/c++/v1")
