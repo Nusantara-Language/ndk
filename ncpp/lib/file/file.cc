@@ -7,10 +7,12 @@
  * ----------------------------------------------------------------------------
  */
 
+#include <exception>
 #include <filesystem>
 #include <string>
 #include <utility>
 #include <variant>
+#include <vector>
 
 #include "file/file.h"
 #include "file/nnmap.h"
@@ -21,7 +23,11 @@ File::File(std::string path) : pth(std::move(path)) {}
 
 void File::read()
 {
-    this->ctn = nnmap(this->pth);
+    try {
+        this->ctn = nnmap(this->pth);
+    } catch(const std::exception& error) {
+        this->ctn = std::vector<char>();
+    }
 }
 
 bool File::exist()
