@@ -1,0 +1,51 @@
+#/*
+# * ----------------------------------------------------------------------------
+# * Proyek: Nusantara Language
+# * Penulis: Fern Aerell
+# * Lisensi: BSD 3-Clause License
+# * Hak Cipta (c) 2024, Nusantara
+# * ----------------------------------------------------------------------------
+# */
+
+# Essential
+NEWLINE: [\n] skip
+
+# Non Essential
+WHITESPACE: \s skip
+SINGLE_LINE_COMMENT: \/\/.*
+MULTI_LINE_COMMENT: \/\*(.|\n)*?\*\/
+LOAD_FILE_KEYWORD: muat
+INPUT_KEYWORD: masukkan
+OPEN_CURLY_BRACKET: [{]
+CLOSE_CURLY_BRACKET: [}]
+INCREMENT: \+\+
+PLUS: \+
+RETURN_SIGN: ->
+DECREMENT: --
+MINUS: -
+ASTERISK: \*
+SLASH: \/
+PERCENT: %
+EQUAL_TO: ==
+EQUAL: =
+NOT_EQUAL: !=
+NOT: !
+LESS_THAN_OR_EQUAL_TO: <=
+LEFT_SHIFT: <<
+LESS_THAN: <
+GREATER_THAN_OR_EQUAL_TO: >=
+RIGHT_SHIFT: >>
+GREATER_THAN: >
+AND: &&
+BITWISE_AND: &
+OR: \|\|
+BITWISE_OR: \|
+XOR: \^
+BITWISE_NOT: ~
+INT: [0-9][0-9]*
+STRING: (".[^"]*"|'.[^']*')
+ID: [a-zA-Z][a-zA-Z0-9_]*
+
+# Essential
+UNKNOWN: .
+NEOF: \0

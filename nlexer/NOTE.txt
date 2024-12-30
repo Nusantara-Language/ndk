@@ -1,0 +1,2 @@
+Kinerja: Ekspresi reguler dapat menjadi lambat jika tidak dioptimalkan dengan baik.
+Keamanan: Pastikan bahwa pola regex tidak memungkinkan eksploitasi (misalnya, regex denial of service) dengan input yang sangat besar atau kompleks.

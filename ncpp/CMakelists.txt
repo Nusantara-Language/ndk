@@ -1,0 +1,40 @@
+option(NCPP_UNIT_TEST "Opsi untuk membuild unit test ncpp" OFF)
+
+# NCPP Library
+file(GLOB_RECURSE SRC_FILES
+  "lib/**/*.cc"
+  "src/**/*.cc"
+  "lib/*.cc"
+  "src/*.cc"
+)
+
+add_library(ncpp STATIC
+  ${SRC_FILES}
+)
+
+target_include_directories(ncpp PUBLIC 
+  "include"
+  "${CMAKE_SOURCE_DIR}/libs/bs_thread_pool/include"
+)
+
+# NCPP Tests
+if(NCPP_UNIT_TEST)
+  include("${CMAKE_SOURCE_DIR}/cmake/gtest.cmake")
+
+  file(GLOB_RECURSE TEST_FILES
+    "tests/**/*.cc"
+    "tests/*.cc"
+  )
+
+  add_executable(ncpp_tests ${TEST_FILES})
+
+  target_include_directories(ncpp_tests PRIVATE
+    "include"
+    GoogleTest
+  )
+
+  target_link_libraries(ncpp_tests PRIVATE 
+    ncpp
+    GTest::gtest_main
+  )
+endif()
