@@ -31,7 +31,7 @@ if(NLEXER_STATIC_LIBRAY)
     "include"
   )
 
-  target_link_libraries(libnlexer PUBLIC ncpp)
+  target_link_libraries(libnlexer PRIVATE ncpp)
 endif()
 
 # Tkpn

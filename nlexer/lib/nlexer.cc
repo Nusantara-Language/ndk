@@ -13,6 +13,8 @@
 #include "error/file_content_exception.h"
 #include "file/file_txt.h"
 #include "nlexer.h"
+#include "ntoken.h"
+
 
 namespace nlexer {
 
@@ -93,7 +95,10 @@ NToken::Wrapper NLexer::tokenization(const std::string& path, std::string& conte
         tokens.emplace_back(std::move(token)); // Menambahkan token ke daftar
     }
 
-    tokens.emplace_back(NToken{location, "", NToken::NEOF}); // Menambahkan token EOF
+    if (tokens.back().type != NToken::NEOF)
+    {
+        tokens.emplace_back(NToken{location, "", NToken::NEOF}); // Menambahkan token EOF
+    }
 
     return {path, tokens}; // Mengembalikan Wrapper dengan daftar token
 }
@@ -147,7 +152,7 @@ NToken NLexer::tokenAnalyzer(std::string& content, NToken::Location& location)
         }
     }
 
-    return result; // Kembalikan hasil (mungkin UNKNOWN jika tidak ditemukan)
+    return {location, "", NToken::NEOF};
 }
 
 /**

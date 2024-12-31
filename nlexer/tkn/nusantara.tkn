@@ -12,17 +12,18 @@ NEWLINE: [\n] skip
 
 # Non Essential
 WHITESPACE: \s skip
-SINGLE_LINE_COMMENT: \/\/.*
-MULTI_LINE_COMMENT: \/\*(.|\n)*?\*\/
+SINGLE_LINE_COMMENT: \/\/.* skip
+MULTI_LINE_COMMENT: \/\*(.|\n)*?\*\/ skip
 LOAD_FILE_KEYWORD: muat
 INPUT_KEYWORD: masukkan
 OPEN_CURLY_BRACKET: [{]
 CLOSE_CURLY_BRACKET: [}]
+OPEN_ROUND_BRACKET: [(]
+CLOSE_ROUND_BRACKET: [)]
 INCREMENT: \+\+
 PLUS: \+
 RETURN_SIGN: ->
 DECREMENT: --
-MINUS: -
 ASTERISK: \*
 SLASH: \/
 PERCENT: %
@@ -42,7 +43,10 @@ OR: \|\|
 BITWISE_OR: \|
 XOR: \^
 BITWISE_NOT: ~
-INT: [0-9][0-9]*
+SEMICOLON: ;
+DECIMAL: -?[0-9]+,[0-9]+
+INT: -?[0-9][0-9]*
+MINUS: -
 STRING: (".[^"]*"|'.[^']*')
 ID: [a-zA-Z][a-zA-Z0-9_]*
 
