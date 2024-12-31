@@ -1,0 +1,7 @@
+// Ini adalah komentar 1 baris
+
+/*
+ * Ini adalah
+ * komentar banyak
+ * baris
+ */

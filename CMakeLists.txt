@@ -61,6 +61,7 @@ set(NLEXER_TKPN ON)
 set(NUSANTARA_PROJECT_BUILD 
   ncpp
   nlexer
+  nparser
 )
 
 include("${CMAKE_SOURCE_DIR}/cmake/nusantara_project_build.cmake")

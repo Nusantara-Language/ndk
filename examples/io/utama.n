@@ -1,0 +1,5 @@
+// Input
+'Siapa nama kamu? ' masukkan nama
+
+// Ouput
+'Halo ' nama ' senang bertemu dengan anda!'
