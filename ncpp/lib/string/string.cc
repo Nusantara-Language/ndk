@@ -8,8 +8,12 @@
  */
 
 #include "string/string.h"
+#include <math.h>
+
+#include <cctype>
 #include <sstream>
 #include <string>
+#include <string_view>
 
 namespace ncpp {
 
@@ -430,6 +434,25 @@ std::string normalized(std::string str) noexcept
 
     // Mengembalikan string yang telah dinormalisasi dengan memindahkan kepemilikan.
     return std::move(str);
+}
+
+bool isNumeric(std::string_view str)
+{
+    for (char c : str)
+    {
+        if (std::isdigit(c) == 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isNumber(const std::string& str) {
+    std::istringstream iss(str);
+    double num = NAN;
+    char c = 0;
+    return (iss >> num) && !(iss >> c);
 }
 
 } // namespace ncpp

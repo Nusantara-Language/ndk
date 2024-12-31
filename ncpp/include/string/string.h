@@ -11,6 +11,7 @@
 #define STRING_H
 
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace ncpp {
@@ -195,6 +196,10 @@ std::string& normalize(std::string& str) noexcept;
  *       yang memungkinkan pengalihan kepemilikan data string tanpa melakukan salinan tambahan.
  */
 std::string normalized(std::string str) noexcept;
+
+bool isNumeric(std::string_view str);
+
+bool isNumber(const std::string& str);
 
 } // namespace ncpp
 

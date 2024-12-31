@@ -14,7 +14,6 @@ add_library(ncpp STATIC
 
 target_include_directories(ncpp PUBLIC 
   "include"
-  "${CMAKE_SOURCE_DIR}/libs/bs_thread_pool/include"
 )
 
 # NCPP Tests
