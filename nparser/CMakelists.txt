@@ -1,0 +1,57 @@
+option(NPARSER_STATIC_LIBRAY "Opsi untuk membuild nparser static library" OFF)
+option(NPARSER_UNIT_TEST "Opsi untuk membuild unit test nparser" OFF)
+
+file(GLOB_RECURSE LIB_SRC_FILES
+  "lib/**/*.cc"
+  "lib/*.cc"
+)
+
+# NParser
+add_executable(nparser "src/nparser.cc" ${LIB_SRC_FILES})
+
+target_include_directories(nparser PRIVATE 
+  "include"
+  libnlexer
+  ncpp
+)
+
+target_link_libraries(nparser PRIVATE libnlexer ncpp)
+
+# NParser Library
+if(NPARSER_STATIC_LIBRAY)
+  add_library(libnparser STATIC
+    ${LIB_SRC_FILES}
+  )
+
+  set(CMAKE_STATIC_LIBRARY_PREFIX "")
+  set(CMAKE_SHARED_LIBRARY_PREFIX "")
+
+  target_include_directories(libnparser PUBLIC
+    "include"
+    ncpp
+  )
+
+  target_link_libraries(libnparser PRIVATE libnlexer ncpp)
+endif()
+
+# NParser Unit Test
+if(NPARSER_UNIT_TEST)
+  include("${CMAKE_SOURCE_DIR}/cmake/gtest.cmake")
+
+  file(GLOB_RECURSE TEST_FILES
+    "tests/**/*.cc"
+    "tests/*.cc"
+  )
+
+  add_executable(nparser_tests ${TEST_FILES})
+
+  target_include_directories(nparser_tests PRIVATE
+    "include"
+    GoogleTest
+  )
+
+  target_link_libraries(nparser_tests PRIVATE 
+    libnparser
+    GTest::gtest_main
+  )
+endif()
