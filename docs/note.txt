@@ -1,0 +1,24 @@
+# Catatan untuk dokumentasi nya nanti
+
+---------------------------------------------------------------------------------------------------
+Q: Kenapa memilih bul dan des untuk int dan float atau double?
+A: Ini karena bahasa indonesia memiliki beberapa kelemahan, dimana terkadang bahasa inggris
+ketika kita ubah menjadi bahasa indonesia, itu jadi panjang banget.
+
+Contoh:
+int singkatan dari integer yang artinya bilangan bulat kalau di bahasa indonesia.
+
+jadi bul untuk bilangan bulat dan des untuk bilangan desimal sudah sangat simpel
+dan menggambarkan bilangan bulat dan desimal, menurut saya.
+
+----------------------------------------------------------------------------------------------------
+Q: Kenapa bilangan desimal pake titik bukan koma, padahalkan kalau pake koma, lebih indonesia?
+A: Dikarenakan titik sudah menjadi standar internasional dalam pemrograman untuk bilangan desimal, 
+dan karena koma juga digunakan sebagai pemisah.
+
+Akan terasa aneh jika bilangan desimal tetap menggunakan koma.
+
+Contoh: 
+des[] nilai = [10,4, 12,7, 90,4];
+
+-----------------------------------------------------------------------------------------------------
