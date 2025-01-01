@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 // Helper function to create a lexer and process input
-nlexer::NToken::Wrapper getTokensFromInput(const std::string& input, const std::shared_ptr<std::vector<nlexer::NToken::Wrapper>>& twraps)
+nlexer::NToken::Wrapper getTokensFromInput(const std::string& input, const std::shared_ptr<std::list<nlexer::NToken::Wrapper>>& twraps)
 {
     nlexer::NLexer lexer(twraps);
     return lexer.input(input); // Proses input menjadi token
@@ -12,7 +12,7 @@ nlexer::NToken::Wrapper getTokensFromInput(const std::string& input, const std::
 // Test case for a simple input
 TEST(NLexerTest, SimpleInput)
 {
-    auto twraps = std::make_shared<std::vector<nlexer::NToken::Wrapper>>();
+    auto twraps = std::make_shared<std::list<nlexer::NToken::Wrapper>>();
     nlexer::NToken::Wrapper tokens = getTokensFromInput("muat 'halodunia.n'", twraps);
 
     ASSERT_EQ(twraps->size(), 1);       // Pastikan satu wrapper token dihasilkan
@@ -26,7 +26,7 @@ TEST(NLexerTest, SimpleInput)
 // Test case for unrecognized token
 TEST(NLexerTest, UnrecognizedToken)
 {
-    auto twraps = std::make_shared<std::vector<nlexer::NToken::Wrapper>>();
+    auto twraps = std::make_shared<std::list<nlexer::NToken::Wrapper>>();
     nlexer::NToken::Wrapper tokens = getTokensFromInput("?", twraps);
     ASSERT_EQ(twraps->size(), 1);       // Pastikan satu wrapper token dihasilkan
     ASSERT_EQ(tokens.tokens.size(), 2); // Harapkan 1 token: UNKNOWN, NEOF
@@ -38,7 +38,7 @@ TEST(NLexerTest, UnrecognizedToken)
 // Test case for newline handling
 TEST(NLexerTest, NewlineHandling)
 {
-    auto twraps = std::make_shared<std::vector<nlexer::NToken::Wrapper>>();
+    auto twraps = std::make_shared<std::list<nlexer::NToken::Wrapper>>();
     nlexer::NToken::Wrapper tokens = getTokensFromInput("nama\n'Fern Aerell'", twraps);
 
     ASSERT_EQ(twraps->size(), 1);       // Pastikan satu wrapper token dihasilkan

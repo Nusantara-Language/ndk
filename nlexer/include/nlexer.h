@@ -10,10 +10,10 @@
 #ifndef NLEXER_H
 #define NLEXER_H
 
+#include <list>
 #include <memory>
 #include <regex>
 #include <string>
-#include <vector>
 
 #include "ntoken.h"
 
@@ -25,11 +25,11 @@ public:
     /**
      * @brief Konstruktor untuk kelas NLexer.
      *
-     * Menerima shared pointer ke vector yang berisi Wrapper token.
+     * Menerima shared pointer ke list yang berisi Wrapper token.
      *
-     * @param twraps Shared pointer ke vector yang menyimpan Wrapper token.
+     * @param twraps Shared pointer ke list yang menyimpan Wrapper token.
      */
-    explicit NLexer(const std::shared_ptr<std::vector<NToken::Wrapper>>& twraps);
+    explicit NLexer(const std::shared_ptr<std::list<NToken::Wrapper>>& twraps);
 
     /**
      * @brief Memproses input string dan menghasilkan token.
@@ -56,7 +56,7 @@ public:
     NToken::Wrapper& inputFile(const std::string& path);
 
 private:
-    std::shared_ptr<std::vector<NToken::Wrapper>> twraps; ///< Pointer bersama ke vector yang menyimpan wrapper token yang dihasilkan.
+    std::shared_ptr<std::list<NToken::Wrapper>> twraps; ///< Pointer bersama ke list yang menyimpan wrapper token yang dihasilkan.
 
     /**
      * @brief Melakukan tokenisasi pada konten string.

@@ -119,7 +119,7 @@ class TokenProcessor
 
   std::string generateTokenData() const
   {
-    std::string result = "inline static const std::array<NToken::Data, " + std::to_string(tokenTypes.size()) + "> tokenData = {\n";
+    std::string result = "static const std::array<NToken::Data, " + std::to_string(tokenTypes.size()) + "> tokenData = {\n";
 
     // result += "  NToken::Data{NToken::NEWLINE, R\"(^[\\n])\", false},\n";
 

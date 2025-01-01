@@ -10,14 +10,13 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <vector>
 
 #include "nlexer.h"
 #include "ntoken.h"
 
 int main(int argc, const char* argv[])
 {
-  std::shared_ptr<std::vector<nlexer::NToken::Wrapper>> tWraps = std::make_shared<std::vector<nlexer::NToken::Wrapper>>();
+  auto tWraps = std::make_shared<std::list<nlexer::NToken::Wrapper>>();
   nlexer::NLexer lexer(tWraps);
   if (argc > 1)
   {

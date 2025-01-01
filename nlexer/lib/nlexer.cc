@@ -21,11 +21,11 @@ namespace nlexer {
 /**
  * @brief Konstruktor untuk kelas NLexer.
  *
- * Menerima shared pointer ke vector yang berisi Wrapper token.
+ * Menerima shared pointer ke list yang berisi Wrapper token.
  *
- * @param twraps Shared pointer ke vector yang menyimpan Wrapper token.
+ * @param twraps Shared pointer ke list yang menyimpan Wrapper token.
  */
-NLexer::NLexer(const std::shared_ptr<std::vector<NToken::Wrapper>>& twraps) : twraps(twraps) {}
+NLexer::NLexer(const std::shared_ptr<std::list<NToken::Wrapper>>& twraps) : twraps(twraps) {}
 
 /**
  * @brief Memproses input string dan menghasilkan token.
