@@ -7,23 +7,27 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef STATEMENT_NAST_H
-#define STATEMENT_NAST_H
+#ifndef PRIMARY_EXPRESSION_NAST_H
+#define PRIMARY_EXPRESSION_NAST_H
 
 #include "nast.h"
+#include <memory>
 
 namespace nparser {
 
-class StatementNAst : public NAst
+class LiteralNAst;
+class ExpressionNAst;
+
+class PrimaryExpressionNAst : public NAst
 {
 public:
-    StatementNAst() = default;
-
-    explicit StatementNAst(std::unique_ptr<NAst>&& value) : value(std::move(value)) {}
+    PrimaryExpressionNAst() = default;
+    
+    explicit PrimaryExpressionNAst(std::unique_ptr<NAst>&& value) : value(std::move(value)) {}
 
     [[nodiscard]] const std::unique_ptr<NAst>& getValue() const
     {
-        return this->value;
+        return value;
     }
 
     void setValue(std::unique_ptr<NAst>&& value)
@@ -34,11 +38,10 @@ public:
     // akhir dari access modifiers public
 
 private:
-    std::unique_ptr<NAst> value;
-
+    std::unique_ptr<NAst> value = nullptr;
     // akhir dari access modifiers private
 
-}; // class StatementNAst
+}; // class PrimaryExpressionNAst
 
 } // namespace nparser
 

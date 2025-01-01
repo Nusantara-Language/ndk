@@ -8,19 +8,19 @@
  */
 
 #include "nparser.h"
+#include "utils/cout_nast.h"
 #include "nast/nast.h"
-#include "nast_addition.h"
 #include "nlexer.h"
 #include "ntoken.h"
+#include <iostream>
 #include <memory>
-#include <vector>
 
 int main(int argc, const char* argv[])
 {
-    auto tWraps = std::make_shared<std::vector<nlexer::NToken::Wrapper>>();
+    auto tWraps = std::make_shared<std::list<nlexer::NToken::Wrapper>>();
     auto lexer = std::make_shared<nlexer::NLexer>(tWraps);
-    auto nAsts = std::make_shared<std::vector<std::unique_ptr<nparser::NAst>>>();
-    nparser::NParser parser(lexer, nAsts);
+    auto aWraps = std::make_shared<std::list<nparser::NAst::Wrapper>>();
+    nparser::NParser parser(lexer, aWraps);
     if (argc > 1)
     {
         for (int i = 1; i < argc; ++i)
@@ -28,9 +28,10 @@ int main(int argc, const char* argv[])
             parser.inputFile(argv[i]);
         }
     }
-    for (const auto& nAst : *nAsts)
+    for (const auto& aWrap  : *aWraps)
     {
-        nparser::coutNAst(*nAst);
+        std::cout << aWrap.Location << "\n";
+        nparser::coutNAst(*aWrap.nAst);
     }
     return 0;
 }

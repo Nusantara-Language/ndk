@@ -10,11 +10,28 @@
 #ifndef NAST_H
 #define NAST_H
 
+#include <memory>
+#include <string>
+
 namespace nparser {
 
 class NAst
 {
 public:
+    struct Wrapper
+    {
+        std::string Location;       ///< Lokasi input atau file sumber.
+        std::unique_ptr<NAst> nAst; ///< NAst yang di hasilkan dari parsing file sumber.
+    };
+
+    struct OpRight
+    {
+        OpRight(const char& op, std::unique_ptr<NAst>&& right) : op(op), right(std::move(right)) {}
+
+        char op;
+        std::unique_ptr<NAst> right;
+    };
+
     NAst() = default;
     NAst(const NAst&) = delete;
     NAst(NAst&&) = default;
@@ -24,11 +41,7 @@ public:
     // akhir dari access modifiers public
 
 private:
-
     // akhir dari access modifiers private
-
-protected:
-    // akhir dari access modifiers protected
 
 }; // class AST
 

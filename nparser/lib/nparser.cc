@@ -8,158 +8,57 @@
  */
 
 #include "nparser.h"
-#include "nast/compound_statement_nast.h"
-#include "nast/expression_nast.h"
-#include "nast/int_nast.h"
-#include "nast/nast.h"
-#include "nast/op_nast.h"
-#include "nast/statement_nast.h"
 #include "ntoken.h"
+#include "parse/parse.h"
 #include <algorithm>
 #include <cctype>
 #include <error/file_content_exception.h>
-#include <exception>
+#include <filesystem>
 #include <functional>
-#include <iostream>
 #include <memory>
-#include <stdexcept>
 #include <string>
 #include <vector>
 
 namespace nparser {
 
-std::unique_ptr<nparser::NAst>& NParser::input(const std::string& input, const std::string& path)
+void NParser::input(const std::string& input, const std::string& path)
 {
-    Utils utils{this->lexer->input(input, path), *this->lexer, *this};
-    this->nAsts->emplace_back(std::move(parse(utils)));
-    return this->nAsts->back();
+    // Menjadi path absolute dan dinormalisasi (menghapus simbol . dan ..)
+    std::string pathAbsolute = std::filesystem::canonical(path).string();
+
+    // Cek apakah path sudah dimuat sebelumnya
+    if (this->fileLoaded.find(pathAbsolute) != this->fileLoaded.end())
+    {
+        // Jika sudah dimuat, akhiri fungsi
+        return;
+    }
+
+    // Simpan path absolute yang sudah dinormalisasi ke dalam set
+    this->fileLoaded.insert(pathAbsolute);
+
+    // Lakukan pemrosesan file
+    Utils utils{this->lexer->input(input, pathAbsolute), *this};
+    this->nAsts->emplace_back(pathAbsolute, parse(utils));
 }
 
-std::unique_ptr<nparser::NAst>& NParser::inputFile(const std::string& path)
+void NParser::inputFile(const std::string& path)
 {
-    Utils utils{this->lexer->inputFile(path), *this->lexer, *this};
-    this->nAsts->emplace_back(std::move(parse(utils)));
-    return this->nAsts->back();
-}
+    // Menjadi path absolute dan dinormalisasi (menghapus simbol . dan ..)
+    std::string pathAbsolute = std::filesystem::canonical(path).string();
 
-std::unique_ptr<nparser::NAst> NParser::parse(Utils& utils)
-{
-    // Langsung parse ke kumpulan statement.
-    return parseCompoundStatement(utils);
-}
-
-std::unique_ptr<nparser::NAst> NParser::parseCompoundStatement(Utils& utils)
-{
-    // Buat tempat untuk menampung kumpulan statement
-    std::vector<std::unique_ptr<nparser::NAst>> compoundStatementValue;
-
-    // Looping sampai akhir file
-    while (!utils.isEndOfFile())
+    // Cek apakah path sudah dimuat sebelumnya
+    if (this->fileLoaded.find(pathAbsolute) != this->fileLoaded.end())
     {
-        try
-        {
-            // Setiap iterasi panggil parse statement, dan masukkan hasil nya ke compoundStatement
-            compoundStatementValue.emplace_back(parseStatement(utils));
-        }
-        catch (const std::exception& error)
-        {
-            std::cerr << error.what();
-            utils.eat(); // Lanjutkan parsing meski ada error
-        }
+        // Jika sudah dimuat, akhiri fungsi
+        return;
     }
 
-    return std::make_unique<CompoundStatementNAst>(std::move(compoundStatementValue));
-}
+    // Simpan path absolute yang sudah dinormalisasi ke dalam set
+    this->fileLoaded.insert(pathAbsolute);
 
-std::unique_ptr<nparser::NAst> NParser::parseStatement(Utils& utils)
-{
-    std::unique_ptr<NAst> nAst;
-
-    // Cek apakah statment berisi int, jika iya statement adalah ekspresi
-    if (utils.match(nlexer::NToken::Type::INT))
-    {
-        // Mengatur statemnt menjadi ekspresi.
-        nAst = parseExpression(utils);
-    }
-    else
-    {
-        // Lempar error jika token saat ini bukan sebuah int.
-        throw utils.error("Saat ini statement yang tersedia hanyalah bilangan.");
-    }
-
-    // Pastikan ada titik koma setelah statement
-    utils.expect(nlexer::NToken::SEMICOLON, "Jangan lupa titik koma.");
-
-    return std::make_unique<StatementNAst>(std::move(nAst));
-}
-
-std::unique_ptr<nparser::NAst> NParser::parseExpression(Utils& utils)
-{
-    std::unique_ptr<NAst> nAst;
-
-    // Cek apakah statement berisi int
-    if (utils.match(nlexer::NToken::Type::INT))
-    {
-        // Mengatur ekspresi menjadi operasi
-        nAst = parseOp(utils);
-    }
-    else
-    {
-        // Lempar error jika token saat ini bukan sebuah int.
-        throw utils.error("Saat ini statement yang tersedia hanyalah bilangan.");
-    }
-
-    return std::make_unique<ExpressionNAst>(std::move(nAst));
-}
-
-std::unique_ptr<nparser::NAst> NParser::parseOp(Utils& utils)
-{
-    // Buat variabel untuk data di sebelah kiri, dari parseInt
-    std::unique_ptr<NAst> left = parseInt(utils);
-
-    // Looping jika token selanjutnya ada operator, lakukan operasi sesuai token
-    while (utils.matchs({nlexer::NToken::Type::PLUS, nlexer::NToken::Type::MINUS, nlexer::NToken::Type::ASTERISK, nlexer::NToken::Type::SLASH, nlexer::NToken::Type::PERCENT}))
-    {
-        // Simpan simbol operasi
-        char op = utils.currentToken().content[0];
-
-        // Maju ke token selanjutnya
-        utils.eat();
-
-        // Lempar error jika token selanjutnya bukan bilangan
-        if (!utils.match(nlexer::NToken::Type::INT))
-        {
-            throw utils.error("Ini bukanlah sebuah bilangan.");
-        }
-
-        // Buat variabel untuk data di sebelah kanan, dari parseInt
-        std::unique_ptr<NAst> right = parseInt(utils);
-
-        // Gabungkan kiri dan kanan dengan operator
-        left = std::make_unique<OpNAst>(std::move(left), op, std::move(right));
-    }
-
-    return left;
-}
-
-std::unique_ptr<nparser::NAst> NParser::parseInt(Utils& utils)
-{
-    // Pastikan token saat ini adalah INT
-    utils.expect(nlexer::NToken::INT, "Bukanlah sebuah bilangan bulat.");
-    int value = 0;
-    try
-    {
-        value = std::stoi(utils.prevToken().content);
-    }
-    catch (const std::out_of_range& error)
-    {
-        throw utils.error("Bilangan bulat terlalu besar", true);
-    }
-    catch (const std::exception& error)
-    {
-        throw utils.error(error.what(), true);
-    }
-    return std::make_unique<IntNAst>(value);
+    // Lakukan pemrosesan file
+    Utils utils{this->lexer->inputFile(pathAbsolute), *this};
+    this->nAsts->emplace_back(pathAbsolute, parse(utils));
 }
 
 // Untuk memeriksa apakah token saat ini cocok dengan tipe yang diinginkan.
@@ -214,6 +113,16 @@ void NParser::Utils::advance(const nlexer::NToken::Type& expectedType, const std
 void NParser::Utils::expect(const nlexer::NToken::Type& expectedType, const std::string& errorMessage)
 {
     if (!match(expectedType))
+    {
+        throw error(errorMessage);
+    }
+    eat();
+}
+
+// Digunakan untuk memverifikasi dan memajukan index parser, jika tidak ada, maka akan melempar error
+void NParser::Utils::expects(const std::vector<nlexer::NToken::Type>& expectedTypes, const std::string& errorMessage)
+{
+    if (!matchs(expectedTypes))
     {
         throw error(errorMessage);
     }

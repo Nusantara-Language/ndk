@@ -13,21 +13,24 @@
 #include "nast/nast.h"
 #include "nlexer.h"
 #include "ntoken.h"
+#include <error/file_content_exception.h>
 #include <functional>
 #include <memory>
 #include <string>
+#include <unordered_set>
 #include <vector>
-#include <error/file_content_exception.h>
+
 
 namespace nparser {
 
 class NParser
 {
 public:
-    struct Utils {
-        Utils(std::reference_wrapper<nlexer::NToken::Wrapper> tWrap, std::reference_wrapper<nlexer::NLexer> lexer, std::reference_wrapper<NParser> parser) : tWrap(tWrap), lexer(lexer), parser(parser) {}
+    struct Utils
+    {
+        Utils(std::reference_wrapper<nlexer::NToken::Wrapper> tWrap, std::reference_wrapper<NParser> parser) : tWrap(tWrap), parser(parser) {}
+
         std::reference_wrapper<nlexer::NToken::Wrapper> tWrap;
-        std::reference_wrapper<nlexer::NLexer> lexer;
         std::reference_wrapper<NParser> parser;
         size_t index = 0;
 
@@ -49,6 +52,9 @@ public:
         // Digunakan untuk memverifikasi dan memajukan index parser, jika tidak ada, maka akan melempar error
         void expect(const nlexer::NToken::Type& expectedType, const std::string& errorMessage);
 
+        // Digunakan untuk memverifikasi dan memajukan index parser, jika tidak ada, maka akan melempar error
+        void expects(const std::vector<nlexer::NToken::Type>& expectedTypes, const std::string& errorMessage);
+
         // Fungsi untuk membuat error yang menyertakan informasi
         [[nodiscard]] ncpp::FileContentException error(const std::string& errorMessage, const bool& prev = false) const;
 
@@ -66,34 +72,21 @@ public:
 
         // fungsi untuk memeriksa apakah parser telah mencapai akhir dari file
         [[nodiscard]] bool isEndOfFile() const;
-        
+
         // Fungsi untuk menghapus whitespace
         void skipWhiteSpace();
-
     };
 
-    inline explicit NParser(const std::shared_ptr<nlexer::NLexer>& lexer, const std::shared_ptr<std::vector<std::unique_ptr<nparser::NAst>>>& nAsts) : lexer(lexer), nAsts(nAsts) {}
+    explicit NParser(const std::shared_ptr<nlexer::NLexer>& lexer, const std::shared_ptr<std::list<NAst::Wrapper>>& nAsts) : lexer(lexer), nAsts(nAsts) {}
 
-    std::unique_ptr<nparser::NAst>& input(const std::string& input, const std::string& path = "");
-    std::unique_ptr<nparser::NAst>& inputFile(const std::string& path);
+    void input(const std::string& input, const std::string& path = "");
+    void inputFile(const std::string& path);
     // akhir dari access modifiers public
 
 private:
+    std::shared_ptr<std::list<NAst::Wrapper>> nAsts;
     std::shared_ptr<nlexer::NLexer> lexer;
-    std::shared_ptr<std::vector<std::unique_ptr<nparser::NAst>>> nAsts;
-
-    static std::unique_ptr<nparser::NAst> parse(Utils& utils);
-
-    static std::unique_ptr<nparser::NAst> parseCompoundStatement(Utils& utils);
-
-    static std::unique_ptr<nparser::NAst> parseStatement(Utils& utils);
-
-    static std::unique_ptr<nparser::NAst> parseExpression(Utils& utils);
-
-    static std::unique_ptr<nparser::NAst> parseOp(Utils& utils);
-
-    static std::unique_ptr<nparser::NAst> parseInt(Utils& utils);
-
+    std::unordered_set<std::string> fileLoaded;
     // akhir dari access modifiers private
 
 protected:
