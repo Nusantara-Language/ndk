@@ -15,14 +15,19 @@ WHITESPACE: \s skip
 SINGLE_LINE_COMMENT: \/\/.* skip
 MULTI_LINE_COMMENT: \/\*(.|\n)*?\*\/ skip
 LOAD_FILE_KEYWORD: muat
-INPUT_KEYWORD: masukkan
+INT_KEYWORD: bul
+DECIMAL_KEYWORD: des
+STRING_KEYWORD: teks
+CHAR_KEYWORD: kar
+BOOLEAN_KEYWORD: log
+TRUE_KEYWORD: benar
+FALSE_KEYWORD: salah
 OPEN_CURLY_BRACKET: [{]
 CLOSE_CURLY_BRACKET: [}]
 OPEN_ROUND_BRACKET: [(]
 CLOSE_ROUND_BRACKET: [)]
 INCREMENT: \+\+
 PLUS: \+
-RETURN_SIGN: ->
 DECREMENT: --
 ASTERISK: \*
 SLASH: \/
@@ -44,10 +49,11 @@ BITWISE_OR: \|
 XOR: \^
 BITWISE_NOT: ~
 SEMICOLON: ;
-DECIMAL: -?[0-9]+,[0-9]+
+DECIMAL: -?[0-9]+.[0-9]+
 INT: -?[0-9][0-9]*
 MINUS: -
-STRING: (".[^"]*"|'.[^']*')
+CHAR: '.[^']'
+STRING: ".[^"]*"
 ID: [a-zA-Z][a-zA-Z0-9_]*
 
 # Essential
