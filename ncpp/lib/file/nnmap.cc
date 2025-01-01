@@ -51,7 +51,7 @@ std::vector<char> nnmap(const std::string& filename)
     HANDLE hFile = CreateFileA(filename.c_str(), GENERIC_READ, 0, nullptr, OPEN_EXISTING, FILE_ATTRIBUTE_READONLY, nullptr);
     if (hFile == INVALID_HANDLE_VALUE)
     {
-        throw std::runtime_error("Gagal untuk membuka file: " + filename);
+        throw std::runtime_error("Gagal untuk membuka berkas: " + filename);
     }
 
     // Mendapatkan ukuran file
@@ -59,14 +59,14 @@ std::vector<char> nnmap(const std::string& filename)
     if (fileSize == INVALID_FILE_SIZE)
     {
         CloseHandle(hFile);
-        throw std::runtime_error("Gagal untuk mendapatkan ukuran file: " + filename);
+        throw std::runtime_error("Gagal untuk mendapatkan ukuran berkas: " + filename);
     }
 
     // Jika ukuran file 0, lempar pengecualian
     if (fileSize == 0)
     {
         CloseHandle(hFile);
-        throw std::runtime_error("File kosong: " + filename);
+        throw std::runtime_error("Berkas kosong: " + filename);
     }
 
     // Membuat pemetaan file
@@ -74,7 +74,7 @@ std::vector<char> nnmap(const std::string& filename)
     if (hMap == nullptr)
     {
         CloseHandle(hFile);
-        throw std::runtime_error("Gagal untuk membuat file mapping: " + filename);
+        throw std::runtime_error("Gagal untuk membuat berkas mapping: " + filename);
     }
 
     // Memetakan tampilan file ke dalam memori
@@ -83,7 +83,7 @@ std::vector<char> nnmap(const std::string& filename)
     {
         CloseHandle(hMap);
         CloseHandle(hFile);
-        throw std::runtime_error("Gagal memetakan tampilan file: " + filename);
+        throw std::runtime_error("Gagal memetakan tampilan berkas: " + filename);
     }
 
     // Menyalin data dari mapped view ke buffer
@@ -98,7 +98,7 @@ std::vector<char> nnmap(const std::string& filename)
     int fd = open(filename.c_str(), O_RDONLY);
     if (fd == -1)
     {
-        throw std::runtime_error("Gagal untuk membuka file: " + filename);
+        throw std::runtime_error("Gagal untuk membuka berkas: " + filename);
     }
 
     // Mendapatkan ukuran file dengan lseek
@@ -106,14 +106,14 @@ std::vector<char> nnmap(const std::string& filename)
     if (fileSize == -1)
     {
         close(fd);
-        throw std::runtime_error("Gagal mendapatkan ukuran file: " + filename);
+        throw std::runtime_error("Gagal mendapatkan ukuran berkas: " + filename);
     }
 
     // Jika ukuran file 0, lempar pengecualian
     if (fileSize == 0)
     {
         close(fd);
-        throw std::runtime_error("File kosong: " + filename);
+        throw std::runtime_error("Berkas kosong: " + filename);
     }
 
     lseek(fd, 0, SEEK_SET); // Reset pointer ke awal
@@ -123,7 +123,7 @@ std::vector<char> nnmap(const std::string& filename)
     if (data == MAP_FAILED)
     {
         close(fd);
-        throw std::runtime_error("Gagal memetakan file: " + filename);
+        throw std::runtime_error("Gagal memetakan berkas: " + filename);
     }
 
     // Menyalin data dari mapped view ke buffer

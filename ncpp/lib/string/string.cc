@@ -8,8 +8,6 @@
  */
 
 #include "string/string.h"
-#include <math.h>
-
 #include <cctype>
 #include <sstream>
 #include <string>
@@ -450,8 +448,8 @@ bool isNumeric(std::string_view str)
 
 bool isNumber(const std::string& str) {
     std::istringstream iss(str);
-    double num = NAN;
-    char c = 0;
+    double num;
+    char c;
     return (iss >> num) && !(iss >> c);
 }
 

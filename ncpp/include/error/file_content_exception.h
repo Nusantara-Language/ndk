@@ -69,7 +69,7 @@ public:
      * @return std::ostream& Mengembalikan referensi ke output stream yang sama,
      *         memungkinkan chaining dari operasi output.
      */
-    inline friend std::ostream& operator<<(std::ostream& os, const FileContentException& fce)
+    friend std::ostream& operator<<(std::ostream& os, const FileContentException& fce)
     {
         // Memanggil metode what() dari objek fce untuk mendapatkan pesan kesalahan
         os << fce.what();
