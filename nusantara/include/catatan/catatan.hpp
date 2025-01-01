@@ -89,7 +89,7 @@ class Catatan
   Catatan(const Catatan&) = delete;
   Catatan& operator=(const Catatan&) = delete;
 
-  static inline Catatan* instance = nullptr;
+  static Catatan* instance = nullptr;
 
   std::string lokasiFolder;
   std::string namaBerkas;

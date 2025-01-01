@@ -1,1 +1,1 @@
-halodunia 'Halo Dunia!'
+(100 + 1) * 30;

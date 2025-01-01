@@ -14,7 +14,7 @@
 10 % 3; // 1
 
 // Penjumlahan dengan bilangan negatif
--5 + 3; // -2
+-5 + 3,5; // -2
 
 // Pengurangan dengan bilangan negatif
 5 - (-3); // 8
@@ -24,9 +24,6 @@
 
 // Perkalian dengan bilangan negatif
 -4 * 3; // -12
-
-// Operasi perpangkatan (asumsi bahasa mendukungnya)
-2 ^ 3; // 8
 
 // Perkalian dan pembagian dengan prioritas
 2 + 3 * 4; // 14 (perkalian lebih dulu)
