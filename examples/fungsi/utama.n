@@ -5,20 +5,20 @@ kali a b {
     -> a * b
 }
 
-'Hasil dari 5 + 3 = ' tambah 5 3 // 8
-'Hasil dari 3 - 3 = ' kurang 3 3 // 0
-'Hasil dari 6 / 3 = ' bagi 6 3 // 2
-'Hasil dari 5 * 5 = ' kali 5 5 // 25
+"Hasil dari 5 + 3 = " tambah 5 3 // 8
+"Hasil dari 3 - 3 = " kurang 3 3 // 0
+"Hasil dari 6 / 3 = " bagi 6 3 // 2
+"Hasil dari 5 * 5 = " kali 5 5 // 25
 
 perkenalan nama umur {
-    'Perkenalkan saya ' nama ', umur saya ' umur 'tahun.'
+    "Perkenalkan saya " nama ", umur saya " umur "tahun."
 }
 
-perkenalan 'Fern Aerell' 19 // Perkenalkan saya Fern Aerell umur saya 19 tahun.
+perkenalan "Fern Aerell" 19 // Perkenalkan saya Fern Aerell umur saya 19 tahun.
 
 cekNilai nilai {
-    jika nilai > 75 -> 'Kamu lulus' 
-    -> 'Kamu tidak lulu'
+    jika nilai > 75 -> "Kamu lulus" 
+    -> "Kamu tidak lulus"
 }
 
 cekNilai 85 // Kamu lulus

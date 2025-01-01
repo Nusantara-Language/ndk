@@ -1,5 +1,5 @@
 // Tahap memuat file
-muat 'examples/muat/halodunia.n';
+muat "examples/muat/halodunia.n"
 
 // Tahap kumpulan statement
 3 + 3;

@@ -1,0 +1,5 @@
+// Variable dengan tipe data daftar, susunan atau list (Array)
+bul[] daftar;
+
+// Peta yang menyimpan nilai mata pelajaran
+{teks, des} peta;

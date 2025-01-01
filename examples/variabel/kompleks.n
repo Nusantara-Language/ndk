@@ -1,0 +1,17 @@
+// Deklarasi variabel
+bul[] daftar;
+{teks, des} peta;
+
+// Definisi variabel
+daftar = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+peta = {
+    'nilaiA': 90.0, // Nilai mata pelajaran A
+    'nilaiB': 100.0 // Nilai mata pelajaran B
+};
+
+// Definisidan definisi variabel
+bul[] daftar = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+{teks, des} peta = {
+    'nilaiA': 90.0, // Nilai mata pelajaran A
+    'nilaiB': 100.0 // Nilai mata pelajaran B
+};

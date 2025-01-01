@@ -1,0 +1,20 @@
+// Deklarasi variabel
+bul umur;
+des nilai;
+teks nama;
+kar pringkat;
+log lulus;
+
+// Definisi variabel
+umur = 19;
+nilai = 75.2;
+nama = 'Fern Aerell';
+pringkat = 'A';
+lulus = benar;
+
+// Deklarasi dan definisi variabel
+bul umur = 19;
+des nilai = 75.2;
+teks nama = 'Fern Aerell';
+kar pringkat = 'A';
+log lulus = benar;

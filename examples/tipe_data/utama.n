@@ -1,0 +1,2 @@
+muat "examples/tipe_data/dasar.n"
+muat "examples/tipe_data/kompleks.n"

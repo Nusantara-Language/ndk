@@ -1,8 +1,2 @@
-nama 'Fern Aerell'
-umur 19
-
-sapa nama umur {
-    'Halo ' nama ' salam kenal, umur kamu ' umur ' ya?'
-}
-
-sapa nama umur // Halo Fern Aerell salam kenal, umur kamu 19 ya?
+muat "examples/variabel/dasar.n"
+muat "examples/variabel/kompleks.n"
