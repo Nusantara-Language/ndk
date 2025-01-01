@@ -11,6 +11,7 @@
 #include "nast/primary_expression_nast.h"
 #include "nparser.h"
 #include "parse/parse_expression.h"
+#include "parse/parse_id.h"
 #include "parse/parse_literal.h"
 #include <memory>
 
@@ -24,6 +25,10 @@ std::unique_ptr<NAst> parsePrimaryExpression(NParser::Utils& utils)
         utils.eat();
         primaryExpressionNAst->setValue(parseExpression(utils));
         utils.expect(nlexer::NToken::Type::CLOSE_ROUND_BRACKET, "Kurung bulat buka tidak memiliki penutup.");
+    }
+    else if (utils.match(nlexer::NToken::Type::ID))
+    {
+        primaryExpressionNAst->setValue(parseId(utils));
     }
     else
     {

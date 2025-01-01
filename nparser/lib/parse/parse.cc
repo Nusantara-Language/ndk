@@ -8,15 +8,46 @@
  */
 
 #include "parse/parse.h"
+#include "nast/compound_statement_nast.h"
 #include "nast/nast.h"
-#include "parse/parse_compound_statement.h"
+#include "parse/parse_load_file.h"
+#include "parse/parse_statement.h"
+#include <iostream>
 
 namespace nparser {
 
 std::unique_ptr<nparser::NAst> parse(NParser::Utils& utils)
 {
-    // Langsung parse ke kumpulan statement.
-    return parseCompoundStatement(utils);
+    // Gunakan alokasi stack untuk compound statements
+    CompoundStatementNAst compoundStatements;
+
+    bool isLoader = true;
+    // Looping sampai akhir file
+    while (!utils.isEndOfFile())
+    {
+        try
+        {
+            if (isLoader)
+            {
+                if (utils.match(nlexer::NToken::Type::LOAD_FILE_KEYWORD))
+                {
+                    parseLoadFile(utils);
+                    continue;
+                }
+                isLoader = false;
+            }
+
+            compoundStatements.addValue(parseStatement(utils));
+        }
+        catch (const std::exception& error)
+        {
+            std::cerr << error.what();
+            utils.eat(); // Lanjutkan parsing meski ada error
+        }
+    }
+
+    // Kembalikan hasil sebagai unique pointer
+    return std::make_unique<CompoundStatementNAst>(std::move(compoundStatements));
 }
 
 } // namespace nparser

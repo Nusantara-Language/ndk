@@ -40,10 +40,7 @@ public:
     virtual ~NAst() = default;
     // akhir dari access modifiers public
 
-private:
-    // akhir dari access modifiers private
-
-}; // class AST
+}; // class NAst
 
 } // namespace nparser
 

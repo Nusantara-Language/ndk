@@ -7,18 +7,19 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "parse/parse_statement.h"
-#include "nast/statement_nast.h"
-#include "parse/parse_expression.h"
+#include "parse/parse_id.h"
+#include "nast/id_nast.h"
+#include "nast/nast.h"
+#include "nparser.h"
 #include <memory>
+#include <string>
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseStatement(NParser::Utils& utils)
+std::unique_ptr<NAst> parseId(NParser::Utils& utils)
 {
-    auto statementNAst = std::make_unique<StatementNAst>(parseExpression(utils));
-    utils.expect(nlexer::NToken::SEMICOLON, "Jangan lupa titik koma.");
-    return statementNAst;
+    utils.expect(nlexer::NToken::Type::ID, "Bukanlah sebuah identifikasi.");
+    return std::make_unique<IdNAst>(utils.prevToken().content);
 }
 
 } // namespace nparser

@@ -7,8 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef PARSE_COMPOUND_STATEMENT_H
-#define PARSE_COMPOUND_STATEMENT_H
+#ifndef PARSE_INT_LITERAL_H
+#define PARSE_INT_LITERAL_H
 
 #include "nast/nast.h"
 #include "nparser.h"
@@ -16,7 +16,7 @@
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseCompoundStatement(NParser::Utils& utils);
+std::unique_ptr<NAst> parseIntLiteral(NParser::Utils& utils);
 
 } // namespace nparser
 

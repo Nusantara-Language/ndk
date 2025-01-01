@@ -10,11 +10,14 @@
 #include "utils/cout_nast.h"
 #include "nast/additive_expression_nast.h"
 #include "nast/compound_statement_nast.h"
+#include "nast/decimal_literal_nast.h"
 #include "nast/expression_nast.h"
-#include "nast/literal_nast.h"
+#include "nast/id_nast.h"
+#include "nast/int_literal_nast.h"
 #include "nast/multiplicative_expression_nast.h"
 #include "nast/primary_expression_nast.h"
 #include "nast/statement_nast.h"
+#include "nast/string_literal_nast.h"
 #include <iostream>
 
 namespace nparser {
@@ -88,13 +91,25 @@ void coutNAst(const NAst& nAst, int indent)
         std::cout << std::string(indent, ' ') << "-> ";
         coutNAst(*value->getValue(), indent + 2);
     }
-    else if (const auto* value = dynamic_cast<const LiteralNAst*>(&nAst))
+    else if (const auto* value = dynamic_cast<const IdNAst*>(&nAst))
     {
-        std::cout << value->getValue() << "\n";
+        std::cout << "Id: " << value->getValue() << "\n";
+    }
+    else if (const auto* value = dynamic_cast<const IntLiteralNAst*>(&nAst))
+    {
+        std::cout << "IntLiteral: " << value->getValue() << "\n";
+    }
+    else if (const auto* value = dynamic_cast<const DecimalLiteralNAst*>(&nAst))
+    {
+        std::cout << "DecimalLiteral: " << value->getValue() << "\n";
+    }
+    else if (const auto* value = dynamic_cast<const StringLiteralNAst*>(&nAst))
+    {
+        std::cout << "StringLiteral: " << value->getValue() << "\n";
     }
     else
     {
-        std::cout << std::string(indent, ' ') << "NAST Tisak di ketahui.\n";
+        std::cout << std::string(indent, ' ') << "NAst Tisak di ketahui.\n";
     }
 }
 

@@ -7,31 +7,31 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef LITERAL_NAST_H
-#define LITERAL_NAST_H
+#ifndef ID_NAST_H
+#define ID_NAST_H
 
 #include "interface/ivalue.h"
 #include "nast_with_location.h"
 #include "ntoken.h"
+#include <string>
 
 namespace nparser {
 
-template <typename Type>
-class LiteralNAst : public ncpp::IValue<Type>, public NAstWithLocation
+class IdNAst : public ncpp::IValue<std::string>, public NAstWithLocation
 {
 public:
-    LiteralNAst() = default;
+    IdNAst() = default;
 
-    explicit LiteralNAst(Type value) : ncpp::IValue<Type>(std::move(value)) {}
+    explicit IdNAst(std::string value) : ncpp::IValue<std::string>(std::move(value)) {}
 
-    explicit LiteralNAst(Type value, const nlexer::NToken::Location& location) : ncpp::IValue<Type>(std::move(value)), NAstWithLocation(location) {}
+    explicit IdNAst(std::string value, const nlexer::NToken::Location& location) : ncpp::IValue<std::string>(std::move(value)), NAstWithLocation(location) {}
 
     // akhir dari access modifiers public
 
 private:
     // akhir dari access modifiers private
 
-}; // class LiteralNAst
+}; // class IdNAst
 
 } // namespace nparser
 

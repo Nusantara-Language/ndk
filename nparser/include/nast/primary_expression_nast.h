@@ -15,14 +15,11 @@
 
 namespace nparser {
 
-class LiteralNAst;
-class ExpressionNAst;
-
 class PrimaryExpressionNAst : public NAst
 {
 public:
     PrimaryExpressionNAst() = default;
-    
+
     explicit PrimaryExpressionNAst(std::unique_ptr<NAst>&& value) : value(std::move(value)) {}
 
     [[nodiscard]] const std::unique_ptr<NAst>& getValue() const
