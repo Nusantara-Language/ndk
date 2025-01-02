@@ -106,9 +106,6 @@ public:
     std::string generateEnumSection() const
     {
         std::string result = "enum Type {\n";
-        // "  NEOF = EOF,\n"
-        // "  UNKNOWN = 0,\n"
-        // "  NEWLINE = 1,\n";
 
         int index = 0;
         for (const auto& token : tokenTypes)
@@ -120,11 +117,34 @@ public:
         return result;
     }
 
+    std::string generateCoutSupportSection() const {
+        std::string result = "friend std::ostream& operator<<(std::ostream& os, const NToken& token)\n"
+        "{\n"
+        "os << token.location << \" [\";\n"
+        "switch (token.type)\n"
+        "{\n";
+
+        for (const auto& token : tokenTypes)
+        {
+            result += "case NToken::" + token.type + ":\n"
+            "os << \"" + token.type + "\";\n"
+            "break;\n";
+        }
+
+        result += "default:\n"
+        "os << token.type;\n"
+        "break;\n"
+        "}"
+        "os << \"] \" << token.content;"
+        "return os;\n"
+        "}\n";
+
+        return result;
+    }
+
     std::string generateTokenData() const
     {
         std::string result = "static const std::array<NToken::Data, " + std::to_string(tokenTypes.size()) + "> tokenData = {\n";
-
-        // result += "  NToken::Data{NToken::NEWLINE, R\"(^[\\n])\", false},\n";
 
         for (const auto& token : tokenTypes)
         {
@@ -132,9 +152,6 @@ public:
         }
 
         result += "};\n";
-
-        // "  NToken::Data{NToken::UNKNOWN, R\"(^.)\", false},\n"
-        //           "  NToken::Data{NToken::NEOF, \"\", false},\n"
 
         return result;
     }
@@ -158,23 +175,33 @@ public:
 
         // Generate konten baru
         std::string enumSection = generateEnumSection();
+        std::string coutSupportSection = generateCoutSupportSection();
         std::string tokenData = generateTokenData();
 
         // Replace bagian enum Type
-        size_t typeStart = content.find("// TOKEN_TYPE_TARGET");
-        size_t typeEnd = content.find("// END_TOKEN_TYPE_TARGET");
+        size_t typeStart = content.find("// NTKN_TYPE_TARGET");
+        size_t typeEnd = content.find("// END_NTKN_TYPE_TARGET");
         if (typeStart == std::string::npos || typeEnd == std::string::npos)
         {
-            throw std::runtime_error("Marker TOKEN_TYPE_TARGET tidak ditemukan");
+            throw std::runtime_error("Marker NTKN_TYPE_TARGET tidak ditemukan");
         }
         content.replace(typeStart + 20, typeEnd - typeStart - 20, "\n" + enumSection);
 
+        // Replace bagian token cout support
+        size_t coutSupportStart = content.find("// NTKN_COUT_SUPPORT_TARGET");
+        size_t coutSupportEnd = content.find("// END_NTKN_COUT_SUPPORT_TARGET");
+        if (coutSupportStart == std::string::npos || coutSupportEnd == std::string::npos)
+        {
+            throw std::runtime_error("Marker NTKN_COUT_SUPPORT_TARGET tidak ditemukan");
+        }
+        content.replace(coutSupportStart + 27, coutSupportEnd - coutSupportStart - 27, "\n" + coutSupportSection);
+
         // Replace bagian token data
-        size_t dataStart = content.find("// TOKEN_DATA_TARGET");
-        size_t dataEnd = content.find("// END_TOKEN_DATA_TARGET");
+        size_t dataStart = content.find("// NTKN_DATA_TARGET");
+        size_t dataEnd = content.find("// END_NTKN_DATA_TARGET");
         if (dataStart == std::string::npos || dataEnd == std::string::npos)
         {
-            throw std::runtime_error("Marker TOKEN_DATA_TARGET tidak ditemukan");
+            throw std::runtime_error("Marker NTKN_DATA_TARGET tidak ditemukan");
         }
         content.replace(dataStart + 20, dataEnd - dataStart - 20, "\n" + tokenData);
 

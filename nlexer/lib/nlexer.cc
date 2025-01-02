@@ -87,7 +87,7 @@ NToken::Wrapper NLexer::tokenization(const std::string& path, std::string& conte
     {
         auto token = tokenAnalyzer(content, location); // Menganalisis konten untuk menghasilkan token
 
-        if (token.type == NToken::UNKNOWN) // Jika token tidak dikenali
+        if (token.type == NToken::UNKNOWN_TOKEN) // Jika token tidak dikenali
         {
             std::cerr << ncpp::FileContentException(ncpp::FileContentException::Type::ERROR, "Bagian ini tidak dapat dikenali.", path, token.content, token.location.row, token.location.column);
         }
@@ -95,9 +95,9 @@ NToken::Wrapper NLexer::tokenization(const std::string& path, std::string& conte
         tokens.emplace_back(std::move(token)); // Menambahkan token ke daftar
     }
 
-    if (tokens.back().type != NToken::NEOF)
+    if (tokens.back().type != NToken::NEOF_TOKEN)
     {
-        tokens.emplace_back(NToken{location, "", NToken::NEOF}); // Menambahkan token EOF
+        tokens.emplace_back(NToken{location, "", NToken::NEOF_TOKEN}); // Menambahkan token EOF
     }
 
     return {path, tokens}; // Mengembalikan Wrapper dengan daftar token
@@ -131,7 +131,7 @@ NToken NLexer::tokenAnalyzer(std::string& content, NToken::Location& location)
 
                 foundToken = true; // Token ditemukan
 
-                if (data.type == NToken::Type::NEWLINE) // Jika jenisnya adalah NEWLINE
+                if (data.type == NToken::Type::NEWLINE_TOKEN) // Jika jenisnya adalah NEWLINE
                 {
                     location.row++;      // Menaikkan nomor baris
                     location.column = 1; // Reset kolom ke 1
@@ -152,7 +152,7 @@ NToken NLexer::tokenAnalyzer(std::string& content, NToken::Location& location)
         }
     }
 
-    return {location, "", NToken::NEOF};
+    return {location, "", NToken::NEOF_TOKEN};
 }
 
 /**
