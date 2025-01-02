@@ -1,4 +1,4 @@
-option(NLEXER_TKPN "Opsi untuk membuild tkpn (token processor)" OFF)
+option(NLEXER_NTKN "Opsi untuk membuild tkpn (token processor)" OFF)
 option(NLEXER_STATIC_LIBRAY "Opsi untuk membuild nlexer static library" OFF)
 option(NLEXER_UNIT_TEST "Opsi untuk membuild unit test nlexer" OFF)
 
@@ -34,9 +34,11 @@ if(NLEXER_STATIC_LIBRAY)
   target_link_libraries(libnlexer PRIVATE ncpp)
 endif()
 
-# Tkpn
-if(NLEXER_TKPN)
-  add_executable(tknp  "src/tkpn.cc")
+# NTkn
+if(NLEXER_NTKN)
+  add_executable(ntkn  "src/ntkn.cc")
+  target_include_directories(ntkn PRIVATE ncpp)
+  target_link_libraries(ntkn PRIVATE ncpp)
 endif()
 
 # NLexer Unit Test
