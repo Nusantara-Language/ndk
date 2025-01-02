@@ -7,19 +7,17 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "parse/parse_id.h"
-#include "nast/id_nast.h"
+#ifndef PARSE_BOOLEAN_LITERAL_H
+#define PARSE_BOOLEAN_LITERAL_H
+
 #include "nast/nast.h"
 #include "nparser.h"
 #include <memory>
-#include <string>
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseId(NParser::Utils& utils)
-{
-    utils.expect(nlexer::NToken::Type::IDENTIFIER_TOKEN, "Bukanlah sebuah identifikasi.");
-    return std::make_unique<IdNAst>(utils.prevToken().content);
-}
+std::unique_ptr<NAst> parseBooleanLiteral(NParser::Utils& utils);
 
 } // namespace nparser
+
+#endif

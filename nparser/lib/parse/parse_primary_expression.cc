@@ -20,13 +20,13 @@ namespace nparser {
 std::unique_ptr<NAst> parsePrimaryExpression(NParser::Utils& utils)
 {
     auto primaryExpressionNAst = std::make_unique<PrimaryExpressionNAst>();
-    if (utils.match(nlexer::NToken::Type::OPEN_ROUND_BRACKET))
+    if (utils.match(nlexer::NToken::Type::BRACKET_OPEN_ROUND))
     {
         utils.eat();
         primaryExpressionNAst->setValue(parseExpression(utils));
-        utils.expect(nlexer::NToken::Type::CLOSE_ROUND_BRACKET, "Kurung bulat buka tidak memiliki penutup.");
+        utils.expect(nlexer::NToken::Type::BRACKET_CLOSE_ROUND, "Kurung bulat buka tidak memiliki penutup.");
     }
-    else if (utils.match(nlexer::NToken::Type::ID))
+    else if (utils.match(nlexer::NToken::Type::IDENTIFIER_TOKEN))
     {
         primaryExpressionNAst->setValue(parseId(utils));
     }

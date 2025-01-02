@@ -18,7 +18,7 @@ std::unique_ptr<NAst> parseAdditiveExpression(NParser::Utils& utils)
 {
     std::unique_ptr<AdditiveExpressionNAst> result = std::make_unique<AdditiveExpressionNAst>(parseMultiplicativeExpression(utils));
 
-    while (utils.matchs({nlexer::NToken::Type::PLUS, nlexer::NToken::Type::MINUS}))
+    while (utils.matchs({nlexer::NToken::Type::PLUS_OP, nlexer::NToken::Type::MINUS_OP}))
     {
         char op = utils.currentToken().content[0];
         utils.eat();

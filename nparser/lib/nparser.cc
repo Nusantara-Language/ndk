@@ -90,7 +90,7 @@ bool NParser::Utils::matchs(const std::vector<nlexer::NToken::Type>& type) const
 // Untuk memajukan index parser
 void NParser::Utils::eat()
 {
-    if (this->index < this->tWrap.get().tokens.size() && currentToken().type != nlexer::NToken::NEOF)
+    if (this->index < this->tWrap.get().tokens.size() && currentToken().type != nlexer::NToken::NEOF_TOKEN)
     {
         ++this->index;
     }
@@ -170,13 +170,13 @@ void NParser::Utils::advanceIfMatch(const nlexer::NToken::Type& type)
 // fungsi untuk memeriksa apakah parser telah mencapai akhir dari file
 [[nodiscard]] bool NParser::Utils::isEndOfFile() const
 {
-    return currentToken().type == nlexer::NToken::Type::NEOF;
+    return currentToken().type == nlexer::NToken::Type::NEOF_TOKEN;
 }
 
 // Fungsi untuk menghapus whitespace
 void NParser::Utils::skipWhiteSpace()
 {
-    while (currentToken().type == nlexer::NToken::Type::WHITESPACE || currentToken().type == nlexer::NToken::Type::NEWLINE)
+    while (currentToken().type == nlexer::NToken::Type::WHITESPACE_TOKEN || currentToken().type == nlexer::NToken::Type::NEWLINE_TOKEN)
     {
         eat();
     }

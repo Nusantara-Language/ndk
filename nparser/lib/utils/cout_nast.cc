@@ -9,7 +9,10 @@
 
 #include "utils/cout_nast.h"
 #include "nast/additive_expression_nast.h"
+#include "nast/boolean_literal_nast.h"
+#include "nast/char_literal_nast.h"
 #include "nast/compound_statement_nast.h"
+#include "nast/data_type_nast.h"
 #include "nast/decimal_literal_nast.h"
 #include "nast/expression_nast.h"
 #include "nast/id_nast.h"
@@ -18,6 +21,7 @@
 #include "nast/primary_expression_nast.h"
 #include "nast/statement_nast.h"
 #include "nast/string_literal_nast.h"
+#include "nast/variable_nast.h"
 #include <iostream>
 
 namespace nparser {
@@ -91,6 +95,21 @@ void coutNAst(const NAst& nAst, int indent)
         std::cout << std::string(indent, ' ') << "-> ";
         coutNAst(*value->getValue(), indent + 2);
     }
+    else if (const auto* value = dynamic_cast<const VariableNAst*>(&nAst))
+    {
+        std::cout << "VariableNAst\n";
+        std::cout << std::string(indent, ' ') << "|\n";
+        std::cout << std::string(indent, ' ') << "-> ";
+        coutNAst(*value->getDataType(), indent + 2);
+        std::cout << std::string(indent, ' ') << "|\n";
+        std::cout << std::string(indent, ' ') << "-> " << value->getName() << "\n";
+        if (value->getInit().has_value())
+        {
+            std::cout << std::string(indent, ' ') << "|\n";
+            std::cout << std::string(indent, ' ') << "-> ";
+            coutNAst(*value->getInit().value(), indent + 2);
+        }
+    }
     else if (const auto* value = dynamic_cast<const IdNAst*>(&nAst))
     {
         std::cout << "Id: " << value->getValue() << "\n";
@@ -103,13 +122,25 @@ void coutNAst(const NAst& nAst, int indent)
     {
         std::cout << "DecimalLiteral: " << value->getValue() << "\n";
     }
+    else if (const auto* value = dynamic_cast<const CharLiteralNAst*>(&nAst))
+    {
+        std::cout << "CharLiteral: " << value->getValue() << "\n";
+    }
     else if (const auto* value = dynamic_cast<const StringLiteralNAst*>(&nAst))
     {
         std::cout << "StringLiteral: " << value->getValue() << "\n";
     }
+    else if (const auto* value = dynamic_cast<const BooleanLiteralNAst*>(&nAst))
+    {
+        std::cout << "BooleanLiteral: " << value->getValue() << "\n";
+    }
+    else if (const auto* value = dynamic_cast<const DataTypeNAst*>(&nAst))
+    {
+        std::cout << "DataType: " << value->getValue() << "\n";
+    }
     else
     {
-        std::cout << std::string(indent, ' ') << "NAst Tisak di ketahui.\n";
+        std::cout << "NAst Tisak di ketahui.\n";
     }
 }
 

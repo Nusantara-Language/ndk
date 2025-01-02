@@ -20,7 +20,7 @@ namespace nparser {
 
 std::unique_ptr<NAst> parseDecimalLiteral(NParser::Utils& utils)
 {
-    utils.expect(nlexer::NToken::Type::DECIMAL, "Bukanlah sebuah bilangan desimal.");
+    utils.expect(nlexer::NToken::Type::DECIMAL_LITERAL, "Bukanlah sebuah bilangan desimal.");
 
     float value = 0.0;
     try

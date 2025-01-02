@@ -19,7 +19,7 @@ namespace nparser {
 
 std::unique_ptr<NAst> parseIntLiteral(NParser::Utils& utils)
 {
-    utils.expect(nlexer::NToken::Type::INT, "Bukanlah sebuah bilangan bulat.");
+    utils.expect(nlexer::NToken::Type::INT_LITERAL, "Bukanlah sebuah bilangan bulat.");
 
     int value = 0;
     try

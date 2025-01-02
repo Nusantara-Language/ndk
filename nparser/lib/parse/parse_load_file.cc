@@ -15,9 +15,9 @@
 namespace nparser {
 
 void parseLoadFile(NParser::Utils& utils) {
-    utils.expect(nlexer::NToken::Type::LOAD_FILE_KEYWORD, "Bukanlah kata kunci untuk memuat berkas.");
+    utils.expect(nlexer::NToken::Type::LOAD_FILE_TOKEN, "Bukanlah kata kunci untuk memuat berkas.");
 
-    utils.expect(nlexer::NToken::Type::STRING, "Bukanlah lokasi berkas yang benar.");
+    utils.expect(nlexer::NToken::Type::STRING_LITERAL, "Bukanlah lokasi berkas yang benar.");
 
     std::string path = utils.prevToken().content;
     path = path.substr(1, path.size() - 2);

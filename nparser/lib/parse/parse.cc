@@ -29,7 +29,7 @@ std::unique_ptr<nparser::NAst> parse(NParser::Utils& utils)
         {
             if (isLoader)
             {
-                if (utils.match(nlexer::NToken::Type::LOAD_FILE_KEYWORD))
+                if (utils.match(nlexer::NToken::Type::LOAD_FILE_TOKEN))
                 {
                     parseLoadFile(utils);
                     continue;
