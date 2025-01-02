@@ -1,0 +1,9 @@
+bul[] bilanganBulat;
+
+des[] bilanganDesimal = [20.0, 11.0];
+
+kar[2] peringkat = ['A', 'E'];
+
+log[2] aktif = [benar, salah];
+
+teks[10] nama = ['F', 'e', 'r', 'n', 'A', 'e', 'r', 'e', 'l', 'l'];

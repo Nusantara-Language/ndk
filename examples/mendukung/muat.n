@@ -1,0 +1,6 @@
+// Tahap memuat berkas
+muat "kosong.n"
+muat "operator_matematika.n"
+
+// Tahap kumpulan statement
+"Ini adalah isi dari berkas muat";

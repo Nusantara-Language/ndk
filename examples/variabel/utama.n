@@ -1,2 +1,0 @@
-muat "examples/variabel/dasar.n"
-muat "examples/variabel/kompleks.n"

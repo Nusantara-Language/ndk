@@ -1,0 +1,16 @@
+// Deklarasi variabel
+bul a;
+
+// Operasi penugasan
+a = 20;
+a += 11;
+a -= 200;
+a *= 5;
+a /= 2;
+a %= 3;
+a &= 10;
+a |= 23;
+a ^= 205;
+a >>= 23;
+a <<= 20;
+

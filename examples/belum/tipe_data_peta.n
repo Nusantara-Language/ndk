@@ -1,0 +1,12 @@
+{bul, teks} siswa;
+
+{teks, teks} siswa1 = {
+    "nama": "Fern Aerell",
+    "kelas": "XII PPLG",
+    "umur": "19"
+};
+
+{teks, teks}[2] siswa2 = {
+    "nama": "Ferry Atrel",
+    "kelas": "XII PPLG"
+};

@@ -1,0 +1,4 @@
+// Operator logika
+benar && salah; // salah
+benar || salah; // benar
+!salah; // benar

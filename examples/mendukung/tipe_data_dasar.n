@@ -1,0 +1,16 @@
+/*
+Beberapa tipe data dasar nusantara
+
+bul -> bilangan bulat
+des -> bilangan desimal
+kar -> karakter
+log -> logika
+teks -> teks
+
+*/
+
+bul bilanganBulat = 19;
+des bilanganDesimal = 20.11;
+kar peringkat = 'A';
+log aktif = benar;
+teks nama = "Fern Aerell";

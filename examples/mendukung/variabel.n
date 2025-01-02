@@ -1,0 +1,15 @@
+// Deklarasi variabel
+bul nilai = 90;
+bul bilanganBulat;
+
+des nilaiPresisi = 10;
+des nilaiDesimal;
+
+kar peringkat = 'A';
+kar bukanMobil;
+
+teks nama = "Fern Aerell";
+teks ucapan;
+
+log mati = salah;
+log hidup;
