@@ -1,0 +1,12 @@
+bul a = 20;
+bul &b = a;
+cetak(a) // 20
+cetak(b) // 20
+
+a = 30;
+cetak(a) // 30
+cetak(b) // 30
+
+b -= 5;
+cetak(a) // 25
+cetak(b) // 25

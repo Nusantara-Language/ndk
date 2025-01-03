@@ -1,0 +1,5 @@
+eksternal cetak(bul nilai);
+eksternal cetak(des nilai);
+eksternal cetak(kar nilai);
+eksternal cetak(teks nilai);
+eksternal cetak(log nilai);

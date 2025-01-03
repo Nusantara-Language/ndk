@@ -1,0 +1,18 @@
+// Membuat fungsi yang dapat mencetak halodunia
+halodunia() {
+    cetak("Halo Dunia!");
+}
+
+sapa(teks nama = "tanpa nama") {
+    cetak("Halo " + nama + ", senang bertemu dengan anda...");
+}
+
+bul tambah(bul a, bul b) {
+    beri a + b;
+}
+
+// memanggil fungsi
+halodunia();
+sapa();
+sapa("Fern Aerell");
+tambah(10, 15);

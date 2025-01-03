@@ -1,4 +1,4 @@
 // Operator logika
-benar && salah; // salah
 benar || salah; // benar
+benar && salah; // salah
 !salah; // benar
