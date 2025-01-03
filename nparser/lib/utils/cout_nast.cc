@@ -14,6 +14,7 @@
 #include "nast/bilangan_desimal_literal_nast.h"
 #include "nast/compound_statement_nast.h"
 #include "nast/data_type_nast.h"
+#include "nast/equality_expression_nast.h"
 #include "nast/expression_nast.h"
 #include "nast/id_nast.h"
 #include "nast/karakter_literal_nast.h"
@@ -22,6 +23,7 @@
 #include "nast/logika_literal_nast.h"
 #include "nast/multiplicative_expression_nast.h"
 #include "nast/primary_expression_nast.h"
+#include "nast/relational_expression_nast.h"
 #include "nast/statement_nast.h"
 #include "nast/teks_literal_nast.h"
 #include "nast/unary_expression_nast.h"
@@ -71,6 +73,24 @@ void coutNAst(const NAst& nAst, int indent)
             coutNAst(*value->getOpRight().value().right, indent + 2);
         }
     }
+    else if (const auto* value = dynamic_cast<const LogicalOrExpressionNAst*>(&nAst))
+    {
+        std::cout << "LogicalOrExpression\n";
+        std::cout << std::string(indent, ' ') << "|\n";
+        std::cout << std::string(indent, ' ') << "-> ";
+        coutNAst(*value->getLeft(), indent + 2);
+        if (value->getOpRights().has_value())
+        {
+            for (const auto& opRight : value->getOpRights().value())
+            {
+                std::cout << std::string(indent, ' ') << "|\n";
+                std::cout << std::string(indent, ' ') << "-> " << opRight.op << "\n";
+                std::cout << std::string(indent, ' ') << "|\n";
+                std::cout << std::string(indent, ' ') << "-> ";
+                coutNAst(*opRight.right, indent + 2);
+            }
+        }
+    }
     else if (const auto* value = dynamic_cast<const LogicalAndExpressionNAst*>(&nAst))
     {
         std::cout << "LogicalAndExpression\n";
@@ -89,9 +109,27 @@ void coutNAst(const NAst& nAst, int indent)
             }
         }
     }
-    else if (const auto* value = dynamic_cast<const LogicalOrExpressionNAst*>(&nAst))
+    else if (const auto* value = dynamic_cast<const EqualityExpressionNAst*>(&nAst))
     {
-        std::cout << "LogicalOrExpression\n";
+        std::cout << "EqualityExpression\n";
+        std::cout << std::string(indent, ' ') << "|\n";
+        std::cout << std::string(indent, ' ') << "-> ";
+        coutNAst(*value->getLeft(), indent + 2);
+        if (value->getOpRights().has_value())
+        {
+            for (const auto& opRight : value->getOpRights().value())
+            {
+                std::cout << std::string(indent, ' ') << "|\n";
+                std::cout << std::string(indent, ' ') << "-> " << opRight.op << "\n";
+                std::cout << std::string(indent, ' ') << "|\n";
+                std::cout << std::string(indent, ' ') << "-> ";
+                coutNAst(*opRight.right, indent + 2);
+            }
+        }
+    }
+    else if (const auto* value = dynamic_cast<const RelationalExpressionNAst*>(&nAst))
+    {
+        std::cout << "RelationalExpression\n";
         std::cout << std::string(indent, ' ') << "|\n";
         std::cout << std::string(indent, ' ') << "-> ";
         coutNAst(*value->getLeft(), indent + 2);

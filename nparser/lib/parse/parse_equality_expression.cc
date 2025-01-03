@@ -7,23 +7,26 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "parse/parse_logical_and_expression.h"
-#include "nast/logical_and_expression_nast.h"
 #include "parse/parse_equality_expression.h"
+#include "nast/equality_expression_nast.h"
+#include "parse/parse_relational_expression.h"
 #include <memory>
 #include <string>
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseLogicalAndExpression(NParser::Utils& utils)
+std::unique_ptr<NAst> parseEqualityExpression(NParser::Utils& utils)
 {
-    std::unique_ptr<LogicalAndExpressionNAst> result = std::make_unique<LogicalAndExpressionNAst>(parseEqualityExpression(utils));
+    std::unique_ptr<EqualityExpressionNAst> result = std::make_unique<EqualityExpressionNAst>(parseRelationalExpression(utils));
 
-    while (utils.match(nlexer::NToken::Type::LOGICAL_AND_OP))
+    while (utils.matchs({
+        nlexer::NToken::Type::EQUAL_TO_OP,
+        nlexer::NToken::Type::NOT_EQUAL_OP,
+    }))
     {
         std::string op = utils.currentToken().content;
         utils.eat();
-        result->addOpRight({op, parseEqualityExpression(utils)});
+        result->addOpRight({op, parseRelationalExpression(utils)});
     }
 
     return result;
