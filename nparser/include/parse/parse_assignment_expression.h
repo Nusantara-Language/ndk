@@ -7,16 +7,15 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "parse/parse_expression.h"
-#include "nast/expression_nast.h"
-#include "parse/parse_assignment_expression.h"
-#include <memory>
+#ifndef PARSE_ASSIGNMENT_EXPRESSION_H
+#define PARSE_ASSIGNMENT_EXPRESSION_H
+
+#include "nparser.h"
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseExpression(NParser::Utils& utils)
-{
-    return std::make_unique<ExpressionNAst>(parseAssignmentExpression(utils));
-}
+std::unique_ptr<NAst> parseAssignmentExpression(NParser::Utils& utils);
 
 } // namespace nparser
+
+#endif

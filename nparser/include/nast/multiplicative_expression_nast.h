@@ -10,20 +10,20 @@
 #ifndef MULTIPLICATIVE_EXPRESSION_NAST_H
 #define MULTIPLICATIVE_EXPRESSION_NAST_H
 
-#include "core/op_right_nast.h"
+#include "core/op_rights_nast.h"
 #include "nast/core/nast.h"
 #include <vector>
 
 namespace nparser {
 
-class MultiplicativeExpressionNAst : public NAst, public OpRightNAst
+class MultiplicativeExpressionNAst : public NAst, public OpRightsNAst
 {
 public:
     MultiplicativeExpressionNAst() = default;
 
-    explicit MultiplicativeExpressionNAst(std::unique_ptr<NAst>&& left, std::vector<OpRight>&& opRights) : OpRightNAst(std::move(left), std::move(opRights)) {}
+    explicit MultiplicativeExpressionNAst(std::unique_ptr<NAst>&& left, std::vector<OpRight>&& opRights) : OpRightsNAst(std::move(left), std::move(opRights)) {}
 
-    explicit MultiplicativeExpressionNAst(std::unique_ptr<NAst>&& left) : OpRightNAst(std::move(left)) {}
+    explicit MultiplicativeExpressionNAst(std::unique_ptr<NAst>&& left) : OpRightsNAst(std::move(left)) {}
 
     // akhir dari access modifiers public
 

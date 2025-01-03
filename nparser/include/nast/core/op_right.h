@@ -7,16 +7,23 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "parse/parse_expression.h"
-#include "nast/expression_nast.h"
-#include "parse/parse_assignment_expression.h"
-#include <memory>
+#ifndef OP_RIGHT_H
+#define OP_RIGHT_H
+
+#include "nast/core/nast.h"
+#include <string>
+#include <utility>
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseExpression(NParser::Utils& utils)
+struct OpRight
 {
-    return std::make_unique<ExpressionNAst>(parseAssignmentExpression(utils));
-}
+    OpRight(std::string op, std::unique_ptr<NAst>&& right) : op(std::move(op)), right(std::move(right)) {}
+
+    std::string op;
+    std::unique_ptr<NAst> right;
+};
 
 } // namespace nparser
+
+#endif

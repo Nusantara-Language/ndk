@@ -9,6 +9,7 @@
 
 #include "utils/cout_nast.h"
 #include "nast/additive_expression_nast.h"
+#include "nast/assignment_expression_nast.h"
 #include "nast/bilangan_bulat_literal_nast.h"
 #include "nast/bilangan_desimal_literal_nast.h"
 #include "nast/compound_statement_nast.h"
@@ -54,6 +55,21 @@ void coutNAst(const NAst& nAst, int indent)
         std::cout << std::string(indent, ' ') << "|\n";
         std::cout << std::string(indent, ' ') << "-> ";
         coutNAst(*value->getValue(), indent + 2);
+    }
+    else if (const auto* value = dynamic_cast<const AssignmentExpressionNAst*>(&nAst))
+    {
+        std::cout << "AssignmentExpression\n";
+        std::cout << std::string(indent, ' ') << "|\n";
+        std::cout << std::string(indent, ' ') << "-> ";
+        coutNAst(*value->getLeft(), indent + 2);
+        if (value->getOpRight().has_value())
+        {
+            std::cout << std::string(indent, ' ') << "|\n";
+            std::cout << std::string(indent, ' ') << "-> " << value->getOpRight().value().op << "\n";
+            std::cout << std::string(indent, ' ') << "|\n";
+            std::cout << std::string(indent, ' ') << "-> ";
+            coutNAst(*value->getOpRight().value().right, indent + 2);
+        }
     }
     else if (const auto* value = dynamic_cast<const LogicalAndExpressionNAst*>(&nAst))
     {

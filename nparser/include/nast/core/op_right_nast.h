@@ -11,29 +11,20 @@
 #define OP_RIGHT_NAST_H
 
 #include "nast/core/nast.h"
+#include "nast/core/op_right.h"
 #include <optional>
-#include <string>
 #include <utility>
-#include <vector>
 
 namespace nparser {
-
-struct OpRight
-{
-    OpRight(std::string op, std::unique_ptr<NAst>&& right) : op(std::move(op)), right(std::move(right)) {}
-
-    std::string op;
-    std::unique_ptr<NAst> right;
-};
 
 class OpRightNAst
 {
 public:
     OpRightNAst() = default;
 
-    explicit OpRightNAst(std::unique_ptr<NAst>&& left, std::vector<OpRight>&& opRights) : left(std::move(left)), opRights(std::move(opRights)) {}
+    explicit OpRightNAst(std::unique_ptr<NAst>&& left, OpRight&& opRight) : left(std::move(left)), opRight(std::move(opRight)) {}
 
-    explicit OpRightNAst(std::unique_ptr<NAst>&& left) : left(std::move(left)), opRights(std::nullopt) {}
+    explicit OpRightNAst(std::unique_ptr<NAst>&& left) : left(std::move(left)), opRight(std::nullopt) {}
 
     [[nodiscard]] const std::unique_ptr<NAst>& getLeft() const
     {
@@ -45,30 +36,21 @@ public:
         this->left = std::move(left);
     }
 
-    [[nodiscard]] const std::optional<std::vector<OpRight>>& getOpRights() const
+    [[nodiscard]] const std::optional<OpRight>& getOpRight() const
     {
-        return this->opRights;
+        return this->opRight;
     }
 
-    void setOpRights(std::vector<OpRight>&& opRights)
+    void setOpRight(OpRight&& opRight)
     {
-        this->opRights = std::move(opRights);
-    }
-
-    void addOpRight(OpRight&& opRight)
-    {
-        if (!this->opRights.has_value())
-        {
-            this->opRights = std::vector<OpRight>();
-        }
-        this->opRights.value().emplace_back(std::move(opRight));
+        this->opRight = std::move(opRight);
     }
 
     // akhir dari access modifiers public
 
 private:
     std::unique_ptr<NAst> left;
-    std::optional<std::vector<OpRight>> opRights;
+    std::optional<OpRight> opRight;
     // akhir dari access modifiers private
 
 }; // class OpRightNAst
