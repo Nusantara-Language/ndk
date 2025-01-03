@@ -10,33 +10,19 @@
 #ifndef EXPRESSION_NAST_H
 #define EXPRESSION_NAST_H
 
-#include "nast.h"
+#include "nast/core/nast.h"
+#include "core/value_ptr_nast.h"
 
 namespace nparser {
 
-class ExpressionNAst : public NAst
+class ExpressionNAst : public NAst, public ValuePtrNAst
 {
 public:
     ExpressionNAst() = default;
 
-    explicit ExpressionNAst(std::unique_ptr<NAst>&& value) : value(std::move(value)) {}
-
-    [[nodiscard]] const std::unique_ptr<NAst>& getValue() const
-    {
-        return this->value;
-    }
-
-    void setValue(std::unique_ptr<NAst>&& value)
-    {
-        this->value = std::move(value);
-    }
+    explicit ExpressionNAst(std::unique_ptr<NAst>&& value) : ValuePtrNAst(std::move(value)) {}
 
     // akhir dari access modifiers public
-
-private:
-    std::unique_ptr<NAst> value;
-
-    // akhir dari access modifiers private
 
 }; // class ExpressionNAst
 

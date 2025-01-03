@@ -10,55 +10,24 @@
 #ifndef MULTIPLICATIVE_EXPRESSION_NAST_H
 #define MULTIPLICATIVE_EXPRESSION_NAST_H
 
-#include "nast.h"
-#include <optional>
+#include "nast/core/nast.h"
+#include "core/op_right_nast.h"
 #include <vector>
 
 namespace nparser {
 
-class MultiplicativeExpressionNAst : public NAst
+class MultiplicativeExpressionNAst : public NAst, public OpRightNAst
 {
 public:
     MultiplicativeExpressionNAst() = default;
 
-    explicit MultiplicativeExpressionNAst(std::unique_ptr<NAst>&& left, std::vector<OpRight>&& opRights) : left(std::move(left)), opRights(std::move(opRights)) {}
+    explicit MultiplicativeExpressionNAst(std::unique_ptr<NAst>&& left, std::vector<OpRight>&& opRights) : OpRightNAst(std::move(left), std::move(opRights)) {}
 
-    explicit MultiplicativeExpressionNAst(std::unique_ptr<NAst>&& left) : left(std::move(left)) {}
-
-    [[nodiscard]] const std::unique_ptr<NAst>& getLeft() const
-    {
-        return this->left;
-    }
-
-    void setLeft(std::unique_ptr<NAst>&& left)
-    {
-        this->left = std::move(left);
-    }
-
-    [[nodiscard]] const std::optional<std::vector<OpRight>>& getOpRights() const
-    {
-        return this->opRights;
-    }
-
-    void setOpRights(std::vector<OpRight>&& opRights)
-    {
-        this->opRights = std::move(opRights);
-    }
-
-    void addOpRight(OpRight&& opRight)
-    {
-        if (!this->opRights.has_value())
-        {
-            this->opRights = std::vector<OpRight>();
-        }
-        this->opRights->emplace_back(std::move(opRight));
-    }
+    explicit MultiplicativeExpressionNAst(std::unique_ptr<NAst>&& left) : OpRightNAst(std::move(left)) {}
 
     // akhir dari access modifiers public
 
 private:
-    std::unique_ptr<NAst> left;
-    std::optional<std::vector<OpRight>> opRights = std::nullopt;
     // akhir dari access modifiers private
 
 }; // class MultiplicativeExpressionNAst

@@ -7,16 +7,16 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef PARSE_DECIMAL_LITERAL_H
-#define PARSE_DECIMAL_LITERAL_H
+#ifndef PARSE_BILANGAN_DESIMAL_LITERAL_H
+#define PARSE_BILANGAN_DESIMAL_LITERAL_H
 
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 #include "nparser.h"
 #include <memory>
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseDecimalLiteral(NParser::Utils& utils);
+std::unique_ptr<NAst> parseBilanganDesimalLiteral(NParser::Utils& utils);
 
 } // namespace nparser
 

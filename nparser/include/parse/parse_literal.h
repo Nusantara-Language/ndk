@@ -10,7 +10,7 @@
 #ifndef PARSE_LITERAL_H
 #define PARSE_LITERAL_H
 
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 #include "nparser.h"
 #include <memory>
 

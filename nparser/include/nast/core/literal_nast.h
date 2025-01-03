@@ -10,21 +10,21 @@
 #ifndef LITERAL_NAST_H
 #define LITERAL_NAST_H
 
-#include "interface/ivalue.h"
-#include "nast_with_location.h"
+#include "nast/core/value_nast.h"
+#include "nast/core/nast_with_location.h"
 #include "ntoken.h"
 
 namespace nparser {
 
 template <typename Type>
-class LiteralNAst : public ncpp::IValue<Type>, public NAstWithLocation
+class LiteralNAst : public ValueNAst<Type>, public NAstWithLocation
 {
 public:
     LiteralNAst() = default;
 
-    explicit LiteralNAst(Type value) : ncpp::IValue<Type>(std::move(value)) {}
+    explicit LiteralNAst(Type value) : ValueNAst<Type>(std::move(value)) {}
 
-    explicit LiteralNAst(Type value, const nlexer::NToken::Location& location) : ncpp::IValue<Type>(std::move(value)), NAstWithLocation(location) {}
+    explicit LiteralNAst(Type value, const nlexer::NToken::Location& location) : ValueNAst<Type>(std::move(value)), NAstWithLocation(location) {}
 
     // akhir dari access modifiers public
 

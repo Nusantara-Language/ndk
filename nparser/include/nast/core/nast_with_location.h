@@ -7,26 +7,32 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef STRING_LITERAL_NAST_H
-#define STRING_LITERAL_NAST_H
+#ifndef NAST_WITH_LOCATION_H
+#define NAST_WITH_LOCATION_H
 
-#include "literal_nast.h"
-#include <string>
-#include <utility>
+#include "ntoken.h"
 
 namespace nparser {
 
-class StringLiteralNAst : public LiteralNAst<std::string>
+class NAstWithLocation
 {
 public:
-    StringLiteralNAst() : LiteralNAst<std::string>(""){};
-    explicit StringLiteralNAst(std::string value) : LiteralNAst<std::string>(std::move(value)){};
+    NAstWithLocation() = default;
+
+    explicit NAstWithLocation(const nlexer::NToken::Location& location) : location(location) {}
+
+    [[nodiscard]] const nlexer::NToken::Location& getLocation() const
+    {
+        return location;
+    }
+
     // akhir dari access modifiers public
 
 private:
+    nlexer::NToken::Location location;
     // akhir dari access modifiers private
 
-}; // class StringLiteralNAst
+}; // class NAstWithLocation
 
 } // namespace nparser
 

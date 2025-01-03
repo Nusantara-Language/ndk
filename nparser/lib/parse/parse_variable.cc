@@ -8,7 +8,7 @@
  */
 
 #include "parse/parse_variable.h"
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 #include "nast/variable_nast.h"
 #include "parse/parse_data_type.h"
 #include "parse/parse_expression.h"

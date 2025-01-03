@@ -7,21 +7,20 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "parse/parse_char_literal.h"
-#include "nast/char_literal_nast.h"
-#include "nast/nast.h"
+#include "parse/parse_karakter_literal.h"
+#include "nast/core/nast.h"
+#include "nast/karakter_literal_nast.h"
 #include "nparser.h"
 #include <memory>
 #include <string>
 
-
 namespace nparser {
 
-std::unique_ptr<NAst> parseCharLiteral(NParser::Utils& utils)
+std::unique_ptr<NAst> parseKarakterLiteral(NParser::Utils& utils)
 {
-    utils.expect(nlexer::NToken::Type::CHAR_LITERAL, "Bukanlah sebuah karakter.");
+    utils.expect(nlexer::NToken::Type::KARAKTER_LITERAL, "Bukanlah sebuah karakter.");
     char value = utils.prevToken().content[1];
-    return std::make_unique<CharLiteralNAst>(value);
+    return std::make_unique<KarakterLiteralNAst>(value);
 }
 
 } // namespace nparser

@@ -10,39 +10,20 @@
 #ifndef COMPOUND_STATEMENT_NAST_H
 #define COMPOUND_STATEMENT_NAST_H
 
-#include "nast.h"
-#include <vector>
+#include "nast/core/nast.h"
+#include "core/value_list_ptr_nast.h"
+#include <list>
 
 namespace nparser {
 
-class CompoundStatementNAst : public NAst
+class CompoundStatementNAst : public NAst, public ValueListPtrNAst
 {
 public:
     CompoundStatementNAst() = default;
 
-    explicit CompoundStatementNAst(std::vector<std::unique_ptr<NAst>>&& value) : value(std::move(value)) {}
-
-    [[nodiscard]] const std::vector<std::unique_ptr<NAst>>& getValue() const
-    {
-        return this->value;
-    }
-
-    void setValue(std::vector<std::unique_ptr<NAst>>&& value)
-    {
-        this->value = std::move(value);
-    }
-
-    void addValue(std::unique_ptr<NAst>&& value)
-    {
-        this->value.emplace_back(std::move(value));
-    }
+    explicit CompoundStatementNAst(std::list<std::unique_ptr<NAst>>&& value) : ValueListPtrNAst(std::move(value)) {}
 
     // akhir dari access modifiers public
-
-private:
-    std::vector<std::unique_ptr<NAst>> value;
-
-    // akhir dari access modifiers private
 
 }; // class CompoundStatementNAst
 

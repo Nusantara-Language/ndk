@@ -9,14 +9,14 @@
 
 #include "parse/parse_expression.h"
 #include "nast/expression_nast.h"
-#include "parse/parse_additive_expression.h"
+#include "parse/parse_logical_or_expression.h"
 #include <memory>
 
 namespace nparser {
 
 std::unique_ptr<NAst> parseExpression(NParser::Utils& utils)
 {
-    return std::make_unique<ExpressionNAst>(parseAdditiveExpression(utils));
+    return std::make_unique<ExpressionNAst>(parseLogicalOrExpression(utils));
 }
 
 } // namespace nparser

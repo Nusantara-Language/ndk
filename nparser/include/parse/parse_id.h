@@ -10,7 +10,7 @@
 #ifndef PARSE_ID_H
 #define PARSE_ID_H
 
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 #include "nparser.h"
 #include <memory>
 

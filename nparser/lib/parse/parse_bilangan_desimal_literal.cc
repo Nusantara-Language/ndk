@@ -7,9 +7,9 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "parse/parse_decimal_literal.h"
-#include "nast/decimal_literal_nast.h"
-#include "nast/nast.h"
+#include "parse/parse_bilangan_desimal_literal.h"
+#include "nast/bilangan_desimal_literal_nast.h"
+#include "nast/core/nast.h"
 #include "nparser.h"
 #include <exception>
 #include <memory>
@@ -18,9 +18,9 @@
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseDecimalLiteral(NParser::Utils& utils)
+std::unique_ptr<NAst> parseBilanganDesimalLiteral(NParser::Utils& utils)
 {
-    utils.expect(nlexer::NToken::Type::DECIMAL_LITERAL, "Bukanlah sebuah bilangan desimal.");
+    utils.expect(nlexer::NToken::Type::BILANGAN_DESIMAL_LITERAL, "Bukanlah sebuah bilangan desimal.");
 
     float value = 0.0;
     try
@@ -36,7 +36,7 @@ std::unique_ptr<NAst> parseDecimalLiteral(NParser::Utils& utils)
         throw utils.error(error.what(), true);
     }
 
-    return std::make_unique<DecimalLiteralNAst>(value);
+    return std::make_unique<BilanganDesimalLiteralNAst>(value);
 }
 
 } // namespace nparser

@@ -24,14 +24,6 @@ public:
         std::unique_ptr<NAst> nAst; ///< NAst yang di hasilkan dari parsing file sumber.
     };
 
-    struct OpRight
-    {
-        OpRight(const char& op, std::unique_ptr<NAst>&& right) : op(op), right(std::move(right)) {}
-
-        char op;
-        std::unique_ptr<NAst> right;
-    };
-
     NAst() = default;
     NAst(const NAst&) = delete;
     NAst(NAst&&) = default;

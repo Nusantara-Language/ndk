@@ -7,33 +7,25 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef NAST_WITH_LOCATION_H
-#define NAST_WITH_LOCATION_H
+#ifndef BILANGAN_DESIMAL_LITERAL_NAST_H
+#define BILANGAN_DESIMAL_LITERAL_NAST_H
 
-#include "nast/nast.h"
-#include "ntoken.h"
+#include "core/literal_nast.h"
+#include "nast/core/nast.h"
 
 namespace nparser {
 
-class NAstWithLocation : public NAst
+class BilanganDesimalLiteralNAst : public NAst, public LiteralNAst<float>
 {
 public:
-    NAstWithLocation() = default;
-
-    explicit NAstWithLocation(const nlexer::NToken::Location& location) : location(location) {}
-
-    [[nodiscard]] const nlexer::NToken::Location& getLocation() const
-    {
-        return location;
-    }
-
+    BilanganDesimalLiteralNAst() : LiteralNAst<float>(0.0){};
+    explicit BilanganDesimalLiteralNAst(const float& value) : LiteralNAst<float>(value){};
     // akhir dari access modifiers public
 
 private:
-    nlexer::NToken::Location location;
     // akhir dari access modifiers private
 
-}; // class NAst
+}; // class BilanganDesimalLiteralNAst
 
 } // namespace nparser
 

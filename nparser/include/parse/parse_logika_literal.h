@@ -7,8 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef PARSE_H
-#define PARSE_H
+#ifndef PARSE_LOGIKA_LITERAL_H
+#define PARSE_LOGIKA_LITERAL_H
 
 #include "nast/core/nast.h"
 #include "nparser.h"
@@ -16,7 +16,7 @@
 
 namespace nparser {
 
-std::unique_ptr<NAst> parse(NParser::Utils& utils);
+std::unique_ptr<NAst> parseLogikaLiteral(NParser::Utils& utils);
 
 } // namespace nparser
 

@@ -7,24 +7,27 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef BOOLEAN_LITERAL_NAST_H
-#define BOOLEAN_LITERAL_NAST_H
+#ifndef TEKS_LITERAL_NAST_H
+#define TEKS_LITERAL_NAST_H
 
-#include "literal_nast.h"
+#include "core/literal_nast.h"
+#include "nast/core/nast.h"
+#include <string>
+#include <utility>
 
 namespace nparser {
 
-class BooleanLiteralNAst : public LiteralNAst<bool>
+class TeksLiteralNAst : public NAst, public LiteralNAst<std::string>
 {
 public:
-    BooleanLiteralNAst() : LiteralNAst<bool>(false){};
-    explicit BooleanLiteralNAst(const bool& value) : LiteralNAst<bool>(value){};
+    TeksLiteralNAst() : LiteralNAst<std::string>(""){};
+    explicit TeksLiteralNAst(std::string value) : LiteralNAst<std::string>(std::move(value)){};
     // akhir dari access modifiers public
 
 private:
     // akhir dari access modifiers private
 
-}; // class BooleanLiteralNAst
+}; // class TeksLiteralNAst
 
 } // namespace nparser
 

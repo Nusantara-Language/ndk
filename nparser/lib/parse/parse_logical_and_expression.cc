@@ -7,23 +7,23 @@
  * ----------------------------------------------------------------------------
  */
 
+#include "parse/parse_logical_and_expression.h"
+#include "nast/logical_and_expression_nast.h"
 #include "parse/parse_additive_expression.h"
-#include "nast/additive_expression_nast.h"
-#include "parse/parse_multiplicative_expression.h"
 #include <memory>
 #include <string>
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseAdditiveExpression(NParser::Utils& utils)
+std::unique_ptr<NAst> parseLogicalAndExpression(NParser::Utils& utils)
 {
-    std::unique_ptr<AdditiveExpressionNAst> result = std::make_unique<AdditiveExpressionNAst>(parseMultiplicativeExpression(utils));
+    std::unique_ptr<LogicalAndExpressionNAst> result = std::make_unique<LogicalAndExpressionNAst>(parseAdditiveExpression(utils));
 
-    while (utils.matchs({nlexer::NToken::Type::PLUS_OP, nlexer::NToken::Type::MINUS_OP}))
+    while (utils.match(nlexer::NToken::Type::LOGICAL_AND_OP))
     {
         std::string op = utils.currentToken().content;
         utils.eat();
-        result->addOpRight({op, parseMultiplicativeExpression(utils)});
+        result->addOpRight({op, parseAdditiveExpression(utils)});
     }
 
     return result;

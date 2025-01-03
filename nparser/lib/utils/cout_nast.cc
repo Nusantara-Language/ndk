@@ -9,18 +9,21 @@
 
 #include "utils/cout_nast.h"
 #include "nast/additive_expression_nast.h"
-#include "nast/boolean_literal_nast.h"
-#include "nast/char_literal_nast.h"
+#include "nast/logical_and_expression_nast.h"
+#include "nast/logika_literal_nast.h"
+#include "nast/karakter_literal_nast.h"
 #include "nast/compound_statement_nast.h"
 #include "nast/data_type_nast.h"
-#include "nast/decimal_literal_nast.h"
+#include "nast/bilangan_desimal_literal_nast.h"
 #include "nast/expression_nast.h"
 #include "nast/id_nast.h"
-#include "nast/int_literal_nast.h"
+#include "nast/bilangan_bulat_literal_nast.h"
+#include "nast/logical_or_expression_nast.h"
 #include "nast/multiplicative_expression_nast.h"
 #include "nast/primary_expression_nast.h"
 #include "nast/statement_nast.h"
-#include "nast/string_literal_nast.h"
+#include "nast/teks_literal_nast.h"
+#include "nast/unary_expression_nast.h"
 #include "nast/variable_nast.h"
 #include <iostream>
 
@@ -51,6 +54,42 @@ void coutNAst(const NAst& nAst, int indent)
         std::cout << std::string(indent, ' ') << "|\n";
         std::cout << std::string(indent, ' ') << "-> ";
         coutNAst(*value->getValue(), indent + 2);
+    }
+    else if (const auto* value = dynamic_cast<const LogicalAndExpressionNAst*>(&nAst))
+    {
+        std::cout << "LogicalAndExpression\n";
+        std::cout << std::string(indent, ' ') << "|\n";
+        std::cout << std::string(indent, ' ') << "-> ";
+        coutNAst(*value->getLeft(), indent + 2);
+        if (value->getOpRights().has_value())
+        {
+            for (const auto& opRight : value->getOpRights().value())
+            {
+                std::cout << std::string(indent, ' ') << "|\n";
+                std::cout << std::string(indent, ' ') << "-> " << opRight.op << "\n";
+                std::cout << std::string(indent, ' ') << "|\n";
+                std::cout << std::string(indent, ' ') << "-> ";
+                coutNAst(*opRight.right, indent + 2);
+            }
+        }
+    }
+    else if (const auto* value = dynamic_cast<const LogicalOrExpressionNAst*>(&nAst))
+    {
+        std::cout << "LogicalOrExpression\n";
+        std::cout << std::string(indent, ' ') << "|\n";
+        std::cout << std::string(indent, ' ') << "-> ";
+        coutNAst(*value->getLeft(), indent + 2);
+        if (value->getOpRights().has_value())
+        {
+            for (const auto& opRight : value->getOpRights().value())
+            {
+                std::cout << std::string(indent, ' ') << "|\n";
+                std::cout << std::string(indent, ' ') << "-> " << opRight.op << "\n";
+                std::cout << std::string(indent, ' ') << "|\n";
+                std::cout << std::string(indent, ' ') << "-> ";
+                coutNAst(*opRight.right, indent + 2);
+            }
+        }
     }
     else if (const auto* value = dynamic_cast<const AdditiveExpressionNAst*>(&nAst))
     {
@@ -88,6 +127,17 @@ void coutNAst(const NAst& nAst, int indent)
             }
         }
     }
+    else if (const auto* value = dynamic_cast<const UnaryExpressionNAst*>(&nAst))
+    {
+        std::cout << "UnaryExpression\n";
+        if(value->getOp().has_value()) {
+            std::cout << std::string(indent, ' ') << "|\n";
+            std::cout << std::string(indent, ' ') << "-> " << value->getOp().value() << "\n";
+        }
+        std::cout << std::string(indent, ' ') << "|\n";
+        std::cout << std::string(indent, ' ') << "-> ";
+        coutNAst(*value->getValue(), indent + 2);
+    }
     else if (const auto* value = dynamic_cast<const PrimaryExpressionNAst*>(&nAst))
     {
         std::cout << "PrimaryExpression\n";
@@ -114,25 +164,25 @@ void coutNAst(const NAst& nAst, int indent)
     {
         std::cout << "Id: " << value->getValue() << "\n";
     }
-    else if (const auto* value = dynamic_cast<const IntLiteralNAst*>(&nAst))
+    else if (const auto* value = dynamic_cast<const BilanganBulatLiteralNAst*>(&nAst))
     {
-        std::cout << "IntLiteral: " << value->getValue() << "\n";
+        std::cout << "BilanganBulatLiteral: " << value->getValue() << "\n";
     }
-    else if (const auto* value = dynamic_cast<const DecimalLiteralNAst*>(&nAst))
+    else if (const auto* value = dynamic_cast<const BilanganDesimalLiteralNAst*>(&nAst))
     {
-        std::cout << "DecimalLiteral: " << value->getValue() << "\n";
+        std::cout << "BilanganDesimalLiteral: " << value->getValue() << "\n";
     }
-    else if (const auto* value = dynamic_cast<const CharLiteralNAst*>(&nAst))
+    else if (const auto* value = dynamic_cast<const KarakterLiteralNAst*>(&nAst))
     {
-        std::cout << "CharLiteral: " << value->getValue() << "\n";
+        std::cout << "KarakterLiteral: " << value->getValue() << "\n";
     }
-    else if (const auto* value = dynamic_cast<const StringLiteralNAst*>(&nAst))
+    else if (const auto* value = dynamic_cast<const TeksLiteralNAst*>(&nAst))
     {
-        std::cout << "StringLiteral: " << value->getValue() << "\n";
+        std::cout << "TeksLiteral: " << value->getValue() << "\n";
     }
-    else if (const auto* value = dynamic_cast<const BooleanLiteralNAst*>(&nAst))
+    else if (const auto* value = dynamic_cast<const LogikaLiteralNAst*>(&nAst))
     {
-        std::cout << "BooleanLiteral: " << value->getValue() << "\n";
+        std::cout << "LogikaLiteral: " << (value->getValue() ? "benar" : "salah") << "\n";
     }
     else if (const auto* value = dynamic_cast<const DataTypeNAst*>(&nAst))
     {

@@ -7,8 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "parse/parse_int_literal.h"
-#include "nast/int_literal_nast.h"
+#include "parse/parse_bilangan_bulat_literal.h"
+#include "nast/bilangan_bulat_literal_nast.h"
 #include "nparser.h"
 #include <exception>
 #include <memory>
@@ -17,9 +17,9 @@
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseIntLiteral(NParser::Utils& utils)
+std::unique_ptr<NAst> parseBilanganBulatLiteral(NParser::Utils& utils)
 {
-    utils.expect(nlexer::NToken::Type::INT_LITERAL, "Bukanlah sebuah bilangan bulat.");
+    utils.expect(nlexer::NToken::Type::BILANGAN_BULAT_LITERAL, "Bukanlah sebuah bilangan bulat.");
 
     int value = 0;
     try
@@ -35,7 +35,7 @@ std::unique_ptr<NAst> parseIntLiteral(NParser::Utils& utils)
         throw utils.error(error.what(), true);
     }
 
-    return std::make_unique<IntLiteralNAst>(value);
+    return std::make_unique<BilanganBulatLiteralNAst>(value);
 }
 
 } // namespace nparser

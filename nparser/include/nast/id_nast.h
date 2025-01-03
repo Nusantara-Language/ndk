@@ -10,21 +10,22 @@
 #ifndef ID_NAST_H
 #define ID_NAST_H
 
-#include "interface/ivalue.h"
-#include "nast_with_location.h"
+#include "nast/core/nast.h"
+#include "core/nast_with_location.h"
+#include "core/value_nast.h"
 #include "ntoken.h"
 #include <string>
 
 namespace nparser {
 
-class IdNAst : public ncpp::IValue<std::string>, public NAstWithLocation
+class IdNAst : public NAst, public ValueNAst<std::string>, public NAstWithLocation
 {
 public:
     IdNAst() = default;
 
-    explicit IdNAst(std::string value) : ncpp::IValue<std::string>(std::move(value)) {}
+    explicit IdNAst(std::string value) : ValueNAst<std::string>(std::move(value)) {}
 
-    explicit IdNAst(std::string value, const nlexer::NToken::Location& location) : ncpp::IValue<std::string>(std::move(value)), NAstWithLocation(location) {}
+    explicit IdNAst(std::string value, const nlexer::NToken::Location& location) : ValueNAst<std::string>(std::move(value)), NAstWithLocation(location) {}
 
     // akhir dari access modifiers public
 

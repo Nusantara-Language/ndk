@@ -10,18 +10,19 @@
 #ifndef DATA_TYPE_NAST_H
 #define DATA_TYPE_NAST_H
 
-#include "interface/ivalue.h"
-#include "nast/nast.h"
+#include "nast/core/nast.h"
+#include "core/value_nast.h"
 #include <string>
+
 
 namespace nparser {
 
-class DataTypeNAst : public ncpp::IValue<std::string>, public NAst
+class DataTypeNAst : public NAst, public ValueNAst<std::string>
 {
 public:
     DataTypeNAst() = default;
 
-    explicit DataTypeNAst(std::string value) : ncpp::IValue<std::string>(std::move(value)) {}
+    explicit DataTypeNAst(std::string value) : ValueNAst<std::string>(std::move(value)) {}
 
     // akhir dari access modifiers public
 

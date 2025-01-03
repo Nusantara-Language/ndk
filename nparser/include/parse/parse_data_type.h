@@ -10,7 +10,7 @@
 #ifndef PARSE_DATA_TYPE_H
 #define PARSE_DATA_TYPE_H
 
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 #include "nparser.h"
 #include <memory>
 

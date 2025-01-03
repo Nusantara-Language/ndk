@@ -10,7 +10,7 @@
 #ifndef VARIABLE_NAST_H
 #define VARIABLE_NAST_H
 
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 #include <memory>
 #include <optional>
 #include <string>

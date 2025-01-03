@@ -7,24 +7,22 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef DECIMAL_LITERAL_NAST_H
-#define DECIMAL_LITERAL_NAST_H
+#ifndef KARAKTER_LITERAL_NAST_H
+#define KARAKTER_LITERAL_NAST_H
 
-#include "literal_nast.h"
+#include "core/literal_nast.h"
+#include "nast/core/nast.h"
 
 namespace nparser {
 
-class DecimalLiteralNAst : public LiteralNAst<float>
+class KarakterLiteralNAst : public NAst, public LiteralNAst<char>
 {
 public:
-    DecimalLiteralNAst() : LiteralNAst<float>(0.0){};
-    explicit DecimalLiteralNAst(const float& value) : LiteralNAst<float>(value){};
+    KarakterLiteralNAst() : LiteralNAst<char>('\0'){};
+    explicit KarakterLiteralNAst(const char& value) : LiteralNAst<char>(value){};
     // akhir dari access modifiers public
 
-private:
-    // akhir dari access modifiers private
-
-}; // class DecimalLiteralNAst
+}; // class KarakterLiteralNAst
 
 } // namespace nparser
 

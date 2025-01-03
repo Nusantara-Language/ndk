@@ -7,16 +7,16 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef PARSE_CHAR_LITERAL_H
-#define PARSE_CHAR_LITERAL_H
+#ifndef PARSE_KARAKTER_LITERAL_H
+#define PARSE_KARAKTER_LITERAL_H
 
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 #include "nparser.h"
 #include <memory>
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseCharLiteral(NParser::Utils& utils);
+std::unique_ptr<NAst> parseKarakterLiteral(NParser::Utils& utils);
 
 } // namespace nparser
 

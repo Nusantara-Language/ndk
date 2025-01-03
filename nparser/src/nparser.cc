@@ -9,7 +9,7 @@
 
 #include "nparser.h"
 #include "utils/cout_nast.h"
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 #include "nlexer.h"
 #include "ntoken.h"
 #include <iostream>

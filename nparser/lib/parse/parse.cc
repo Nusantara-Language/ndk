@@ -9,7 +9,7 @@
 
 #include "parse/parse.h"
 #include "nast/compound_statement_nast.h"
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 #include "parse/parse_load_file.h"
 #include "parse/parse_statement.h"
 #include <iostream>

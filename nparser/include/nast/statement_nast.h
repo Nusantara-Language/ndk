@@ -10,33 +10,19 @@
 #ifndef STATEMENT_NAST_H
 #define STATEMENT_NAST_H
 
-#include "nast.h"
+#include "nast/core/nast.h"
+#include "core/value_ptr_nast.h"
 
 namespace nparser {
 
-class StatementNAst : public NAst
+class StatementNAst : public NAst, public ValuePtrNAst
 {
 public:
     StatementNAst() = default;
 
-    explicit StatementNAst(std::unique_ptr<NAst>&& value) : value(std::move(value)) {}
-
-    [[nodiscard]] const std::unique_ptr<NAst>& getValue() const
-    {
-        return this->value;
-    }
-
-    void setValue(std::unique_ptr<NAst>&& value)
-    {
-        this->value = std::move(value);
-    }
+    explicit StatementNAst(std::unique_ptr<NAst>&& value) : ValuePtrNAst(std::move(value)) {}
 
     // akhir dari access modifiers public
-
-private:
-    std::unique_ptr<NAst> value;
-
-    // akhir dari access modifiers private
 
 }; // class StatementNAst
 

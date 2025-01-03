@@ -7,8 +7,8 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef PARSE_H
-#define PARSE_H
+#ifndef PARSE_UNARY_EXPRESSION_H
+#define PARSE_UNARY_EXPRESSION_H
 
 #include "nast/core/nast.h"
 #include "nparser.h"
@@ -16,7 +16,7 @@
 
 namespace nparser {
 
-std::unique_ptr<NAst> parse(NParser::Utils& utils);
+std::unique_ptr<NAst> parseUnaryExpression(NParser::Utils& utils);
 
 } // namespace nparser
 

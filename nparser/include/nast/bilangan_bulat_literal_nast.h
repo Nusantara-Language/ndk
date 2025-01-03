@@ -7,24 +7,25 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef INT_LITERAL_NAST_H
-#define INT_LITERAL_NAST_H
+#ifndef BILANGAN_BULAT_LITERAL_NAST_H
+#define BILANGAN_BULAT_LITERAL_NAST_H
 
-#include "literal_nast.h"
+#include "core/literal_nast.h"
+#include "nast/core/nast.h"
 
 namespace nparser {
 
-class IntLiteralNAst : public LiteralNAst<int>
+class BilanganBulatLiteralNAst : public NAst, public LiteralNAst<int>
 {
 public:
-    IntLiteralNAst() : LiteralNAst<int>(0){};
-    explicit IntLiteralNAst(const int& value) : LiteralNAst<int>(value){};
+    BilanganBulatLiteralNAst() : LiteralNAst<int>(0){};
+    explicit BilanganBulatLiteralNAst(const int& value) : LiteralNAst<int>(value){};
     // akhir dari access modifiers public
 
 private:
     // akhir dari access modifiers private
 
-}; // class IntLiteralNAst
+}; // class BilanganBulatLiteralNAst
 
 } // namespace nparser
 

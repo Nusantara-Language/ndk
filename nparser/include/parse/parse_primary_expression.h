@@ -10,7 +10,7 @@
 #ifndef PARSE_PRIMARY_EXPRESSION_H
 #define PARSE_PRIMARY_EXPRESSION_H
 
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 #include "nparser.h"
 #include <memory>
 

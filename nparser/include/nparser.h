@@ -10,7 +10,7 @@
 #ifndef NPARSER_H
 #define NPARSER_H
 
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 #include "nlexer.h"
 #include "ntoken.h"
 #include <error/file_content_exception.h>
@@ -19,7 +19,6 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
-
 
 namespace nparser {
 

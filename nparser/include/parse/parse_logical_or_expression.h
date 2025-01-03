@@ -7,16 +7,14 @@
  * ----------------------------------------------------------------------------
  */
 
-#ifndef PARSE_BOOLEAN_LITERAL_H
-#define PARSE_BOOLEAN_LITERAL_H
+#ifndef PARSE_LOGICAL_OR_EXPRESSION_H
+#define PARSE_LOGICAL_OR_EXPRESSION_H
 
-#include "nast/nast.h"
 #include "nparser.h"
-#include <memory>
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseBooleanLiteral(NParser::Utils& utils);
+std::unique_ptr<NAst> parseLogicalOrExpression(NParser::Utils& utils);
 
 } // namespace nparser
 

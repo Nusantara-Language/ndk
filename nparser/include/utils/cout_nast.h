@@ -10,7 +10,7 @@
 #ifndef COUT_NAST_H
 #define COUT_NAST_H
 
-#include "nast/nast.h"
+#include "nast/core/nast.h"
 
 namespace nparser {
 

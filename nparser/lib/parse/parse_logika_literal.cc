@@ -7,17 +7,17 @@
  * ----------------------------------------------------------------------------
  */
 
-#include "parse/parse_boolean_literal.h"
-#include "nast/boolean_literal_nast.h"
+#include "parse/parse_logika_literal.h"
+#include "nast/logika_literal_nast.h"
 #include "nparser.h"
 #include <memory>
 #include <string>
 
 namespace nparser {
 
-std::unique_ptr<NAst> parseBooleanLiteral(NParser::Utils& utils)
+std::unique_ptr<NAst> parseLogikaLiteral(NParser::Utils& utils)
 {
-    utils.expects({nlexer::NToken::Type::VALUE_TRUE_TOKEN, nlexer::NToken::Type::VALUE_FALSE_TOKEN}, "Bukanlah sebuah kata kunci logika.");
+    utils.expects({nlexer::NToken::Type::VALUE_BENAR_TOKEN, nlexer::NToken::Type::VALUE_SALAH_TOKEN}, "Bukanlah sebuah kata kunci logika.");
 
     bool value = false;
     if (utils.prevToken().content == "benar")
@@ -33,7 +33,7 @@ std::unique_ptr<NAst> parseBooleanLiteral(NParser::Utils& utils)
         throw utils.error("Nilai logika tidak benar.", true);
     }
 
-    return std::make_unique<BooleanLiteralNAst>(value);
+    return std::make_unique<LogikaLiteralNAst>(value);
 }
 
 } // namespace nparser

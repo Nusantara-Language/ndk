@@ -19,7 +19,7 @@ std::unique_ptr<NAst> parseStatement(NParser::Utils& utils)
 {
     std::unique_ptr<StatementNAst> statementNAst;
 
-    if (utils.matchs({nlexer::NToken::Type::TYPE_INT_TOKEN, nlexer::NToken::Type::TYPE_DECIMAL_TOKEN, nlexer::NToken::Type::TYPE_CHAR_TOKEN, nlexer::NToken::Type::TYPE_STRING_TOKEN, nlexer::NToken::Type::TYPE_BOOLEAN_TOKEN}))
+    if (utils.matchs({nlexer::NToken::Type::TYPE_BILANGAN_BULAT_TOKEN, nlexer::NToken::Type::TYPE_BILANGAN_DESIMAL_TOKEN, nlexer::NToken::Type::TYPE_KARAKTER_TOKEN, nlexer::NToken::Type::TYPE_TEKS_TOKEN, nlexer::NToken::Type::TYPE_LOGIKA_TOKEN}))
     {
         statementNAst = std::make_unique<StatementNAst>(parseVariable(utils));
     }

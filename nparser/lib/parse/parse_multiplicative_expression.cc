@@ -9,20 +9,21 @@
 
 #include "parse/parse_multiplicative_expression.h"
 #include "nast/multiplicative_expression_nast.h"
-#include "parse/parse_primary_expression.h"
+#include "parse/parse_unary_expression.h"
 #include <memory>
+#include <string>
 
 namespace nparser {
 
 std::unique_ptr<NAst> parseMultiplicativeExpression(NParser::Utils& utils)
 {
-    auto result = std::make_unique<MultiplicativeExpressionNAst>(parsePrimaryExpression(utils));
+    auto result = std::make_unique<MultiplicativeExpressionNAst>(parseUnaryExpression(utils));
 
     while (utils.matchs({nlexer::NToken::Type::ASTERISK_OP, nlexer::NToken::Type::SLASH_OP, nlexer::NToken::Type::PERCENT_OP}))
     {
-        char op = utils.currentToken().content[0];
+        std::string op = utils.currentToken().content;
         utils.eat();
-        result->addOpRight({op, parsePrimaryExpression(utils)});
+        result->addOpRight({op, parseUnaryExpression(utils)});
     }
 
     return result;
