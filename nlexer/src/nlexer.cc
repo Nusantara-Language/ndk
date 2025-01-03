@@ -7,6 +7,7 @@
  * ----------------------------------------------------------------------------
  */
 
+#include <exception>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -16,18 +17,25 @@
 
 int main(int argc, const char* argv[])
 {
-    auto tWraps = std::make_shared<std::list<nlexer::NToken::Wrapper>>();
-    nlexer::NLexer lexer(tWraps);
-    if (argc > 1)
+    try
     {
-        for (int i = 1; i < argc; ++i)
+        auto tWraps = std::make_shared<std::list<nlexer::NToken::Wrapper>>();
+        nlexer::NLexer lexer(tWraps);
+        if (argc > 1)
         {
-            lexer.inputFile(argv[i]);
+            for (int i = 1; i < argc; ++i)
+            {
+                lexer.inputFile(argv[i]);
+            }
+        }
+        for (const auto& tWrap : *tWraps)
+        {
+            std::cout << tWrap;
         }
     }
-    for (const auto& tWrap : *tWraps)
+    catch (const std::exception& error)
     {
-        std::cout << tWrap;
+        std::cerr << error.what() << "\n";
     }
     return 0;
 }
