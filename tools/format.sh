@@ -6,6 +6,7 @@ BASE_DIR=$(pwd)
 # Daftar folder yang ingin diformat
 INCLUDE_DIRS=(
     "ncpp" 
+    "ngrammar" 
     "nlexer" 
     "nparser"
 )  # Ganti dengan nama folder yang ingin diformat
