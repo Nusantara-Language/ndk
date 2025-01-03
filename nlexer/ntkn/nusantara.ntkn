@@ -77,6 +77,7 @@ BITWISE_XOR_OP: \^
 BITWISE_NOT_OP: ~
 
 # Miscellaneous
+COMA: ,
 ASSIGNMENT_OP: =
 SEMICOLON_TOKEN: ;
 KARAKTER_LITERAL: '(.|[^'])'
