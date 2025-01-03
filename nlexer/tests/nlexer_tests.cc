@@ -16,10 +16,10 @@ TEST(NLexerTest, SimpleInput)
     nlexer::NToken::Wrapper tokens = getTokensFromInput("muat \"halodunia.n\"", twraps);
 
     ASSERT_EQ(twraps->size(), 1);       // Pastikan satu wrapper token dihasilkan
-    ASSERT_EQ(tokens.tokens.size(), 3); // Harapkan 2 token: LOAD_FILE_KEYWORD, STRING, NEOF
+    ASSERT_EQ(tokens.tokens.size(), 3); // Harapkan 2 token: LOAD_FILE_KEYWORD, TEKS, NEOF
 
     EXPECT_EQ(tokens.tokens[0].type, nlexer::NToken::LOAD_FILE_TOKEN);
-    EXPECT_EQ(tokens.tokens[1].type, nlexer::NToken::STRING_LITERAL);
+    EXPECT_EQ(tokens.tokens[1].type, nlexer::NToken::TEKS_LITERAL);
     EXPECT_EQ(tokens.tokens[2].type, nlexer::NToken::NEOF_TOKEN);
 }
 
@@ -43,10 +43,10 @@ TEST(NLexerTest, NewlineHandling)
     nlexer::NToken::Wrapper tokens = getTokensFromInput("nama\n\"Fern Aerell\"", twraps);
 
     ASSERT_EQ(twraps->size(), 1);       // Pastikan satu wrapper token dihasilkan
-    ASSERT_EQ(tokens.tokens.size(), 3); // Harapkan 2 token: ID, STRING, NEOF
+    ASSERT_EQ(tokens.tokens.size(), 3); // Harapkan 2 token: ID, TEKS, NEOF
 
     EXPECT_EQ(tokens.tokens[0].type, nlexer::NToken::IDENTIFIER_TOKEN);
-    EXPECT_EQ(tokens.tokens[1].type, nlexer::NToken::STRING_LITERAL);
+    EXPECT_EQ(tokens.tokens[1].type, nlexer::NToken::TEKS_LITERAL);
     EXPECT_EQ(tokens.tokens[2].type, nlexer::NToken::NEOF_TOKEN);
 }
 
