@@ -18,8 +18,8 @@ namespace nparser {
 class BilanganBulatLiteralNAst : public NAst, public LiteralNAst<int>
 {
 public:
-    BilanganBulatLiteralNAst() : LiteralNAst<int>(0){};
-    explicit BilanganBulatLiteralNAst(const int& value) : LiteralNAst<int>(value){};
+    BilanganBulatLiteralNAst() : LiteralNAst<int>(0) {};
+    explicit BilanganBulatLiteralNAst(const int& value) : LiteralNAst<int>(value) {};
     // akhir dari access modifiers public
 
 private:

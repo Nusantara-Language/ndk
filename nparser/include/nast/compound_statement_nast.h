@@ -10,8 +10,8 @@
 #ifndef COMPOUND_STATEMENT_NAST_H
 #define COMPOUND_STATEMENT_NAST_H
 
-#include "nast/core/nast.h"
 #include "core/value_list_ptr_nast.h"
+#include "nast/core/nast.h"
 #include <list>
 
 namespace nparser {

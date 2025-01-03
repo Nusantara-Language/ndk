@@ -8,10 +8,10 @@
  */
 
 #include "nparser.h"
-#include "utils/cout_nast.h"
 #include "nast/core/nast.h"
 #include "nlexer.h"
 #include "ntoken.h"
+#include "utils/cout_nast.h"
 #include <iostream>
 #include <memory>
 
@@ -28,7 +28,7 @@ int main(int argc, const char* argv[])
             parser.inputFile(argv[i]);
         }
     }
-    for (const auto& aWrap  : *aWraps)
+    for (const auto& aWrap : *aWraps)
     {
         std::cout << aWrap.Location << "\n";
         nparser::coutNAst(*aWrap.nAst);

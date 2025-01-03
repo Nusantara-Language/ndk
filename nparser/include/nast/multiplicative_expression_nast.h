@@ -10,8 +10,8 @@
 #ifndef MULTIPLICATIVE_EXPRESSION_NAST_H
 #define MULTIPLICATIVE_EXPRESSION_NAST_H
 
-#include "nast/core/nast.h"
 #include "core/op_right_nast.h"
+#include "nast/core/nast.h"
 #include <vector>
 
 namespace nparser {

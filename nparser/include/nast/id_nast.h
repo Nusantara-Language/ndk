@@ -10,9 +10,9 @@
 #ifndef ID_NAST_H
 #define ID_NAST_H
 
-#include "nast/core/nast.h"
 #include "core/nast_with_location.h"
 #include "core/value_nast.h"
+#include "nast/core/nast.h"
 #include "ntoken.h"
 #include <string>
 

@@ -18,8 +18,8 @@ namespace nparser {
 class KarakterLiteralNAst : public NAst, public LiteralNAst<char>
 {
 public:
-    KarakterLiteralNAst() : LiteralNAst<char>('\0'){};
-    explicit KarakterLiteralNAst(const char& value) : LiteralNAst<char>(value){};
+    KarakterLiteralNAst() : LiteralNAst<char>('\0') {};
+    explicit KarakterLiteralNAst(const char& value) : LiteralNAst<char>(value) {};
     // akhir dari access modifiers public
 
 }; // class KarakterLiteralNAst

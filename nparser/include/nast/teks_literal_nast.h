@@ -20,8 +20,8 @@ namespace nparser {
 class TeksLiteralNAst : public NAst, public LiteralNAst<std::string>
 {
 public:
-    TeksLiteralNAst() : LiteralNAst<std::string>(""){};
-    explicit TeksLiteralNAst(std::string value) : LiteralNAst<std::string>(std::move(value)){};
+    TeksLiteralNAst() : LiteralNAst<std::string>("") {};
+    explicit TeksLiteralNAst(std::string value) : LiteralNAst<std::string>(std::move(value)) {};
     // akhir dari access modifiers public
 
 private:

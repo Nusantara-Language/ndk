@@ -7,13 +7,12 @@
  * ----------------------------------------------------------------------------
  */
 
+#include "parse/parse_teks_literal.h"
 #include "nast/core/nast.h"
 #include "nast/teks_literal_nast.h"
 #include "nparser.h"
-#include "parse/parse_teks_literal.h"
 #include <memory>
 #include <string>
-
 
 namespace nparser {
 

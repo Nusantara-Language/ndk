@@ -10,10 +10,9 @@
 #ifndef DATA_TYPE_NAST_H
 #define DATA_TYPE_NAST_H
 
-#include "nast/core/nast.h"
 #include "core/value_nast.h"
+#include "nast/core/nast.h"
 #include <string>
-
 
 namespace nparser {
 

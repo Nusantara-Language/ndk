@@ -117,27 +117,16 @@ public:
         return result;
     }
 
-    std::string generateCoutSupportSection() const {
-        std::string result = "friend std::ostream& operator<<(std::ostream& os, const NToken& token)\n"
-        "{\n"
-        "os << token.location << \" [\";\n"
-        "switch (token.type)\n"
-        "{\n";
+    std::string generateCoutSupportSection() const
+    {
+        std::string result = "friend std::ostream& operator<<(std::ostream& os, const NToken& token)\n" "{\n" "os << token.location << \" [\";\n" "switch (token.type)\n" "{\n";
 
         for (const auto& token : tokenTypes)
         {
-            result += "case NToken::" + token.type + ":\n"
-            "os << \"" + token.type + "\";\n"
-            "break;\n";
+            result += "case NToken::" + token.type + ":\n" "os << \"" + token.type + "\";\n" "break;\n";
         }
 
-        result += "default:\n"
-        "os << token.type;\n"
-        "break;\n"
-        "}"
-        "os << \"] \" << token.content;"
-        "return os;\n"
-        "}\n";
+        result += "default:\n" "os << token.type;\n" "break;\n" "}" "os << \"] \" << token.content;" "return os;\n" "}\n";
 
         return result;
     }

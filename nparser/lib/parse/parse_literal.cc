@@ -10,10 +10,10 @@
 #include "parse/parse_literal.h"
 #include "nast/core/nast.h"
 #include "nparser.h"
-#include "parse/parse_logika_literal.h"
-#include "parse/parse_karakter_literal.h"
-#include "parse/parse_bilangan_desimal_literal.h"
 #include "parse/parse_bilangan_bulat_literal.h"
+#include "parse/parse_bilangan_desimal_literal.h"
+#include "parse/parse_karakter_literal.h"
+#include "parse/parse_logika_literal.h"
 #include "parse/parse_teks_literal.h"
 #include <memory>
 

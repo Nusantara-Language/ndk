@@ -14,7 +14,7 @@
 
 namespace ncpp {
 
-    std::filesystem::path getProgramPath();
+std::filesystem::path getProgramPath();
 
 } // namespace ncpp
 

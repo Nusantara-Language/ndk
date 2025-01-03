@@ -14,7 +14,7 @@
 
 namespace nparser {
 
-  void parseLoadFile(NParser::Utils& utils);
+void parseLoadFile(NParser::Utils& utils);
 
 } // namespace nparser
 

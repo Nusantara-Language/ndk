@@ -19,22 +19,22 @@ namespace ncpp {
 
 class File
 {
-  public:
-  explicit File(std::string path);
+public:
+    explicit File(std::string path);
 
-  void read();
-  bool exist();
-  std::string_view getPath() noexcept;
-  // akhir dari access modifiers public
+    void read();
+    bool exist();
+    std::string_view getPath() noexcept;
+    // akhir dari access modifiers public
 
-  private:
-  std::string pth;
-  std::variant<std::vector<char>, std::string, std::vector<std::string>> ctn;
-  // akhir dari access modifiers private
+private:
+    std::string pth;
+    std::variant<std::vector<char>, std::string, std::vector<std::string>> ctn;
+    // akhir dari access modifiers private
 
-  protected:
-  std::variant<std::vector<char>, std::string, std::vector<std::string>>& gtEdtCtn() noexcept;
-  // akhir dari access modifiers protected
+protected:
+    std::variant<std::vector<char>, std::string, std::vector<std::string>>& gtEdtCtn() noexcept;
+    // akhir dari access modifiers protected
 
 }; // class File
 

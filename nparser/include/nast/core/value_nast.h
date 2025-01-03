@@ -40,6 +40,6 @@ private:
 
 }; // class ValueNAst
 
-} // namespace ncpp
+} // namespace nparser
 
 #endif

@@ -8,8 +8,8 @@
  */
 
 #include "parse/parse_data_type.h"
-#include "nast/data_type_nast.h"
 #include "nast/core/nast.h"
+#include "nast/data_type_nast.h"
 #include "ntoken.h"
 #include <memory>
 

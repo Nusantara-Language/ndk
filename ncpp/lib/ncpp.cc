@@ -15,7 +15,7 @@ namespace ncpp {
 
 void helloworld()
 {
-  std::cout << "Hello World!" << "\n";
+    std::cout << "Hello World!" << "\n";
 } // function helloworld
 
 } // namespace ncpp

@@ -15,7 +15,6 @@
 #include "nlexer.h"
 #include "ntoken.h"
 
-
 namespace nlexer {
 
 /**

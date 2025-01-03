@@ -446,7 +446,8 @@ bool isNumeric(std::string_view str)
     return true;
 }
 
-bool isNumber(const std::string& str) {
+bool isNumber(const std::string& str)
+{
     std::istringstream iss(str);
     double num;
     char c;

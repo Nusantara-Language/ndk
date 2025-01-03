@@ -63,7 +63,7 @@ std::string& lTrim(std::string& str) noexcept;
  *
  * @note Fungsi ini menggunakan metode `find_last_not_of` untuk menemukan posisi
  *       karakter terakhir yang bukan whitespace. Jika tidak ada karakter non-whitespace
- *       ditemukan, string akan dikosongkan. Fungsi ini tidak melempar pengecualian 
+ *       ditemukan, string akan dikosongkan. Fungsi ini tidak melempar pengecualian
  *       (ditandai dengan `noexcept`).
  */
 std::string& rTrim(std::string& str) noexcept;

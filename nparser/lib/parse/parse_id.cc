@@ -8,8 +8,8 @@
  */
 
 #include "parse/parse_id.h"
-#include "nast/id_nast.h"
 #include "nast/core/nast.h"
+#include "nast/id_nast.h"
 #include "nparser.h"
 #include <memory>
 #include <string>

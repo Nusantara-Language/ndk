@@ -9,16 +9,16 @@
 
 #include "utils/cout_nast.h"
 #include "nast/additive_expression_nast.h"
-#include "nast/logical_and_expression_nast.h"
-#include "nast/logika_literal_nast.h"
-#include "nast/karakter_literal_nast.h"
+#include "nast/bilangan_bulat_literal_nast.h"
+#include "nast/bilangan_desimal_literal_nast.h"
 #include "nast/compound_statement_nast.h"
 #include "nast/data_type_nast.h"
-#include "nast/bilangan_desimal_literal_nast.h"
 #include "nast/expression_nast.h"
 #include "nast/id_nast.h"
-#include "nast/bilangan_bulat_literal_nast.h"
+#include "nast/karakter_literal_nast.h"
+#include "nast/logical_and_expression_nast.h"
 #include "nast/logical_or_expression_nast.h"
+#include "nast/logika_literal_nast.h"
 #include "nast/multiplicative_expression_nast.h"
 #include "nast/primary_expression_nast.h"
 #include "nast/statement_nast.h"
@@ -130,7 +130,8 @@ void coutNAst(const NAst& nAst, int indent)
     else if (const auto* value = dynamic_cast<const UnaryExpressionNAst*>(&nAst))
     {
         std::cout << "UnaryExpression\n";
-        if(value->getOp().has_value()) {
+        if (value->getOp().has_value())
+        {
             std::cout << std::string(indent, ' ') << "|\n";
             std::cout << std::string(indent, ' ') << "-> " << value->getOp().value() << "\n";
         }

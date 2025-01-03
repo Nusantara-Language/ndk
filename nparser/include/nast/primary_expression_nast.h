@@ -10,8 +10,8 @@
 #ifndef PRIMARY_EXPRESSION_NAST_H
 #define PRIMARY_EXPRESSION_NAST_H
 
-#include "nast/core/nast.h"
 #include "core/value_ptr_nast.h"
+#include "nast/core/nast.h"
 #include <memory>
 
 namespace nparser {

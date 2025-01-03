@@ -18,8 +18,8 @@ namespace nparser {
 class LogikaLiteralNAst : public NAst, public LiteralNAst<bool>
 {
 public:
-    LogikaLiteralNAst() : LiteralNAst<bool>(false){};
-    explicit LogikaLiteralNAst(const bool& value) : LiteralNAst<bool>(value){};
+    LogikaLiteralNAst() : LiteralNAst<bool>(false) {};
+    explicit LogikaLiteralNAst(const bool& value) : LiteralNAst<bool>(value) {};
     // akhir dari access modifiers public
 
 }; // class LogikaLiteralNAst

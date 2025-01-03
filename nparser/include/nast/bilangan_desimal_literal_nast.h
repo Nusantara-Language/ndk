@@ -18,8 +18,8 @@ namespace nparser {
 class BilanganDesimalLiteralNAst : public NAst, public LiteralNAst<float>
 {
 public:
-    BilanganDesimalLiteralNAst() : LiteralNAst<float>(0.0){};
-    explicit BilanganDesimalLiteralNAst(const float& value) : LiteralNAst<float>(value){};
+    BilanganDesimalLiteralNAst() : LiteralNAst<float>(0.0) {};
+    explicit BilanganDesimalLiteralNAst(const float& value) : LiteralNAst<float>(value) {};
     // akhir dari access modifiers public
 
 private:

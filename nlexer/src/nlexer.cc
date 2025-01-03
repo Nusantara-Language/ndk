@@ -16,18 +16,18 @@
 
 int main(int argc, const char* argv[])
 {
-  auto tWraps = std::make_shared<std::list<nlexer::NToken::Wrapper>>();
-  nlexer::NLexer lexer(tWraps);
-  if (argc > 1)
-  {
-    for (int i = 1; i < argc; ++i)
+    auto tWraps = std::make_shared<std::list<nlexer::NToken::Wrapper>>();
+    nlexer::NLexer lexer(tWraps);
+    if (argc > 1)
     {
-      lexer.inputFile(argv[i]);
+        for (int i = 1; i < argc; ++i)
+        {
+            lexer.inputFile(argv[i]);
+        }
     }
-  }
-  for (const auto& tWrap : *tWraps)
-  {
-    std::cout << tWrap;
-  }
-  return 0;
+    for (const auto& tWrap : *tWraps)
+    {
+        std::cout << tWrap;
+    }
+    return 0;
 }

@@ -23,9 +23,12 @@ File::File(std::string path) : pth(std::move(path)) {}
 
 void File::read()
 {
-    try {
+    try
+    {
         this->ctn = nnmap(this->pth);
-    } catch(const std::exception& error) {
+    }
+    catch (const std::exception& error)
+    {
         this->ctn = std::vector<char>();
     }
 }

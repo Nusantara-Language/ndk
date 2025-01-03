@@ -11,182 +11,216 @@
 #include <gtest/gtest.h>
 
 // Unit test untuk fungsi trim
-TEST(StringTest, TrimEmptyString) {
+TEST(StringTest, TrimEmptyString)
+{
     std::string input;
     EXPECT_EQ(ncpp::trim(input), "");
 }
 
-TEST(StringTest, TrimOnlyWhitespace) {
+TEST(StringTest, TrimOnlyWhitespace)
+{
     std::string input = "   \t\n\r   ";
     EXPECT_EQ(ncpp::trim(input), "");
 }
 
-TEST(StringTest, TrimLeadingWhitespace) {
+TEST(StringTest, TrimLeadingWhitespace)
+{
     std::string input = "   Hello World!   ";
     EXPECT_EQ(ncpp::trim(input), "Hello World!");
 }
 
-TEST(StringTest, TrimTrailingWhitespace) {
+TEST(StringTest, TrimTrailingWhitespace)
+{
     std::string input = "   Hello World!   ";
     EXPECT_EQ(ncpp::trim(input), "Hello World!");
 }
 
-TEST(StringTest, TrimNoWhitespace) {
+TEST(StringTest, TrimNoWhitespace)
+{
     std::string input = "HelloWorld!";
     EXPECT_EQ(ncpp::trim(input), "HelloWorld!");
 }
 
-TEST(StringTest, TrimMixedWhitespace) {
+TEST(StringTest, TrimMixedWhitespace)
+{
     std::string input = "\t Hello \n World! \r";
     EXPECT_EQ(ncpp::trim(input), "Hello \n World!");
 }
 
 // Unit test untuk fungsi lTrim
-TEST(StringTest, LTrimEmptyString) {
+TEST(StringTest, LTrimEmptyString)
+{
     std::string input;
     EXPECT_EQ(ncpp::lTrim(input), "");
 }
 
-TEST(StringTest, LTrimOnlyWhitespace) {
+TEST(StringTest, LTrimOnlyWhitespace)
+{
     std::string input = "   \t\n\r   ";
     EXPECT_EQ(ncpp::lTrim(input), "");
 }
 
-TEST(StringTest, LTrimLeadingWhitespace) {
+TEST(StringTest, LTrimLeadingWhitespace)
+{
     std::string input = "   Hello World!";
     EXPECT_EQ(ncpp::lTrim(input), "Hello World!");
 }
 
-TEST(StringTest, LTrimNoLeadingWhitespace) {
+TEST(StringTest, LTrimNoLeadingWhitespace)
+{
     std::string input = "Hello World!";
     EXPECT_EQ(ncpp::lTrim(input), "Hello World!");
 }
 
-TEST(StringTest, LTrimMixedWhitespace) {
+TEST(StringTest, LTrimMixedWhitespace)
+{
     std::string input = "\t   Hello World!";
     EXPECT_EQ(ncpp::lTrim(input), "Hello World!");
 }
 
-TEST(StringTest, LTrimWhitespaceOnlyAtStart) {
+TEST(StringTest, LTrimWhitespaceOnlyAtStart)
+{
     std::string input = "   ";
     EXPECT_EQ(ncpp::lTrim(input), "");
 }
 
 // Unit test untuk fungsi rTrim
-TEST(StringTest, RTrimEmptyString) {
+TEST(StringTest, RTrimEmptyString)
+{
     std::string input;
     EXPECT_EQ(ncpp::rTrim(input), "");
 }
 
-TEST(StringTest, RTrimOnlyWhitespace) {
+TEST(StringTest, RTrimOnlyWhitespace)
+{
     std::string input = "   \t\n\r   ";
     EXPECT_EQ(ncpp::rTrim(input), "");
 }
 
-TEST(StringTest, RTrimTrailingWhitespace) {
+TEST(StringTest, RTrimTrailingWhitespace)
+{
     std::string input = "Hello World!   ";
     EXPECT_EQ(ncpp::rTrim(input), "Hello World!");
 }
 
-TEST(StringTest, RTrimNoTrailingWhitespace) {
+TEST(StringTest, RTrimNoTrailingWhitespace)
+{
     std::string input = "Hello World!";
     EXPECT_EQ(ncpp::rTrim(input), "Hello World!");
 }
 
-TEST(StringTest, RTrimMixedWhitespace) {
+TEST(StringTest, RTrimMixedWhitespace)
+{
     std::string input = "Hello World! \t\n\r";
     EXPECT_EQ(ncpp::rTrim(input), "Hello World!");
 }
 
-TEST(StringTest, RTrimWhitespaceOnlyAtEnd) {
+TEST(StringTest, RTrimWhitespaceOnlyAtEnd)
+{
     std::string input = "   ";
     EXPECT_EQ(ncpp::rTrim(input), "");
 }
 
 // Unit test untuk fungsi trimmed
-TEST(StringTest, TrimmedEmptyString) {
+TEST(StringTest, TrimmedEmptyString)
+{
     std::string input;
     EXPECT_EQ(ncpp::trimmed(input), "");
 }
 
-TEST(StringTest, TrimmedOnlyWhitespace) {
+TEST(StringTest, TrimmedOnlyWhitespace)
+{
     std::string input = "   \t\n\r   ";
     EXPECT_EQ(ncpp::trimmed(input), "");
 }
 
-TEST(StringTest, TrimmedLeadingAndTrailingWhitespace) {
+TEST(StringTest, TrimmedLeadingAndTrailingWhitespace)
+{
     std::string input = "   Hello World!   ";
     EXPECT_EQ(ncpp::trimmed(input), "Hello World!");
 }
 
-TEST(StringTest, TrimmedNoWhitespace) {
+TEST(StringTest, TrimmedNoWhitespace)
+{
     std::string input = "HelloWorld!";
     EXPECT_EQ(ncpp::trimmed(input), "HelloWorld!");
 }
 
 // Unit test untuk fungsi lTrimmed
-TEST(StringTest, LTrimmedEmptyString) {
+TEST(StringTest, LTrimmedEmptyString)
+{
     std::string input;
     EXPECT_EQ(ncpp::lTrimmed(input), "");
 }
 
-TEST(StringTest, LTrimmedOnlyWhitespace) {
+TEST(StringTest, LTrimmedOnlyWhitespace)
+{
     std::string input = "   \t\n\r   ";
     EXPECT_EQ(ncpp::lTrimmed(input), "");
 }
 
-TEST(StringTest, LTrimmedLeadingWhitespace) {
+TEST(StringTest, LTrimmedLeadingWhitespace)
+{
     std::string input = "   Hello World!";
     EXPECT_EQ(ncpp::lTrimmed(input), "Hello World!");
 }
 
-TEST(StringTest, LTrimmedNoLeadingWhitespace) {
+TEST(StringTest, LTrimmedNoLeadingWhitespace)
+{
     std::string input = "Hello World!";
     EXPECT_EQ(ncpp::lTrimmed(input), "Hello World!");
 }
 
 // Unit test untuk fungsi rTrimmed
-TEST(StringTest, RTrimmedEmptyString) {
+TEST(StringTest, RTrimmedEmptyString)
+{
     std::string input;
     EXPECT_EQ(ncpp::rTrimmed(input), "");
 }
 
-TEST(StringTest, RTrimmedOnlyWhitespace) {
+TEST(StringTest, RTrimmedOnlyWhitespace)
+{
     std::string input = "   \t\n\r   ";
     EXPECT_EQ(ncpp::rTrimmed(input), "");
 }
 
-TEST(StringTest, RTrimmedTrailingWhitespace) {
+TEST(StringTest, RTrimmedTrailingWhitespace)
+{
     std::string input = "Hello World!   ";
     EXPECT_EQ(ncpp::rTrimmed(input), "Hello World!");
 }
 
-TEST(StringTest, RTrimmedNoTrailingWhitespace) {
+TEST(StringTest, RTrimmedNoTrailingWhitespace)
+{
     std::string input = "Hello World!";
     EXPECT_EQ(ncpp::rTrimmed(input), "Hello World!");
 }
 
 // Unit test untuk fungsi splitView
-TEST(StringTest, SplitViewEmptyString) {
+TEST(StringTest, SplitViewEmptyString)
+{
     std::string_view input;
     auto result = ncpp::splitView(input, ',', false);
     EXPECT_TRUE(result.empty());
 }
 
-TEST(StringTest, SplitViewOnlyDelimiter) {
+TEST(StringTest, SplitViewOnlyDelimiter)
+{
     std::string_view input = "|||";
     auto result = ncpp::splitView(input, '|', false);
     EXPECT_TRUE(result.empty());
 }
 
-TEST(StringTest, SplitViewSingleToken) {
+TEST(StringTest, SplitViewSingleToken)
+{
     std::string_view input = "Hello";
     auto result = ncpp::splitView(input, ',', false);
     EXPECT_EQ(result.size(), 1);
     EXPECT_EQ(result[0], "Hello");
 }
 
-TEST(StringTest, SplitViewMultipleTokens) {
+TEST(StringTest, SplitViewMultipleTokens)
+{
     std::string_view input = "Hello,World,Test";
     auto result = ncpp::splitView(input, ',', false);
     ASSERT_EQ(result.size(), 3);
@@ -195,7 +229,8 @@ TEST(StringTest, SplitViewMultipleTokens) {
     EXPECT_EQ(result[2], "Test");
 }
 
-TEST(StringTest, SplitViewTrailingDelimiter) {
+TEST(StringTest, SplitViewTrailingDelimiter)
+{
     std::string_view input = "Hello,World,";
     auto result = ncpp::splitView(input, ',', false);
     ASSERT_EQ(result.size(), 2);
@@ -203,7 +238,8 @@ TEST(StringTest, SplitViewTrailingDelimiter) {
     EXPECT_EQ(result[1], "World");
 }
 
-TEST(StringTest, SplitViewLeadingDelimiter) {
+TEST(StringTest, SplitViewLeadingDelimiter)
+{
     std::string_view input = ",Hello,World";
     auto result = ncpp::splitView(input, ',', false);
     ASSERT_EQ(result.size(), 2);
@@ -211,7 +247,8 @@ TEST(StringTest, SplitViewLeadingDelimiter) {
     EXPECT_EQ(result[1], "World");
 }
 
-TEST(StringTest, SplitViewKeepEmptyTokens) {
+TEST(StringTest, SplitViewKeepEmptyTokens)
+{
     std::string_view input = ",Hello,,World,,";
     auto result = ncpp::splitView(input, ',', true);
     ASSERT_EQ(result.size(), 6);
@@ -224,26 +261,30 @@ TEST(StringTest, SplitViewKeepEmptyTokens) {
 }
 
 // Unit test untuk fungsi split
-TEST(StringTest, SplitEmptyString) {
+TEST(StringTest, SplitEmptyString)
+{
     std::string input;
     auto result = ncpp::split(input, ',', false);
     EXPECT_TRUE(result.empty());
 }
 
-TEST(StringTest, SplitOnlyDelimiter) {
+TEST(StringTest, SplitOnlyDelimiter)
+{
     std::string input = "|||";
     auto result = ncpp::split(input, '|', false);
     EXPECT_TRUE(result.empty());
 }
 
-TEST(StringTest, SplitSingleToken) {
+TEST(StringTest, SplitSingleToken)
+{
     std::string input = "Hello";
     auto result = ncpp::split(input, ',', false);
     EXPECT_EQ(result.size(), 1);
     EXPECT_EQ(result[0], "Hello");
 }
 
-TEST(StringTest, SplitMultipleTokens) {
+TEST(StringTest, SplitMultipleTokens)
+{
     std::string input = "Hello,World,Test";
     auto result = ncpp::split(input, ',', false);
     ASSERT_EQ(result.size(), 3);
@@ -252,7 +293,8 @@ TEST(StringTest, SplitMultipleTokens) {
     EXPECT_EQ(result[2], "Test");
 }
 
-TEST(StringTest, SplitTrailingDelimiter) {
+TEST(StringTest, SplitTrailingDelimiter)
+{
     std::string input = "Hello,World,";
     auto result = ncpp::split(input, ',', false);
     ASSERT_EQ(result.size(), 2);
@@ -260,7 +302,8 @@ TEST(StringTest, SplitTrailingDelimiter) {
     EXPECT_EQ(result[1], "World");
 }
 
-TEST(StringTest, SplitLeadingDelimiter) {
+TEST(StringTest, SplitLeadingDelimiter)
+{
     std::string input = ",Hello,World";
     auto result = ncpp::split(input, ',', false);
     ASSERT_EQ(result.size(), 2);
@@ -268,12 +311,13 @@ TEST(StringTest, SplitLeadingDelimiter) {
     EXPECT_EQ(result[1], "World");
 }
 
-TEST(StringTest, SplitKeepEmptyTokens) {
+TEST(StringTest, SplitKeepEmptyTokens)
+{
     std::string input = ",Hello,,World,,";
     auto result = ncpp::split(input, ',', true);
-    
+
     // Mengharapkan 6 token: "", "Hello", "", "World", "", ""
-    ASSERT_EQ(result.size(), 6); 
+    ASSERT_EQ(result.size(), 6);
     EXPECT_EQ(result[0], "");
     EXPECT_EQ(result[1], "Hello");
     EXPECT_EQ(result[2], "");
@@ -283,11 +327,14 @@ TEST(StringTest, SplitKeepEmptyTokens) {
 }
 
 // Unit test untuk fungsi join
-TEST(StringTest, JoinMixedCharacters) {
+TEST(StringTest, JoinMixedCharacters)
+{
     std::vector<char> input = {'C', '+', '+', ' ', 'R', 'o', 'c', 'k'};
     EXPECT_EQ(ncpp::join(input), "C++ Rock");
 }
-TEST(StringTest, JoinEmptyVector) {
+
+TEST(StringTest, JoinEmptyVector)
+{
     std::vector<std::string> input;
     EXPECT_EQ(ncpp::join(input, ','), "");
 
@@ -295,7 +342,8 @@ TEST(StringTest, JoinEmptyVector) {
     EXPECT_EQ(ncpp::join(inputVecChar), "");
 }
 
-TEST(StringTest, JoinSingleElement) {
+TEST(StringTest, JoinSingleElement)
+{
     std::vector<std::string> input = {"Hello"};
     EXPECT_EQ(ncpp::join(input, ','), "Hello");
 
@@ -303,7 +351,8 @@ TEST(StringTest, JoinSingleElement) {
     EXPECT_EQ(ncpp::join(inputVecChar), "A");
 }
 
-TEST(StringTest, JoinMultipleElements) {
+TEST(StringTest, JoinMultipleElements)
+{
     std::vector<std::string> input = {"Hello", "World", "Test"};
     EXPECT_EQ(ncpp::join(input, ' '), "Hello World Test");
 
@@ -311,54 +360,64 @@ TEST(StringTest, JoinMultipleElements) {
     EXPECT_EQ(ncpp::join(inputVecChar), "Hello");
 }
 
-TEST(StringTest, JoinDelimiterAtEnd) {
+TEST(StringTest, JoinDelimiterAtEnd)
+{
     std::vector<std::string> input = {"One", "Two", "Three"};
     EXPECT_EQ(ncpp::join(input, '-'), "One-Two-Three");
 }
 
 // Unit test untuk fungsi normalize
-TEST(StringTest, NormalizeEmptyString) {
+TEST(StringTest, NormalizeEmptyString)
+{
     std::string input;
     EXPECT_EQ(ncpp::normalize(input), "");
 }
 
-TEST(StringTest, NormalizeNoCarriageReturn) {
+TEST(StringTest, NormalizeNoCarriageReturn)
+{
     std::string input = "Hello World!";
     EXPECT_EQ(ncpp::normalize(input), "Hello World!");
 }
 
-TEST(StringTest, NormalizeCarriageReturnOnly) {
+TEST(StringTest, NormalizeCarriageReturnOnly)
+{
     std::string input = "\r";
     EXPECT_EQ(ncpp::normalize(input), "\n");
 }
 
-TEST(StringTest, NormalizeCarriageReturnFollowedByNewline) {
+TEST(StringTest, NormalizeCarriageReturnFollowedByNewline)
+{
     std::string input = "\r\n";
     EXPECT_EQ(ncpp::normalize(input), "\n");
 }
 
-TEST(StringTest, NormalizeMultipleCarriageReturns) {
+TEST(StringTest, NormalizeMultipleCarriageReturns)
+{
     std::string input = "Line 1\rLine 2\r\nLine 3\r";
     EXPECT_EQ(ncpp::normalize(input), "Line 1\nLine 2\nLine 3\n");
 }
 
-TEST(StringTest, NormalizeMixedContent) {
+TEST(StringTest, NormalizeMixedContent)
+{
     std::string input = "Line 1\r\nLine 2\rLine 3";
     EXPECT_EQ(ncpp::normalize(input), "Line 1\nLine 2\nLine 3");
 }
 
 // Unit test untuk fungsi normalized
-TEST(StringTest, NormalizedEmptyString) {
+TEST(StringTest, NormalizedEmptyString)
+{
     std::string input;
     EXPECT_EQ(ncpp::normalized(input), "");
 }
 
-TEST(StringTest, NormalizedNoCarriageReturn) {
+TEST(StringTest, NormalizedNoCarriageReturn)
+{
     std::string input = "Hello World!";
     EXPECT_EQ(ncpp::normalized(input), "Hello World!");
 }
 
-TEST(StringTest, NormalizedWithCarriageReturns) {
+TEST(StringTest, NormalizedWithCarriageReturns)
+{
     std::string input = "Line 1\rLine 2\r\nLine 3\r";
     EXPECT_EQ(ncpp::normalized(input), "Line 1\nLine 2\nLine 3\n");
 }

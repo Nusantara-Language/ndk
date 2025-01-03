@@ -16,7 +16,6 @@
 #include <optional>
 #include <string>
 
-
 namespace nparser {
 
 std::unique_ptr<nparser::NAst> parseVariable(NParser::Utils& utils)

@@ -10,8 +10,8 @@
 #ifndef LITERAL_NAST_H
 #define LITERAL_NAST_H
 
-#include "nast/core/value_nast.h"
 #include "nast/core/nast_with_location.h"
+#include "nast/core/value_nast.h"
 #include "ntoken.h"
 
 namespace nparser {
